@@ -9,8 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@daveyplate/better-auth-ui": "^1.7.1",
     "@triplit/client": "^1.0.37",
     "@triplit/react": "^1.0.37",
+    "better-auth": "^1.2.8",
     "next": "15.3.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
