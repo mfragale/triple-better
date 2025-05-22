@@ -1,4 +1,4 @@
-import Navbar from "@/components/navbar-04/navbar";
+import Navbar from "@/components/navbar";
 import { Providers } from "@/components/providers";
 import { Toaster } from "@/components/ui/sonner";
 import type { Metadata } from "next";
@@ -32,7 +32,7 @@ export default function RootLayout({
         <Providers>
           <Navbar />
           <div className="inset-x-4 mx-auto w-full max-w-screen-xl">
-            <div className="mt-28 px-4">{children}</div>
+            <div className="px-4 pt-20 lg:pt-28">{children}</div>
           </div>
         </Providers>
         <Toaster />
