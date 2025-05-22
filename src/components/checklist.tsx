@@ -12,7 +12,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 export default function Checklist() {
   const { results: todos } = useQuery(
     triplitClient,
-    triplitClient.query("todos")
+    triplitClient.query("todos").Order("created_at", "ASC")
   );
   return (
     <div className="flex flex-col gap-2 mx-auto px-4 py-12 max-w-xl">
