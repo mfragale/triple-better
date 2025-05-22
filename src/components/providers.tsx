@@ -30,7 +30,8 @@ export function Providers({ children }: { children: ReactNode }) {
         router.refresh();
       }}
       Link={Link}
-      hooks={hooks}>
+      hooks={hooks}
+      settingsURL="/dashboard/settings">
       {children}
     </AuthUIProvider>
   );
