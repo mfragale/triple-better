@@ -1,3 +1,4 @@
+import Navbar from "@/components/navbar-04/navbar";
 import { Providers } from "@/components/providers";
 import { Toaster } from "@/components/ui/sonner";
 import type { Metadata } from "next";
@@ -25,10 +26,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <Providers>{children}</Providers>
+        <Providers>
+          <Navbar />
+          <div className="inset-x-4 mx-auto w-full max-w-screen-xl">
+            <div className="mt-28 px-4">{children}</div>
+          </div>
+        </Providers>
         <Toaster />
       </body>
     </html>

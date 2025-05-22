@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import type { ReactNode } from "react";
 
 import { authClient } from "@/lib/auth-client";
+import { ThemeProvider } from "./theme-provider";
 
 export function Providers({ children }: { children: ReactNode }) {
   const router = useRouter();
@@ -32,7 +33,13 @@ export function Providers({ children }: { children: ReactNode }) {
       Link={Link}
       hooks={hooks}
       settingsURL="/dashboard/settings">
-      {children}
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange>
+        {children}
+      </ThemeProvider>
     </AuthUIProvider>
   );
 }
