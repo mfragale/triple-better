@@ -4,6 +4,7 @@ import { triplitClient } from "@/lib/triplit";
 import { cn } from "@/lib/utils";
 import { useQuery } from "@triplit/react";
 import { Check, CornerDownLeft, Square } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { AddTodoForm } from "./add-todo-form";
 import { SortableItem, SortableList } from "./sortable-list";
@@ -16,8 +17,10 @@ export default function Checklist() {
     triplitClient.query("todos").Order("order", "ASC")
   );
 
+  const t = useTranslations("Checklist");
+
   const updateOrder = async (itemsIds: string[]) => {
-    if (itemsIds.length === 0) return { error: true, message: "No items" };
+    if (itemsIds.length === 0) return { error: true, message: t("noItems") };
 
     itemsIds.map((id, index) => {
       triplitClient.update("todos", id, {
@@ -25,7 +28,7 @@ export default function Checklist() {
       });
     });
 
-    return { error: false, message: "Order updated" };
+    return { error: false, message: t("orderUpdated") };
   };
 
   const [isEditing, setIsEditing] = useState<string | null>(null);

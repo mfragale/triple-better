@@ -199,5 +199,16 @@
   },
   "ProtectedPage": {
     "title": "Página protegida"
+  },
+  "Checklist": {
+    "noItems": "Nenhum item",
+    "orderUpdated": "Ordem atualizada"
+  },
+  "ChecklistItem": {
+    "deletePopover": {
+      "title": "Tem certeza?",
+      "description": "Esta ação não pode ser desfeita.",
+      "action": "Deletar"
+    }
   }
 }

@@ -11,8 +11,8 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { GripVerticalIcon, Trash2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { ReactNode, useId, useOptimistic, useTransition } from "react";
-import { toast } from "sonner";
 import { Button } from "./ui/button";
 import { Card, CardHeader } from "./ui/card";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
@@ -52,7 +52,7 @@ export function SortableList<T extends { id: string }>({
       );
 
       // actionToast({ actionData });
-      toast.success(actionData.message);
+      // toast.success(actionData.message);
     });
   }
 
@@ -86,6 +86,7 @@ export function SortableItem({
     listeners,
   } = useSortable({ id });
   const isActive = activeIndex === index;
+  const t = useTranslations("ChecklistItem");
 
   return (
     <Card
@@ -114,9 +115,11 @@ export function SortableItem({
             <PopoverContent className="w-80">
               <div className="gap-4 grid">
                 <div className="space-y-2">
-                  <h4 className="font-medium leading-none">Are you sure?</h4>
+                  <h4 className="font-medium leading-none">
+                    {t("deletePopover.title")}
+                  </h4>
                   <p className="text-muted-foreground text-sm">
-                    This action cannot be undone.
+                    {t("deletePopover.description")}
                   </p>
                 </div>
                 <Button
@@ -124,7 +127,7 @@ export function SortableItem({
                   onClick={() => {
                     triplitClient.delete("todos", id);
                   }}>
-                  Delete
+                  {t("deletePopover.action")}
                 </Button>
               </div>
             </PopoverContent>

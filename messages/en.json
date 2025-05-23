@@ -199,5 +199,16 @@
   },
   "ProtectedPage": {
     "title": "Protected page"
+  },
+  "Checklist": {
+    "noItems": "No items",
+    "orderUpdated": "Order updated"
+  },
+  "ChecklistItem": {
+    "deletePopover": {
+      "title": "Are you sure?",
+      "description": "This action cannot be undone.",
+      "action": "Delete"
+    }
   }
 }
