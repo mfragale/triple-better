@@ -33,7 +33,7 @@ export function AddTodoForm({ nextItemIndex }: { nextItemIndex: number }) {
             </Button>
             <input
               placeholder={t("addItemPlaceholder")}
-              className="bg-transparent -my-2 focus:outline-none w-full h-12"
+              className="bg-transparent -my-2 pl-3 focus:outline-none w-full h-12"
               type="text"
               name="addItem"
             />
