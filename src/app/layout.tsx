@@ -35,7 +35,7 @@ export default function RootLayout({
             <div className="px-4 pt-20 lg:pt-28">{children}</div>
           </div>
         </Providers>
-        <Toaster />
+        <Toaster richColors />
       </body>
     </html>
   );
