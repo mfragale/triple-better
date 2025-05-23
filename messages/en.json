@@ -1,0 +1,21 @@
+{
+  "HomePage": {
+    "title": "Hello world!"
+  },
+  "LocaleSwitcher": {
+    "locale": "{locale, select, pt {🇧🇷} en {🇺🇸} other {Unknown}}",
+    "label": "Change language"
+  },
+  "Navbar": {
+    "checklist": "Checklist",
+    "about": "About",
+    "aboutHref": "/about",
+    "checklistHref": "/"
+  },
+  "AddTodoForm": {
+    "addItemPlaceholder": "Add an item..."
+  },
+  "AboutPage": {
+    "title": "About"
+  }
+}

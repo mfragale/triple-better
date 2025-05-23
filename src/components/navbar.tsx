@@ -11,21 +11,25 @@ import { SignedIn, SignedOut, UserButton } from "@daveyplate/better-auth-ui";
 
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Menu, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import LocaleSwitcher2 from "./locale-switcher";
 import { Logo } from "./logo";
 import ThemeToggle from "./theme-toggle";
 
-const menuItems = [
-  { name: "Checklist", href: "/" },
-  { name: "About", href: "/about" },
-];
-
 const Navbar = () => {
+  const t = useTranslations("Navbar");
+
   const [menuState, setMenuState] = useState(false);
   const pathname = usePathname();
   const isMobile = useIsMobile();
+
+  const menuItems = [
+    { name: t("checklist"), href: t("checklistHref") },
+    { name: t("about"), href: t("aboutHref") },
+  ];
 
   return (
     <header>
@@ -76,6 +80,7 @@ const Navbar = () => {
               </div>
 
               <div className="flex flex-row justify-center items-center gap-3 space-y-0 pt-6 sm:pt-0 sm:pl-6 border-t sm:border-t-0 sm:border-l">
+                <LocaleSwitcher2 />
                 <ThemeToggle />
                 <SignedIn>
                   <UserButton size={isMobile ? "full" : "icon"} />

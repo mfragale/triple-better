@@ -3,22 +3,25 @@
 import { Button } from "@/components/ui/button";
 import { triplitClient } from "@/lib/triplit";
 import { ArrowRight, Plus } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Card, CardHeader } from "./ui/card";
 
 export function AddTodoForm({ nextItemIndex }: { nextItemIndex: number }) {
   const handleSubmit = async (formData: FormData) => {
-    const title = formData.get("title");
-    if (!title) return;
-    // console.log(title);
+    const addItem = formData.get("addItem");
+    if (!addItem) return;
+    // console.log(addItem);
     try {
       const insertedTodo = await triplitClient.insert("todos", {
-        text: title as string,
+        text: addItem as string,
         order: nextItemIndex,
       });
     } catch (error) {
       console.error(error);
     }
   };
+
+  const t = useTranslations("AddTodoForm");
 
   return (
     <form action={handleSubmit}>
@@ -29,10 +32,10 @@ export function AddTodoForm({ nextItemIndex }: { nextItemIndex: number }) {
               <ArrowRight />
             </Button>
             <input
-              placeholder="Add an item..."
+              placeholder={t("addItemPlaceholder")}
               className="bg-transparent -my-2 focus:outline-none w-full h-12"
               type="text"
-              name="title"
+              name="addItem"
             />
           </div>
 

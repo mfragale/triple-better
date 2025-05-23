@@ -1,30 +1,34 @@
 "use client";
 
-import * as React from "react";
-
 import { MoonIcon, SunMediumIcon } from "lucide-react";
 import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 
 const ThemeToggle = () => {
-  const [isDarkMode, setIsDarkMode] = React.useState(true);
-  const { setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
-  React.useEffect(() => {
-    setTheme(isDarkMode ? "dark" : "light");
-  }, [isDarkMode, setTheme]);
+  // Only show the theme toggle after mounting to prevent hydration mismatch
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <Button variant="outline" className="rounded-full" size="icon">
+        <MoonIcon />
+      </Button>
+    );
+  }
 
   return (
     <Button
       variant="outline"
       className="rounded-full"
       size="icon"
-      onClick={() => setIsDarkMode(!isDarkMode)}>
-      {isDarkMode ? (
-        <MoonIcon className="w-2 h-2" />
-      ) : (
-        <SunMediumIcon className="w-2 h-2" />
-      )}
+      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
+      {theme === "dark" ? <MoonIcon /> : <SunMediumIcon />}
     </Button>
   );
 };
