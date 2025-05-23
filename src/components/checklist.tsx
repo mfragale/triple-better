@@ -3,7 +3,7 @@
 import { triplitClient } from "@/lib/triplit";
 import { cn } from "@/lib/utils";
 import { useQuery } from "@triplit/react";
-import { Check, Square } from "lucide-react";
+import { Check, CornerDownLeft, Square } from "lucide-react";
 import { useState } from "react";
 import { AddTodoForm } from "./add-todo-form";
 import { SortableItem, SortableList } from "./sortable-list";
@@ -43,7 +43,6 @@ export default function Checklist() {
         text: text as string,
       })
       .then(async () => {
-        await new Promise((resolve) => setTimeout(resolve, 100));
         setIsEditing(null);
       });
   };
@@ -70,7 +69,9 @@ export default function Checklist() {
                   )}
                 </Button>
                 {isEditing === todo.id ? (
-                  <form action={handleTodoUpdate} className="w-full">
+                  <form
+                    action={handleTodoUpdate}
+                    className="flex items-center gap-2 w-full">
                     <input type="hidden" name="id" value={todo.id} />
                     <Input
                       autoFocus
@@ -83,6 +84,9 @@ export default function Checklist() {
                       defaultValue={todo.text}
                       className="border-none focus-visible:ring-0 w-full md:text-base"
                     />
+                    <Button type="submit" size="icon">
+                      <CornerDownLeft />
+                    </Button>
                   </form>
                 ) : (
                   <div
