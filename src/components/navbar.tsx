@@ -9,6 +9,7 @@ import {
 import { cn } from "@/lib/utils";
 import { SignedIn, SignedOut, UserButton } from "@daveyplate/better-auth-ui";
 
+import { useIsMobile } from "@/hooks/use-mobile";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -24,15 +25,16 @@ const menuItems = [
 const Navbar = () => {
   const [menuState, setMenuState] = useState(false);
   const pathname = usePathname();
+  const isMobile = useIsMobile();
 
   return (
     <header>
       <nav
         data-state={menuState && "active"}
-        className="z-20 fixed bg-white lg:dark:bg-transparent dark:bg-zinc-950/50 backdrop-blur border-b border-dashed w-full">
+        className="z-20 fixed bg-white sm:dark:bg-transparent dark:bg-zinc-950/50 backdrop-blur border-b border-dashed w-full">
         <div className="m-auto px-6 max-w-5xl">
-          <div className="flex flex-wrap justify-between items-center gap-6 lg:gap-0 py-3 lg:py-4">
-            <div className="flex justify-between w-full lg:w-auto">
+          <div className="flex flex-wrap justify-between items-center gap-6 sm:gap-0 py-3 sm:py-4">
+            <div className="flex justify-between w-full sm:w-auto">
               <Link
                 href="/"
                 aria-label="home"
@@ -40,19 +42,20 @@ const Navbar = () => {
                 <Logo />
               </Link>
 
+              {/* MOBILE MENU BUTTON*/}
               <button
                 onClick={() => setMenuState(!menuState)}
                 aria-label={menuState == true ? "Close Menu" : "Open Menu"}
-                className="lg:hidden block z-20 relative -m-2.5 -mr-4 p-2.5 cursor-pointer">
+                className="sm:hidden block z-20 relative -m-2.5 -mr-4 p-2.5 cursor-pointer">
                 <Menu className="in-data-[state=active]:opacity-0 m-auto size-6 in-data-[state=active]:rotate-180 in-data-[state=active]:scale-0 duration-200" />
                 <X className="absolute inset-0 opacity-0 in-data-[state=active]:opacity-100 m-auto size-6 -rotate-180 in-data-[state=active]:rotate-0 scale-0 in-data-[state=active]:scale-100 duration-200" />
               </button>
             </div>
 
-            <div className="hidden in-data-[state=active]:block lg:flex lg:in-data-[state=active]:flex flex-wrap md:flex-nowrap justify-end items-center lg:gap-6 space-y-8 lg:space-y-0 bg-background lg:bg-transparent dark:lg:bg-transparent shadow-2xl shadow-zinc-300/20 lg:shadow-none dark:shadow-none lg:m-0 mb-6 p-6 lg:p-0 border lg:border-transparent rounded-3xl w-full lg:w-fit">
-              <div className="lg:pr-4">
+            <div className="hidden in-data-[state=active]:block sm:flex sm:in-data-[state=active]:flex flex-wrap sm:flex-nowrap justify-end items-center sm:gap-6 space-y-6 sm:space-y-0 bg-background sm:bg-transparent dark:sm:bg-transparent shadow-2xl shadow-zinc-300/20 sm:shadow-none dark:shadow-none sm:m-0 mb-6 p-6 sm:p-0 border sm:border-transparent rounded-3xl w-full sm:w-fit">
+              <div className="flex justify-center items-center">
                 <NavigationMenu>
-                  <NavigationMenuList className="data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-start gap-6 space-x-0">
+                  <NavigationMenuList className="data-[orientation=vertical]:flex-col flex-wrap sm:flex-nowrap data-[orientation=vertical]:items-start gap-6 space-x-0">
                     {menuItems.map((item, index) => (
                       <NavigationMenuItem key={index}>
                         <NavigationMenuLink asChild>
@@ -72,10 +75,10 @@ const Navbar = () => {
                 </NavigationMenu>
               </div>
 
-              <div className="flex sm:flex-row flex-col justify-center items-center sm:gap-3 space-y-3 sm:space-y-0 lg:pl-6 lg:border-l w-full md:w-fit">
+              <div className="flex flex-row justify-center items-center gap-3 space-y-0 pt-6 sm:pt-0 sm:pl-6 border-t sm:border-t-0 sm:border-l">
                 <ThemeToggle />
                 <SignedIn>
-                  <UserButton size="full" />
+                  <UserButton size={isMobile ? "full" : "icon"} />
                 </SignedIn>
                 <SignedOut>
                   <Button asChild className="rounded-full">
