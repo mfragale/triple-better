@@ -32,6 +32,7 @@ export default function Checklist() {
   };
   return (
     <>
+      <p>Next item order: {todos?.length}</p>
       <SortableList items={todos ?? []} onOrderChange={updateOrder}>
         {(todos) => (
           <div className="flex flex-col gap-2 mx-auto px-4 py-12 max-w-xl">
@@ -61,7 +62,7 @@ export default function Checklist() {
                 </div>
               </SortableItem>
             ))}
-            <AddTodoForm />
+            <AddTodoForm nextItemIndex={todos?.length} />
           </div>
         )}
       </SortableList>

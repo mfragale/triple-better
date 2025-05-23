@@ -5,7 +5,7 @@ import { triplitClient } from "@/lib/triplit";
 import { ArrowRight, Plus } from "lucide-react";
 import { Card, CardHeader } from "./ui/card";
 
-export function AddTodoForm() {
+export function AddTodoForm({ nextItemIndex }: { nextItemIndex: number }) {
   const handleSubmit = async (formData: FormData) => {
     const title = formData.get("title");
     if (!title) return;
@@ -13,6 +13,7 @@ export function AddTodoForm() {
     try {
       const insertedTodo = await triplitClient.insert("todos", {
         text: title as string,
+        order: nextItemIndex,
       });
     } catch (error) {
       console.error(error);
