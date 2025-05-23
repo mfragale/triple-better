@@ -29,6 +29,7 @@ const Navbar = () => {
   const menuItems = [
     { name: t("checklist"), href: t("checklistHref") },
     { name: t("about"), href: t("aboutHref") },
+    { name: t("protected"), href: t("protectedHref") },
   ];
 
   return (
@@ -87,7 +88,7 @@ const Navbar = () => {
                 </SignedIn>
                 <SignedOut>
                   <Button asChild className="rounded-full">
-                    <Link href="/auth/sign-in">Sign in</Link>
+                    <Link href="/auth/sign-in">{t("signIn")}</Link>
                   </Button>
                 </SignedOut>
               </div>

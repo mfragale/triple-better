@@ -40,11 +40,11 @@ export default function LocaleSwitcher2() {
           <Languages className="size-4" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
+      <DropdownMenuContent className="min-w-fit">
         <DropdownMenuRadioGroup value={locale} onValueChange={onSelectChange}>
           {routing.locales.map((cur) => (
             <DropdownMenuRadioItem key={cur} value={cur}>
-              {t("locale", { locale: cur })}
+              <span className="text-xl">{t("locale", { locale: cur })}</span>
             </DropdownMenuRadioItem>
           ))}
         </DropdownMenuRadioGroup>
