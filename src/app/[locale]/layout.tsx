@@ -17,9 +17,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "TRIPLIT",
+  title: "Triple Better",
   description: "by Mauricio Fragale",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
+  icons: [{ rel: "icon", url: "/icon-circle.png" }],
 };
 
 export default async function RootLayout({

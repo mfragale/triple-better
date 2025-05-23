@@ -38,13 +38,14 @@ const Navbar = () => {
         data-state={menuState && "active"}
         className="z-20 fixed bg-white sm:dark:bg-transparent dark:bg-zinc-950/50 backdrop-blur border-b border-dashed w-full">
         <div className="m-auto px-6 max-w-5xl">
-          <div className="flex flex-wrap justify-between items-center gap-6 sm:gap-0 py-3 sm:py-4">
+          <div className="flex flex-wrap justify-between items-center gap-6 sm:gap-0 py-3">
             <div className="flex justify-between w-full sm:w-auto">
               <Link
                 href="/"
                 aria-label="home"
                 className="flex items-center space-x-2">
                 <Logo />
+                <span className="font-bold text-xl">Triple Better</span>
               </Link>
 
               {/* MOBILE MENU BUTTON*/}
@@ -60,14 +61,14 @@ const Navbar = () => {
             <div className="hidden in-data-[state=active]:block sm:flex sm:in-data-[state=active]:flex flex-wrap sm:flex-nowrap justify-end items-center sm:gap-6 space-y-6 sm:space-y-0 bg-background sm:bg-transparent dark:sm:bg-transparent shadow-2xl shadow-zinc-300/20 sm:shadow-none dark:shadow-none sm:m-0 mb-6 p-6 sm:p-0 border sm:border-transparent rounded-3xl w-full sm:w-fit">
               <div className="flex justify-center items-center">
                 <NavigationMenu>
-                  <NavigationMenuList className="data-[orientation=vertical]:flex-col flex-wrap sm:flex-nowrap data-[orientation=vertical]:items-start gap-6 space-x-0">
+                  <NavigationMenuList className="data-[orientation=vertical]:flex-col flex-wrap sm:flex-nowrap data-[orientation=vertical]:items-start gap-4 space-x-0">
                     {menuItems.map((item, index) => (
                       <NavigationMenuItem key={index}>
                         <NavigationMenuLink asChild>
                           <Link
                             href={item.href}
                             className={cn(
-                              "block text-muted-foreground duration-150 hover:text-accent-foreground",
+                              " block text-muted-foreground duration-150 hover:text-accent-foreground",
                               pathname === item.href &&
                                 "bg-accent text-accent-foreground"
                             )}>
