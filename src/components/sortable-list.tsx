@@ -129,11 +129,14 @@ export function SortableItem({
               </div>
             </PopoverContent>
           </Popover>
-          <GripVerticalIcon
-            className="opacity-0 group-hover:opacity-100 p-1 size-6 text-muted-foreground transition-opacity hover:cursor-grab"
+          <Button
             {...attributes}
             {...listeners}
-          />
+            variant="ghost"
+            size="icon"
+            className="opacity-0 group-hover:opacity-100 transition-opacity hover:cursor-grab">
+            <GripVerticalIcon />
+          </Button>
         </div>
       </CardHeader>
     </Card>
