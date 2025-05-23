@@ -12,7 +12,13 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import { GripVerticalIcon, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { ReactNode, useId, useOptimistic, useTransition } from "react";
+import {
+  ReactNode,
+  useId,
+  useOptimistic,
+  useState,
+  useTransition,
+} from "react";
 import { Button } from "./ui/button";
 import { Card, CardHeader } from "./ui/card";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
@@ -87,6 +93,7 @@ export function SortableItem({
   } = useSortable({ id });
   const isActive = activeIndex === index;
   const t = useTranslations("ChecklistItem");
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
   return (
     <Card
@@ -97,22 +104,26 @@ export function SortableItem({
       }}
       className={cn(
         "group py-2",
-        isActive && "z-10 border-t border-b bg-accent/90"
+        isActive && "z-10 border-t border-b bg-accent/90",
+        isPopoverOpen && "border-red-500"
       )}>
       <CardHeader className="flex justify-between items-center px-2">
         {children}
 
         <div className="flex items-center gap-2">
-          <Popover>
+          <Popover onOpenChange={setIsPopoverOpen}>
             <PopoverTrigger asChild>
               <Button
                 variant="ghost"
                 size="icon"
-                className="opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-destructive transition-opacity">
+                className={cn(
+                  "opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-destructive transition-opacity",
+                  isPopoverOpen && "opacity-100"
+                )}>
                 <Trash2 />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-80">
+            <PopoverContent className="w-80" side="bottom" align="end">
               <div className="gap-4 grid">
                 <div className="space-y-2">
                   <h4 className="font-medium leading-none">
