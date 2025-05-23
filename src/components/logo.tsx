@@ -9,7 +9,7 @@ export const Logo = () => (
       height="100%"
       x="0"
       y="0"
-      externalResourcesRequired={true}>
+      externalResourcesRequired="true">
       <div
         className="bg-transparent w-screen md:w-[350px] lg:w-[400px] xl:w-[600px] max-w-full md:h-[350px] lg:h-[400px] xl:h-[600px] aspect-square"
         style={{

@@ -211,12 +211,14 @@ export function Providers({ children }: { children: ReactNode }) {
         accountsDescription: t("accountsDescription"),
         accounts: t("accounts"),
         account: t("account"),
-      }}>
+      }}
+    >
       <ThemeProvider
         attribute="class"
         defaultTheme="system"
         enableSystem
-        disableTransitionOnChange>
+        disableTransitionOnChange
+      >
         {children}
       </ThemeProvider>
     </AuthUIProvider>

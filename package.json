@@ -24,6 +24,7 @@
     "@radix-ui/react-select": "^2.2.5",
     "@radix-ui/react-slot": "^1.2.3",
     "@radix-ui/react-switch": "^1.2.5",
+    "@t3-oss/env-nextjs": "^0.13.4",
     "@triplit/client": "^1.0.37",
     "@triplit/react": "^1.0.37",
     "better-auth": "^1.2.8",

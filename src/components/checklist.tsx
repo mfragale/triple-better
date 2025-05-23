@@ -64,7 +64,8 @@ export default function Checklist() {
                     triplitClient.update("todos", todo.id, {
                       completed: !todo.completed,
                     });
-                  }}>
+                  }}
+                >
                   {todo.completed ? (
                     <Check className="text-green-500" />
                   ) : (
@@ -74,7 +75,8 @@ export default function Checklist() {
                 {isEditing === todo.id ? (
                   <form
                     action={handleTodoUpdate}
-                    className="flex items-center gap-2 w-full">
+                    className="flex items-center gap-2 w-full"
+                  >
                     <input type="hidden" name="id" value={todo.id} />
                     <Input
                       autoFocus
@@ -99,7 +101,8 @@ export default function Checklist() {
                     className={cn(
                       "w-full cursor-text pl-3",
                       todo.completed && "line-through text-muted-foreground/30"
-                    )}>
+                    )}
+                  >
                     {todo.text}
                   </div>
                 )}
