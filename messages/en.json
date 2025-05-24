@@ -210,5 +210,36 @@
       "description": "This action cannot be undone.",
       "action": "Delete"
     }
+  },
+  "pcoSchedule": {
+    "noUser": "No user",
+    "noPcoAccount": "No Planning Center Account",
+    "noAccount": "No account",
+    "schedule": "Schedule",
+    "signUps": "Sign Ups",
+    "selectTimeAndTeam": "Choose a time and team to serve, then click \"Confirm\"",
+    "tokenRefreshFailed": "Failed to refresh Planning Center token.",
+    "unauthorized": "Unauthorized",
+    "readThisPage": "Read this Page",
+    "times": "Times",
+    "teams": "Teams",
+    "alreadyScheduled": "You are scheduled",
+    "selectTime": "--:--",
+    "selectTeam": "Team...",
+    "confirmSchedule": "Confirm",
+    "scheduleConfirmed": "Schedule confirmed successfully",
+    "errorConfirmingSchedule": "There was an error confirming your schedule",
+    "teamLeader": "Responsible for: {team}",
+    "noSchedule": "No schedule available",
+    "noTeamFound": "No team found"
+  },
+  "pcoAcceptButton": {
+    "toast": {
+      "invitationAccepted": "",
+      "errorAcceptingInvitation": "Error accepting invitation",
+      "scheduleAccepted": "Schedule accepted successfully",
+      "errorAcceptingSchedule": "Error accepting schedule"
+    },
+    "accept": "Accept"
   }
 }

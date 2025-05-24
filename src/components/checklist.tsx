@@ -1,11 +1,11 @@
 "use client";
 
-import { triplitClient } from "@/lib/triplit";
 import { cn } from "@/lib/utils";
 import { useQuery } from "@triplit/react";
 import { Check, CornerDownLeft, Square } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { triplitClient } from "../../triplit/client";
 import { AddTodoForm } from "./add-todo-form";
 import { SortableItem, SortableList } from "./sortable-list";
 import { Button } from "./ui/button";
@@ -64,8 +64,7 @@ export default function Checklist() {
                     triplitClient.update("todos", todo.id, {
                       completed: !todo.completed,
                     });
-                  }}
-                >
+                  }}>
                   {todo.completed ? (
                     <Check className="text-green-500" />
                   ) : (
@@ -75,8 +74,7 @@ export default function Checklist() {
                 {isEditing === todo.id ? (
                   <form
                     action={handleTodoUpdate}
-                    className="flex items-center gap-2 w-full"
-                  >
+                    className="flex items-center gap-2 w-full">
                     <input type="hidden" name="id" value={todo.id} />
                     <Input
                       autoFocus
@@ -101,8 +99,7 @@ export default function Checklist() {
                     className={cn(
                       "w-full cursor-text pl-3",
                       todo.completed && "line-through text-muted-foreground/30"
-                    )}
-                  >
+                    )}>
                     {todo.text}
                   </div>
                 )}

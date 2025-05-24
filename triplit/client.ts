@@ -1,6 +1,6 @@
 import { env } from "@/env/client";
 import { TriplitClient } from "@triplit/client";
-import { schema } from "../../triplit/schema";
+import { schema } from "./schema";
 
 export const triplitClient = new TriplitClient({
   schema,

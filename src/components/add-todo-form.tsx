@@ -1,9 +1,9 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { triplitClient } from "@/lib/triplit";
 import { ArrowRight, Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { triplitClient } from "../../triplit/client";
 import { Card, CardHeader } from "./ui/card";
 
 export function AddTodoForm({ nextItemIndex }: { nextItemIndex: number }) {

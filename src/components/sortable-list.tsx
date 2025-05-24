@@ -1,6 +1,5 @@
 "use client";
 
-import { triplitClient } from "@/lib/triplit";
 import { cn } from "@/lib/utils";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import {
@@ -19,6 +18,7 @@ import {
   useState,
   useTransition,
 } from "react";
+import { triplitClient } from "../../triplit/client";
 import { Button } from "./ui/button";
 import { Card, CardHeader } from "./ui/card";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";

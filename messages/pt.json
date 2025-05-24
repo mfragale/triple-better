@@ -210,5 +210,39 @@
       "description": "Esta ação não pode ser desfeita.",
       "action": "Deletar"
     }
+  },
+  "pcoSchedule": {
+    "noUser": "Nenhum usuário",
+    "noPcoAccount": "Nenhuma conta no Planning Center",
+    "noAccount": "Nenhuma conta do Planning Center conectada",
+    "schedule": "Escala",
+    "signUps": "Escalas em aberto",
+    "selectTimeAndTeam": "Escolha um horário e um time para servir, então clique em \"Confirmar\"",
+    "tokenRefreshFailed": "Falha ao atualizar o token do Planning Center",
+    "unauthorized": "Não autorizado",
+    "readThisPage": "Leia esta página",
+    "times": "Horários",
+    "teams": "Times",
+    "alreadyScheduled": "Você está escalado",
+    "selectTime": "--:--",
+    "selectTeam": "Time...",
+    "confirmSchedule": "Confirmar",
+    "scheduleConfirmed": "Escala confirmada com sucesso",
+    "errorConfirmingSchedule": "Houve um erro confirmando sua escala",
+    "teamLeader": "Responsável por: {team}",
+    "noSchedule": "Nenhuma escala disponível",
+    "noTeamFound": "Nenhum time encontrado"
+  },
+  "pcoAcceptButton": {
+    "toast": {
+      "invitationAccepted": "",
+      "errorAcceptingInvitation": "Erro ao aceitar convite",
+      "scheduleAccepted": "Escala aceita com sucesso",
+      "errorAcceptingSchedule": "Erro ao aceitar escala"
+    },
+    "accept": "Aceitar"
+  },
+  "ScheduleList": {
+    "noSchedule": "Nenhuma escala"
   }
 }

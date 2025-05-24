@@ -1,12 +1,12 @@
 "use client";
 
 import { useSession } from "@/lib/auth-client";
-import { triplitClient } from "@/lib/triplit";
-import { AuthUIProvider } from "@daveyplate/better-auth-ui";
+import { AuthUIProvider, ProviderIcon } from "@daveyplate/better-auth-ui";
 import { useTriplitHooks } from "@daveyplate/better-auth-ui/triplit";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { ReactNode } from "react";
+import { triplitClient } from "../../triplit/client";
 
 import { authClient } from "@/lib/auth-client";
 import { useTranslations } from "next-intl";
@@ -24,6 +24,19 @@ export function Providers({ children }: { children: ReactNode }) {
 
   const t = useTranslations("AuthUIProvider");
 
+  const PlanningCenterIcon: ProviderIcon = ({ className }) => (
+    <svg className={className} viewBox="0 0 42 43">
+      <path
+        fill="currentColor"
+        d="M27.7,17.29c.13-.04.26.06.26.19v6.33c0,.09-.06.17-.14.19l-6.54,1.93c-.19.05-.38.05-.57,0l-6.51-1.93c-.08-.03-.14-.1-.14-.19v-6.33c0-.13.13-.23.26-.19l5.49,1.63c.79.23,1.63.23,2.41,0l5.49-1.63Z"
+      />
+      <path
+        fill="currentColor"
+        d="M23.58,1.35c-1.69-.46-3.47-.46-5.17,0l-13.23,3.6c-3.06.83-5.19,3.65-5.19,6.88v20.36c0,3.22,2.13,6.04,5.19,6.88l13.23,3.6c1.69.46,3.47.46,5.17,0l13.23-3.6c3.06-.83,5.19-3.65,5.19-6.88V11.82c0-3.22-2.13-6.04-5.19-6.88l-13.23-3.6ZM14.3,28.12c-.13-.04-.26.06-.26.19v4.38c0,.43-.4.74-.82.63l-2.75-.73c-.28-.08-.48-.33-.48-.63V15.45c0-1.75,1.76-3,3.49-2.49l7.21,2.14c.19.06.38.06.57,0l7.24-2.14c1.73-.51,3.49.74,3.49,2.49v9.47c0,1.14-.77,2.15-1.9,2.49l-7.89,2.34c-.79.23-1.63.23-2.41,0l-5.49-1.63Z"
+      />
+    </svg>
+  );
+
   return (
     <AuthUIProvider
       authClient={authClient}
@@ -33,6 +46,13 @@ export function Providers({ children }: { children: ReactNode }) {
         // Clear router cache (protected routes)
         router.refresh();
       }}
+      otherProviders={[
+        {
+          provider: "planning-center",
+          name: "Planning Center",
+          icon: PlanningCenterIcon,
+        },
+      ]}
       Link={Link}
       hooks={hooks}
       settingsURL="/dashboard/settings"
@@ -211,14 +231,12 @@ export function Providers({ children }: { children: ReactNode }) {
         accountsDescription: t("accountsDescription"),
         accounts: t("accounts"),
         account: t("account"),
-      }}
-    >
+      }}>
       <ThemeProvider
         attribute="class"
         defaultTheme="system"
         enableSystem
-        disableTransitionOnChange
-      >
+        disableTransitionOnChange>
         {children}
       </ThemeProvider>
     </AuthUIProvider>
