@@ -1,6 +1,5 @@
 import { getLocale, getTranslations } from "next-intl/server";
 
-import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { env } from "@/env/server";
 import { Session } from "@/lib/auth";
@@ -21,7 +20,7 @@ export default async function PcoSchedule(props: { session: Session | null }) {
   const userId = session.user.id;
   const pcoDbAccount = await getAccount(userId, "planning-center");
 
-  console.log("pcoDbAccount: ", pcoDbAccount);
+  // console.log("pcoDbAccount: ", pcoDbAccount);
 
   if (!pcoDbAccount || !pcoDbAccount.accessToken) {
     return <div>{t("noAccount")}</div>;
@@ -105,7 +104,7 @@ export default async function PcoSchedule(props: { session: Session | null }) {
         {t("selectTimeAndTeam")}
       </p>
 
-      <p>{`Now: ${nowDate}`}</p>
+      {/* <p>{`Now: ${nowDate}`}</p>
       <p>
         {`Token expires at: ${accessTokenExpiresAtDate}`}
         {nowDate > accessTokenExpiresAtDate ? (
@@ -117,7 +116,7 @@ export default async function PcoSchedule(props: { session: Session | null }) {
             {"Valid"}
           </Badge>
         )}
-      </p>
+      </p> */}
 
       <ScheduleList
         availableSignups={availableSignups}
