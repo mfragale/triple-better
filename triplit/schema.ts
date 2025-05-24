@@ -1,5 +1,5 @@
 import { ClientSchema, Schema as S, type Entity } from "@triplit/client";
-import { authSchema } from "../auth-schema";
+import { authSchema } from "./auth-schema";
 
 export const schema = {
   todos: {
