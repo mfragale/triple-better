@@ -3,7 +3,7 @@ import { RedirectToSignIn, SignedIn } from "@daveyplate/better-auth-ui";
 import { getTranslations } from "next-intl/server";
 import { headers } from "next/headers";
 import { Suspense } from "react";
-import PcoSchedule from "./_components/pco-schedule";
+import PcoSchedule from "../../../components/pco-schedule";
 
 export default async function ProtectedPage() {
   const t = await getTranslations("ProtectedPage");
