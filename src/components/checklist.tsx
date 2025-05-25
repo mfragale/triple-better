@@ -7,7 +7,7 @@ import {
 } from "@/lib/zod-form-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQuery } from "@triplit/react";
-import { Check, CornerDownLeft, Square } from "lucide-react";
+import { Check, Square } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -138,9 +138,9 @@ export default function Checklist() {
                             </FormItem>
                           )}
                         />
-                        <Button type="submit" size="icon">
+                        {/* <Button type="submit" size="icon">
                           <CornerDownLeft />
-                        </Button>
+                        </Button> */}
                       </form>
                     </Form>
                   ) : (
