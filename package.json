@@ -6,7 +6,10 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db": "npx triplit dev",
+    "sc": "triplit snapshot create --outDir ./triplit/snapshots/",
+    "sp": "triplit snapshot push --snapshot ./triplit/snapshots/"
   },
   "dependencies": {
     "@daveyplate/better-auth-triplit": "^0.1.2",
