@@ -25,6 +25,11 @@ export const authSchema = S.Collections({
           filter: [["id", "=", "$token.sub"]],
         },
       },
+      anonymous: {
+        insert: {
+          filter: [true],
+        },
+      },
     },
   },
   sessions: {
@@ -45,6 +50,11 @@ export const authSchema = S.Collections({
       authenticated: {
         read: {
           filter: [["userId", "=", "$token.sub"]],
+        },
+      },
+      anonymous: {
+        insert: {
+          filter: [true],
         },
       },
     },
@@ -72,6 +82,11 @@ export const authSchema = S.Collections({
       authenticated: {
         read: {
           filter: [["userId", "=", "$token.sub"]],
+        },
+      },
+      anonymous: {
+        insert: {
+          filter: [true],
         },
       },
     },

@@ -20,7 +20,11 @@ import { Input } from "./ui/input";
 import { Skeleton } from "./ui/skeleton";
 
 export default function Checklist() {
-  const { results: todos, fetching } = useQuery(
+  const {
+    results: todos,
+    fetching,
+    error,
+  } = useQuery(
     triplitClient,
     triplitClient.query("todos").Order("order", "ASC")
   );
@@ -65,7 +69,7 @@ export default function Checklist() {
     }
   }
 
-  if (fetching) {
+  if (todos == null) {
     return (
       <div className="flex flex-col gap-2 mx-auto px-4 py-12 max-w-xl">
         {Array.from({ length: 10 }).map((_, index) => (
@@ -75,6 +79,10 @@ export default function Checklist() {
         ))}
       </div>
     );
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
   }
 
   return (

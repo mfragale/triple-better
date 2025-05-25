@@ -12,6 +12,7 @@ const ThemeToggle = () => {
   // Only show the theme toggle after mounting to prevent hydration mismatch
   useEffect(() => {
     setMounted(true);
+    setTheme("dark");
   }, []);
 
   if (!mounted) {

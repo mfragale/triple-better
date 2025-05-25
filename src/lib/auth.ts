@@ -9,7 +9,7 @@ import { schema } from "../../triplit/schema";
 const httpClient = new HttpClient({
   schema,
   serverUrl: clientEnv.NEXT_PUBLIC_TRIPLIT_SERVER_URL,
-  token: clientEnv.NEXT_PUBLIC_TRIPLIT_ANON_TOKEN,
+  token: clientEnv.NEXT_PUBLIC_TRIPLIT_TOKEN,
 });
 
 export const auth = betterAuth({

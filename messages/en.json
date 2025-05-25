@@ -3,7 +3,7 @@
     "title": "Hello world!"
   },
   "LocaleSwitcher": {
-    "locale": "{locale, select, pt {🇧🇷} en {🇺🇸} other {Unknown}",
+    "locale": "{locale, select, pt {🇧🇷} en {🇺🇸} other {Unknown}}",
     "label": "Change language"
   },
   "Navbar": {
