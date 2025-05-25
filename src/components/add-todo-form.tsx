@@ -1,29 +1,30 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import {
+  TNewTodoFormSchema,
+  useNewTodoFormSchema,
+} from "@/lib/zod-form-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight, Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { triplitClient } from "../../triplit/client";
 import { Card, CardHeader } from "./ui/card";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "./ui/form";
 import { Input } from "./ui/input";
 
 export function AddTodoForm({ nextItemIndex }: { nextItemIndex: number }) {
-  const newTodoFormSchema = z.object({
-    newTodoItem: z.string().min(2).max(50),
-  });
+  const newTodoFormSchema = useNewTodoFormSchema();
 
-  const form = useForm<z.infer<typeof newTodoFormSchema>>({
+  const form = useForm<TNewTodoFormSchema>({
     resolver: zodResolver(newTodoFormSchema),
     defaultValues: {
       newTodoItem: "",
     },
   });
 
-  async function onSubmit(values: z.infer<typeof newTodoFormSchema>) {
+  async function onSubmit(values: TNewTodoFormSchema) {
     const newTodoItem = values.newTodoItem;
 
     if (!newTodoItem) return;

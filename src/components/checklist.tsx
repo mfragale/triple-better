@@ -1,13 +1,16 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import {
+  useEditTodoFormSchema,
+  type TEditTodoFormSchema,
+} from "@/lib/zod-form-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQuery } from "@triplit/react";
 import { Check, CornerDownLeft, Square } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { triplitClient } from "../../triplit/client";
 import { AddTodoForm } from "./add-todo-form";
 import { SortableItem, SortableList } from "./sortable-list";
@@ -37,31 +40,17 @@ export default function Checklist() {
 
   const [isEditing, setIsEditing] = useState<string | null>(null);
 
-  const newTodoFormSchema = z.object({
-    editedTodoItem: z.string().min(2).max(50),
-    editedTodoItemId: z.string(),
+  const editTodoFormSchema = useEditTodoFormSchema();
+
+  const form = useForm<TEditTodoFormSchema>({
+    resolver: zodResolver(editTodoFormSchema),
   });
 
-  const form = useForm<z.infer<typeof newTodoFormSchema>>({
-    resolver: zodResolver(newTodoFormSchema),
-    // defaultValues: {
-    //   editedTodoItem: "",
-    //   editedTodoItemId: "",
-    // },
-  });
-
-  async function onSubmit(values: z.infer<typeof newTodoFormSchema>) {
-    const editedTodoItem = values.editedTodoItem;
-    const editedTodoItemId = values.editedTodoItemId;
-
-    // if (!editedTodoItem) return;
-
-    // console.log(editedTodoItem, editedTodoItemId);
-
+  async function onSubmit(values: TEditTodoFormSchema) {
     try {
       const updatedTodo = await triplitClient
-        .update("todos", editedTodoItemId, async (entity) => {
-          entity.text = editedTodoItem;
+        .update("todos", values.editedTodoItemId, async (entity) => {
+          entity.text = values.editedTodoItem;
         })
         .then(async () => {
           await new Promise((resolve) => setTimeout(resolve, 200));
