@@ -22,21 +22,4 @@ export async function updateAccount(
     accountId,
     data
   );
-
-  //   const [updatedAccount] = await db
-  //     // Try to update a user
-  //     .update(account)
-  //     .set(data)
-  //     .where(eq(account.id, accountId))
-
-  //     // Return the newly created user
-  //     .returning();
-
-  //   if (updatedAccount == null) {
-  //     throw new Error("Failed to update account");
-  //   }
-
-  //   revalidateUserCache(updatedAccount.id);
-
-  //   return updatedAccount;
 }
