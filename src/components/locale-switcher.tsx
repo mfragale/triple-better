@@ -1,3 +1,5 @@
+"use client";
+
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { Languages } from "lucide-react";

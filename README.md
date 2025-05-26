@@ -8,5 +8,6 @@
 - [x] Custom oAuth Providers
 - [x] Zod validation to form
 - [x] Add loading state to checklist
-- [ ] Publish to Vercel
+- [x] Publish to Vercel
 - [ ] Can I use Drizzle with Triplit?
+- [ ] Close moblie menu after clicking on link

@@ -6,20 +6,15 @@ export async function getAccount(userId: string, providerId: string) {
     ["userId", "=", userId],
     ["providerId", "=", providerId],
   ]);
-  const account = await triplitClient.fetchOne(query); // null
+  const account = await triplitClient.fetchOne(query);
+
+  // console.log("account: ", account);
 
   return account;
 }
 
-export async function updateAccount(
-  { accountId }: { accountId: string },
-  data: Partial<Account>
-) {
+export async function updateAccount({ accountId }: { accountId: string }, data: Partial<Account>) {
   // console.log("data: ", data);
 
-  const updatedAccount = await triplitClient.update(
-    "accounts",
-    accountId,
-    data
-  );
+  const updatedAccount = await triplitClient.update("accounts", accountId, data);
 }

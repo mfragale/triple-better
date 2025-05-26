@@ -24,9 +24,9 @@ export const routing = defineRouting({
     "/auth/magic-link": {
       pt: "/auth/magic-link",
     },
-    "/auth/settings": {
-      pt: "/auth/configuracoes",
-    },
+    // "/auth/settings": {
+    //   pt: "/auth/configuracoes",
+    // },
 
     // MARKETING
     "/": "/",
