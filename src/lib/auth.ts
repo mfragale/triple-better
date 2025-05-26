@@ -3,7 +3,7 @@ import { env } from "@/env/server";
 import { triplitAdapter } from "@daveyplate/better-auth-triplit";
 import { HttpClient } from "@triplit/client";
 import { betterAuth } from "better-auth";
-import { genericOAuth } from "better-auth/plugins";
+import { genericOAuth, jwt } from "better-auth/plugins";
 import { schema } from "../../triplit/schema";
 
 const httpClient = new HttpClient({
@@ -22,6 +22,7 @@ export const auth = betterAuth({
     enabled: true,
   },
   plugins: [
+    jwt(),
     genericOAuth({
       config: [
         {

@@ -102,4 +102,12 @@ export const authSchema = S.Collections({
     }),
     permissions: {},
   },
+  jwks: {
+    schema: S.Schema({
+      id: S.Id(),
+      publicKey: S.String(),
+      privateKey: S.String(),
+      createdAt: S.Date({ default: S.Default.now() }),
+    }),
+  },
 });
