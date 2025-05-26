@@ -15,7 +15,7 @@ const httpClient = new HttpClient({
 export const auth = betterAuth({
   database: triplitAdapter({
     httpClient,
-    debugLogs: false, // Optional: enable for debugging
+    debugLogs: true, // Optional: enable for debugging
     usePlural: true, // Optional: set to false if your schema uses singular names
   }),
   emailAndPassword: {
