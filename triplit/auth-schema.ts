@@ -25,11 +25,6 @@ export const authSchema = S.Collections({
           filter: [["id", "=", "$token.sub"]],
         },
       },
-      anonymous: {
-        insert: {
-          filter: [true],
-        },
-      },
     },
   },
   sessions: {
@@ -50,11 +45,6 @@ export const authSchema = S.Collections({
       authenticated: {
         read: {
           filter: [["userId", "=", "$token.sub"]],
-        },
-      },
-      anonymous: {
-        insert: {
-          filter: [true],
         },
       },
     },
@@ -84,11 +74,6 @@ export const authSchema = S.Collections({
           filter: [["userId", "=", "$token.sub"]],
         },
       },
-      anonymous: {
-        insert: {
-          filter: [true],
-        },
-      },
     },
   },
   verifications: {
@@ -101,13 +86,5 @@ export const authSchema = S.Collections({
       updatedAt: S.Date({ default: S.Default.now() }),
     }),
     permissions: {},
-  },
-  jwks: {
-    schema: S.Schema({
-      id: S.Id(),
-      publicKey: S.String(),
-      privateKey: S.String(),
-      createdAt: S.Date({ default: S.Default.now() }),
-    }),
   },
 });

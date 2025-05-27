@@ -8,6 +8,7 @@ export const env = createEnv({
     TRIPLIT_DB_URL: z.string().url(),
     TRIPLIT_ANON_TOKEN: z.string(),
     TRIPLIT_SERVICE_TOKEN: z.string(),
+    EXTERNAL_JWT_SECRET: z.string(),
     PCO_CLIENT_ID: z.string().min(1),
     PCO_SECRET: z.string().min(1),
   },

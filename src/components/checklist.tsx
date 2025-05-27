@@ -11,7 +11,7 @@ import { Check, Square } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { triplitClient } from "../../triplit/client";
+import { triplit } from "../../triplit/client";
 import { AddTodoForm } from "./add-todo-form";
 import { SortableItem, SortableList } from "./sortable-list";
 import { Button } from "./ui/button";
@@ -20,14 +20,16 @@ import { Input } from "./ui/input";
 import { Skeleton } from "./ui/skeleton";
 
 export default function Checklist() {
+  const [remoteFulfilled, setRemoteFulfilled] = useState(false);
+
+  const todosQuery = triplit.query("todos").Order("created_at", "DESC");
   const {
     results: todos,
     fetching,
     error,
-  } = useQuery(
-    triplitClient,
-    triplitClient.query("todos").Order("order", "ASC")
-  );
+  } = useQuery(triplit, todosQuery, {
+    onRemoteFulfilled: () => setRemoteFulfilled(true),
+  });
 
   const t = useTranslations("Checklist");
 
@@ -35,7 +37,7 @@ export default function Checklist() {
     if (itemsIds.length === 0) return { error: true, message: t("noItems") };
 
     itemsIds.map((id, index) => {
-      triplitClient.update("todos", id, {
+      triplit.update("todos", id, {
         order: index,
       });
     });
@@ -53,7 +55,7 @@ export default function Checklist() {
 
   async function onSubmit(values: TEditTodoFormSchema) {
     try {
-      const updatedTodo = await triplitClient
+      const updatedTodo = await triplit
         .update("todos", values.editedTodoItemId, async (entity) => {
           entity.text = values.editedTodoItem;
         })
@@ -97,7 +99,7 @@ export default function Checklist() {
                     variant="ghost"
                     size="icon"
                     onClick={() => {
-                      triplitClient.update("todos", todo.id, {
+                      triplit.update("todos", todo.id, {
                         completed: !todo.completed,
                       });
                     }}>

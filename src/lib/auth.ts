@@ -1,32 +1,16 @@
-import { env as clientEnv } from "@/env/client";
 import { env } from "@/env/server";
 import { triplitAdapter } from "@daveyplate/better-auth-triplit";
-import { HttpClient } from "@triplit/client";
 import { betterAuth } from "better-auth";
 import { genericOAuth } from "better-auth/plugins";
-import { schema } from "../../triplit/schema";
-import * as jwtConfig from "../utils/jwt";
-
-const httpClient = new HttpClient({
-  schema,
-  serverUrl: clientEnv.NEXT_PUBLIC_TRIPLIT_SERVER_URL,
-  token: clientEnv.NEXT_PUBLIC_TRIPLIT_TOKEN,
-});
+import { httpClient } from "../../triplit/http-client";
 
 export const auth = betterAuth({
   database: triplitAdapter({
     httpClient,
-    debugLogs: true, // Optional: enable for debugging
-    usePlural: true, // Optional: set to false if your schema uses singular names
-    secretKey: env.BETTER_AUTH_SECRET,
+    debugLogs: true,
   }),
   emailAndPassword: {
     enabled: true,
-  },
-  jwt: {
-    secret: env.BETTER_AUTH_SECRET,
-    encode: jwtConfig.encode,
-    decode: jwtConfig.decode,
   },
   plugins: [
     genericOAuth({

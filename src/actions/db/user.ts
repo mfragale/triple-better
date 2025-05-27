@@ -1,12 +1,12 @@
-import { triplitClient } from "../../../triplit/client";
+import { triplit } from "../../../triplit/client";
 import { Account } from "../../../triplit/schema";
 
 export async function getAccount(userId: string, providerId: string) {
-  const query = triplitClient.query("accounts").Where([
+  const query = triplit.query("accounts").Where([
     ["userId", "=", userId],
     ["providerId", "=", providerId],
   ]);
-  const account = await triplitClient.fetchOne(query);
+  const account = await triplit.fetchOne(query);
 
   // console.log("account: ", account);
 
@@ -16,5 +16,5 @@ export async function getAccount(userId: string, providerId: string) {
 export async function updateAccount({ accountId }: { accountId: string }, data: Partial<Account>) {
   // console.log("data: ", data);
 
-  const updatedAccount = await triplitClient.update("accounts", accountId, data);
+  const updatedAccount = await triplit.update("accounts", accountId, data);
 }

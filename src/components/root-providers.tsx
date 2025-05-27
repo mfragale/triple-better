@@ -3,14 +3,10 @@
 import { getQueryClient } from "@/lib/query-client";
 import { AuthQueryProvider } from "@daveyplate/better-auth-tanstack";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { ThemeProvider as NextThemesProvider } from "next-themes";
-import * as React from "react";
+import type { ReactNode } from "react";
 import { toast } from "sonner";
 
-export function ThemeProvider({
-  children,
-  ...props
-}: React.ComponentProps<typeof NextThemesProvider>) {
+export function RootProviders({ children }: { children: ReactNode }) {
   // NOTE: Avoid useState when initializing the query client if you don't
   //       have a suspense boundary between this and the code that may
   //       suspend because React will throw away the client on the initial
@@ -23,10 +19,8 @@ export function ThemeProvider({
   };
 
   return (
-    <NextThemesProvider {...props}>
-      <QueryClientProvider client={queryClient}>
-        <AuthQueryProvider>{children}</AuthQueryProvider>
-      </QueryClientProvider>
-    </NextThemesProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthQueryProvider>{children}</AuthQueryProvider>
+    </QueryClientProvider>
   );
 }

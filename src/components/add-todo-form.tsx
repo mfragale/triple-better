@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight, Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
-import { triplitClient } from "../../triplit/client";
+import { triplit } from "../../triplit/client";
 import { Card, CardHeader } from "./ui/card";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "./ui/form";
 import { Input } from "./ui/input";
@@ -30,7 +30,7 @@ export function AddTodoForm({ nextItemIndex }: { nextItemIndex: number }) {
     if (!newTodoItem) return;
 
     try {
-      const insertedTodo = await triplitClient.insert("todos", {
+      const insertedTodo = await triplit.insert("todos", {
         text: newTodoItem,
         order: nextItemIndex,
       });

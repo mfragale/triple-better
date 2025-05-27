@@ -1,7 +1,8 @@
-import { ClientSchema, Schema as S, type Entity } from "@triplit/client";
+import { Schema as S, type Entity } from "@triplit/client";
 import { authSchema } from "./auth-schema";
 
 export const schema = {
+  ...authSchema,
   todos: {
     schema: S.Schema({
       id: S.Id(),
@@ -12,8 +13,7 @@ export const schema = {
       order: S.Number({ default: 0 }),
     }),
   },
-  ...authSchema,
-} satisfies ClientSchema;
+};
 
 export type Todo = Entity<typeof schema, "todos">;
 export type Account = Entity<typeof schema, "accounts">;

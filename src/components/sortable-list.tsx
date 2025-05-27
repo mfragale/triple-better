@@ -18,7 +18,7 @@ import {
   useState,
   useTransition,
 } from "react";
-import { triplitClient } from "../../triplit/client";
+import { triplit } from "../../triplit/client";
 import { Button } from "./ui/button";
 import { Card, CardHeader } from "./ui/card";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
@@ -136,7 +136,7 @@ export function SortableItem({
                 <Button
                   variant="destructive"
                   onClick={() => {
-                    triplitClient.delete("todos", id);
+                    triplit.delete("todos", id);
                   }}>
                   {t("deletePopover.action")}
                 </Button>

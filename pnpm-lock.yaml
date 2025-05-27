@@ -8,12 +8,15 @@ importers:
 
   .:
     dependencies:
+      '@daveyplate/better-auth-tanstack':
+        specifier: ^1.3.5
+        version: 1.3.5(@tanstack/query-core@5.77.2)(@tanstack/react-query@5.77.2(react@19.1.0))(better-auth@1.2.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@daveyplate/better-auth-triplit':
         specifier: ^0.1.2
         version: 0.1.2(@triplit/client@1.0.37(typescript@5.8.3))(better-auth@1.2.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@daveyplate/better-auth-ui':
         specifier: ^1.7.1
-        version: 1.7.1(9547f2b6496a89abbbd5468d8a37cce5)
+        version: 1.7.1(eb510189009c181ff8db22af7fddb476)
       '@dnd-kit/core':
         specifier: ^6.3.1
         version: 6.3.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -59,6 +62,9 @@ importers:
       '@t3-oss/env-nextjs':
         specifier: ^0.13.4
         version: 0.13.4(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.17)
+      '@tanstack/react-query':
+        specifier: ^5.77.2
+        version: 5.77.2(react@19.1.0)
       '@triplit/client':
         specifier: ^1.0.37
         version: 1.0.37(typescript@5.8.3)
@@ -1477,11 +1483,11 @@ packages:
   '@tailwindcss/postcss@4.1.7':
     resolution: {integrity: sha512-88g3qmNZn7jDgrrcp3ZXEQfp9CVox7xjP1HN2TFKI03CltPVd/c61ydn5qJJL8FYunn0OqBaW5HNUga0kmPVvw==}
 
-  '@tanstack/query-core@5.76.0':
-    resolution: {integrity: sha512-FN375hb8ctzfNAlex5gHI6+WDXTNpe0nbxp/d2YJtnP+IBM6OUm7zcaoCW6T63BawGOYZBbKC0iPvr41TteNVg==}
+  '@tanstack/query-core@5.77.2':
+    resolution: {integrity: sha512-1lqJwPsR6GX6nZFw06erRt518O19tWU6Q+x0fJUygl4lxHCYF2nhzBPwLKk2NPjYOrpR0K567hxPc5K++xDe9Q==}
 
-  '@tanstack/react-query@5.76.1':
-    resolution: {integrity: sha512-YxdLZVGN4QkT5YT1HKZQWiIlcgauIXEIsMOTSjvyD5wLYK8YVvKZUPAysMqossFJJfDpJW3pFn7WNZuPOqq+fw==}
+  '@tanstack/react-query@5.77.2':
+    resolution: {integrity: sha512-BRHxWdy1mHmgAcYA/qy2IPLylT81oebLgkm9K85viN2Qol/Vq48t1dzDFeDIVQjTWDV96AmqsLNPlH5HjyKCxA==}
     peerDependencies:
       react: ^18 || ^19
 
@@ -3283,10 +3289,10 @@ snapshots:
 
   '@better-fetch/fetch@1.1.18': {}
 
-  '@daveyplate/better-auth-tanstack@1.3.5(@tanstack/query-core@5.76.0)(@tanstack/react-query@5.76.1(react@19.1.0))(better-auth@1.2.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@daveyplate/better-auth-tanstack@1.3.5(@tanstack/query-core@5.77.2)(@tanstack/react-query@5.77.2(react@19.1.0))(better-auth@1.2.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@tanstack/query-core': 5.76.0
-      '@tanstack/react-query': 5.76.1(react@19.1.0)
+      '@tanstack/query-core': 5.77.2
+      '@tanstack/react-query': 5.77.2(react@19.1.0)
       better-auth: 1.2.8
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
@@ -3299,10 +3305,10 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@daveyplate/better-auth-ui@1.7.1(9547f2b6496a89abbbd5468d8a37cce5)':
+  '@daveyplate/better-auth-ui@1.7.1(eb510189009c181ff8db22af7fddb476)':
     dependencies:
       '@better-fetch/fetch': 1.1.18
-      '@daveyplate/better-auth-tanstack': 1.3.5(@tanstack/query-core@5.76.0)(@tanstack/react-query@5.76.1(react@19.1.0))(better-auth@1.2.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@daveyplate/better-auth-tanstack': 1.3.5(@tanstack/query-core@5.77.2)(@tanstack/react-query@5.77.2(react@19.1.0))(better-auth@1.2.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@hcaptcha/react-hcaptcha': 1.12.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@hookform/resolvers': 5.0.1(react-hook-form@7.56.4(react@19.1.0))
       '@instantdb/react': 0.19.8(react@19.1.0)
@@ -3321,7 +3327,7 @@ snapshots:
       '@radix-ui/react-use-callback-ref': 1.1.1(@types/react@19.1.5)(react@19.1.0)
       '@radix-ui/react-use-layout-effect': 1.1.1(@types/react@19.1.5)(react@19.1.0)
       '@react-email/components': 0.0.41(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@tanstack/react-query': 5.76.1(react@19.1.0)
+      '@tanstack/react-query': 5.77.2(react@19.1.0)
       '@triplit/client': 1.0.37(typescript@5.8.3)
       '@triplit/react': 1.0.37(react@19.1.0)(typescript@5.8.3)
       '@wojtekmaj/react-recaptcha-v3': 0.1.4(@types/react@19.1.5)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -4467,11 +4473,11 @@ snapshots:
       postcss: 8.5.3
       tailwindcss: 4.1.7
 
-  '@tanstack/query-core@5.76.0': {}
+  '@tanstack/query-core@5.77.2': {}
 
-  '@tanstack/react-query@5.76.1(react@19.1.0)':
+  '@tanstack/react-query@5.77.2(react@19.1.0)':
     dependencies:
-      '@tanstack/query-core': 5.76.0
+      '@tanstack/query-core': 5.77.2
       react: 19.1.0
 
   '@triplit/cli@1.0.47':

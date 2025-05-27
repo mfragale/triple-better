@@ -1,6 +1,6 @@
 import Navbar from "@/components/navbar";
 import { Providers } from "@/components/providers";
-import { Toaster } from "@/components/ui/sonner";
+import { RootProviders } from "@/components/root-providers";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -36,13 +36,14 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <NextIntlClientProvider>
-          <Providers>
-            <Navbar />
-            <div className="inset-x-4 mx-auto w-full max-w-screen-xl">
-              <div className="px-4 pt-20 lg:pt-28">{children}</div>
-            </div>
-            <Toaster richColors />
-          </Providers>
+          <RootProviders>
+            <Providers>
+              <Navbar />
+              <div className="inset-x-4 mx-auto w-full max-w-screen-xl">
+                <div className="px-4 pt-20 lg:pt-28">{children}</div>
+              </div>
+            </Providers>
+          </RootProviders>
         </NextIntlClientProvider>
       </body>
     </html>
