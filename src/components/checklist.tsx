@@ -22,7 +22,7 @@ import { Skeleton } from "./ui/skeleton";
 export default function Checklist() {
   const [remoteFulfilled, setRemoteFulfilled] = useState(false);
 
-  const todosQuery = triplit.query("todos").Order("created_at", "ASC");
+  const todosQuery = triplit.query("todos").Order("order", "ASC");
   const {
     results: todos,
     fetching,
@@ -94,7 +94,7 @@ export default function Checklist() {
           <div className="flex flex-col gap-2 mx-auto px-4 py-12 max-w-xl">
             {todos.map((todo) => (
               <SortableItem key={todo.id} id={todo.id}>
-                <div className="flex items-center gap-2 grow">
+                <div className="flex items-center gap-2 min-w-0 grow-1">
                   <Button
                     variant="ghost"
                     size="icon"
@@ -148,7 +148,7 @@ export default function Checklist() {
                         setIsEditing(todo.id);
                       }}
                       className={cn(
-                        "w-full cursor-text pl-3 ",
+                        "w-full cursor-text pl-3 line-clamp-3",
                         todo.completed &&
                           "line-through text-muted-foreground/30"
                       )}>
