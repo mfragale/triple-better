@@ -9,6 +9,7 @@
 - [x] Zod validation to form
 - [x] Add loading state to checklist
 - [x] Publish to Vercel
-- [ ] Close moblie menu after clicking on link
+- [x] Close moblie menu after clicking on link
 - [ ] Make todos user especific
 - [ ] To do item opacity and mobile ux
+- [ ] Move triplit. operations to DAL

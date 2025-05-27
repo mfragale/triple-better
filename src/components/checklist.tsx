@@ -140,9 +140,6 @@ export default function Checklist() {
                             </FormItem>
                           )}
                         />
-                        {/* <Button type="submit" size="icon">
-                          <CornerDownLeft />
-                        </Button> */}
                       </form>
                     </Form>
                   ) : (

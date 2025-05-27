@@ -14,7 +14,7 @@ import { Menu, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import LocaleSwitcher2 from "./locale-switcher";
 import { Logo } from "./logo";
 import ThemeToggle from "./theme-toggle";
@@ -25,12 +25,33 @@ const Navbar = () => {
   const [menuState, setMenuState] = useState(false);
   const pathname = usePathname();
   const isMobile = useIsMobile();
+  const menuRef = useRef<HTMLDivElement>(null);
 
   const menuItems = [
     { name: t("checklist"), href: t("checklistHref") },
     { name: t("about"), href: t("aboutHref") },
     { name: t("protected"), href: t("protectedHref") },
   ];
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setMenuState(false);
+      }
+    };
+
+    if (isMobile && menuState) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isMobile, menuState]);
+
+  const handleMenuClick = () => {
+    setMenuState(false);
+  };
 
   return (
     <header>
@@ -58,7 +79,9 @@ const Navbar = () => {
               </button>
             </div>
 
-            <div className="hidden in-data-[state=active]:block sm:flex sm:in-data-[state=active]:flex flex-wrap sm:flex-nowrap justify-end items-center sm:gap-6 space-y-6 sm:space-y-0 bg-background sm:bg-transparent dark:sm:bg-transparent shadow-2xl shadow-zinc-300/20 sm:shadow-none dark:shadow-none sm:m-0 mb-6 p-6 sm:p-0 border sm:border-transparent rounded-3xl w-full sm:w-fit">
+            <div
+              ref={menuRef}
+              className="hidden in-data-[state=active]:block sm:flex sm:in-data-[state=active]:flex flex-wrap sm:flex-nowrap justify-end items-center sm:gap-6 space-y-6 sm:space-y-0 bg-background sm:bg-transparent dark:sm:bg-transparent shadow-2xl shadow-zinc-300/20 sm:shadow-none dark:shadow-none sm:m-0 mb-6 p-6 sm:p-0 border sm:border-transparent rounded-3xl w-full sm:w-fit">
               <div className="flex justify-center items-center">
                 <NavigationMenu>
                   <NavigationMenuList className="data-[orientation=vertical]:flex-col flex-wrap sm:flex-nowrap data-[orientation=vertical]:items-start gap-4 space-x-0">
@@ -67,6 +90,7 @@ const Navbar = () => {
                         <NavigationMenuLink asChild>
                           <Link
                             href={item.href}
+                            onClick={handleMenuClick}
                             className={cn(
                               " block text-muted-foreground duration-150 hover:text-accent-foreground",
                               pathname === item.href &&
@@ -85,7 +109,7 @@ const Navbar = () => {
                 <LocaleSwitcher2 />
                 <ThemeToggle />
                 <SignedIn>
-                  <UserButton size={isMobile ? "full" : "icon"} />
+                  <UserButton />
                 </SignedIn>
                 <SignedOut>
                   <Button asChild className="rounded-full">
