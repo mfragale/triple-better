@@ -17,6 +17,7 @@ export const auth = betterAuth({
     httpClient,
     debugLogs: true, // Optional: enable for debugging
     usePlural: true, // Optional: set to false if your schema uses singular names
+    secretKey: env.BETTER_AUTH_SECRET,
   }),
   emailAndPassword: {
     enabled: true,
