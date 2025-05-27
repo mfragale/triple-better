@@ -103,6 +103,7 @@ export function SortableItem({
       style={{
         transform: CSS.Transform.toString(transform),
         transition,
+        touchAction: "none",
       }}
       className={cn(
         "group py-2",
