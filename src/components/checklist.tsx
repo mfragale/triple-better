@@ -22,7 +22,7 @@ import { Skeleton } from "./ui/skeleton";
 export default function Checklist() {
   const [remoteFulfilled, setRemoteFulfilled] = useState(false);
 
-  const todosQuery = triplit.query("todos").Order("created_at", "DESC");
+  const todosQuery = triplit.query("todos").Order("created_at", "ASC");
   const {
     results: todos,
     fetching,

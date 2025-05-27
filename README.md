@@ -9,5 +9,6 @@
 - [x] Zod validation to form
 - [x] Add loading state to checklist
 - [x] Publish to Vercel
-- [ ] Can I use Drizzle with Triplit?
 - [ ] Close moblie menu after clicking on link
+- [ ] Make todos user especific
+- [ ] To do item opacity and mobile ux

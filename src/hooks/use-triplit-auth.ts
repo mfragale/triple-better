@@ -7,6 +7,7 @@ import { triplit } from "../../triplit/client";
 import { useSession } from "./auth-hooks";
 import { useTriplitToken } from "./use-triplit-token";
 
+// useTriplitAuth hook will change your token on your TriplitClient from anon to the signed JWT for the current user
 export function useTriplitAuth() {
   const { payload } = useTriplitToken();
   const {
@@ -17,7 +18,6 @@ export function useTriplitAuth() {
 
   const router = useRouter();
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: only run on session change
   useEffect(() => {
     if (sessionPending) return;
 
