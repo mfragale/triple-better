@@ -23,7 +23,33 @@ export const auth = betterAuth({
     enabled: true,
   },
   plugins: [
-    jwt(),
+    jwt({
+      jwt: {
+        // Customize the JWT payload
+        definePayload: ({ user }) => ({
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          role: user.role || "user",
+        }),
+        // Set custom issuer and audience
+        issuer: env.BETTER_AUTH_URL,
+        audience: env.BETTER_AUTH_URL,
+        // Set token expiration to 1 hour
+        expirationTime: "1h",
+        // Custom subject field
+        getSubject: (session) => session.user.id,
+      },
+      jwks: {
+        // Configure key pair with EdDSA
+        keyPairConfig: {
+          alg: "EdDSA",
+          crv: "Ed25519",
+        },
+        // Keep private key encryption enabled for security
+        disablePrivateKeyEncryption: false,
+      },
+    }),
     genericOAuth({
       config: [
         {
