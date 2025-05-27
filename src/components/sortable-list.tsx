@@ -1,5 +1,6 @@
 "use client";
 
+import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import {
@@ -94,6 +95,7 @@ export function SortableItem({
   const isActive = activeIndex === index;
   const t = useTranslations("ChecklistItem");
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const isMobile = useIsMobile();
 
   return (
     <Card
@@ -118,7 +120,7 @@ export function SortableItem({
                 size="icon"
                 className={cn(
                   "opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-destructive transition-opacity",
-                  isPopoverOpen && "opacity-100"
+                  (isPopoverOpen || isMobile) && "opacity-100"
                 )}>
                 <Trash2 />
               </Button>
@@ -148,7 +150,10 @@ export function SortableItem({
             {...listeners}
             variant="ghost"
             size="icon"
-            className="opacity-0 group-hover:opacity-100 transition-opacity hover:cursor-grab">
+            className={cn(
+              "opacity-0 group-hover:opacity-100 transition-opacity hover:cursor-grab",
+              isMobile && "opacity-100"
+            )}>
             <GripVerticalIcon />
           </Button>
         </div>
