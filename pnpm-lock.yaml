@@ -13,10 +13,10 @@ importers:
         version: 1.3.5(@tanstack/query-core@5.77.2)(@tanstack/react-query@5.77.2(react@19.1.0))(better-auth@1.2.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@daveyplate/better-auth-triplit':
         specifier: ^0.1.2
-        version: 0.1.2(@triplit/client@1.0.37(typescript@5.8.3))(better-auth@1.2.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        version: 0.1.2(@triplit/client@1.0.39(typescript@5.8.3))(better-auth@1.2.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@daveyplate/better-auth-ui':
         specifier: ^1.7.3
-        version: 1.7.3(bc92e326851e3d5fcb4f457e24f8dd83)
+        version: 1.7.3(19b45edab205c4e0cac763f559cbe331)
       '@dnd-kit/core':
         specifier: ^6.3.1
         version: 6.3.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -66,17 +66,17 @@ importers:
         specifier: ^0.0.41
         version: 0.0.41(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@t3-oss/env-nextjs':
-        specifier: ^0.13.4
-        version: 0.13.4(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.17)
+        specifier: ^0.13.6
+        version: 0.13.6(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.32)
       '@tanstack/react-query':
         specifier: ^5.77.2
         version: 5.77.2(react@19.1.0)
       '@triplit/client':
-        specifier: ^1.0.37
-        version: 1.0.37(typescript@5.8.3)
+        specifier: ^1.0.39
+        version: 1.0.39(typescript@5.8.3)
       '@triplit/react':
-        specifier: ^1.0.37
-        version: 1.0.37(react@19.1.0)(typescript@5.8.3)
+        specifier: ^1.0.39
+        version: 1.0.39(react@19.1.0)(typescript@5.8.3)
       better-auth:
         specifier: ^1.2.8
         version: 1.2.8
@@ -105,10 +105,10 @@ importers:
         specifier: ^0.4.6
         version: 0.4.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react:
-        specifier: ^19.0.0
+        specifier: ^19.1.0
         version: 19.1.0
       react-dom:
-        specifier: ^19.0.0
+        specifier: ^19.1.0
         version: 19.1.0(react@19.1.0)
       react-hook-form:
         specifier: ^7.56.4
@@ -123,8 +123,8 @@ importers:
         specifier: ^3.3.0
         version: 3.3.0
       zod:
-        specifier: ^3.25.17
-        version: 3.25.17
+        specifier: ^3.25.32
+        version: 3.25.32
     devDependencies:
       '@eslint/eslintrc':
         specifier: ^3
@@ -133,11 +133,11 @@ importers:
         specifier: ^4
         version: 4.1.7
       '@triplit/cli':
-        specifier: ^1.0.47
-        version: 1.0.47
+        specifier: ^1.0.49
+        version: 1.0.49
       '@types/node':
-        specifier: ^20
-        version: 20.17.50
+        specifier: ^22
+        version: 22.15.23
       '@types/react':
         specifier: ^19
         version: 19.1.5
@@ -150,6 +150,9 @@ importers:
       eslint-config-next:
         specifier: 15.3.2
         version: 15.3.2(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)
+      npm-check-updates:
+        specifier: ^18.0.1
+        version: 18.0.1
       react-email:
         specifier: ^4.0.15
         version: 4.0.15(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -1581,14 +1584,16 @@ packages:
   '@swc/helpers@0.5.15':
     resolution: {integrity: sha512-JQ5TuMi45Owi4/BIMAJBoSQoOJu12oOk/gADqlcUL9JEdHB8vyjUSsxqeNXnmXHjYKMi2WcYtezGEEhqUI/E2g==}
 
-  '@t3-oss/env-core@0.13.4':
-    resolution: {integrity: sha512-zVOiYO0+CF7EnBScz8s0O5JnJLPTU0lrUi8qhKXfIxIJXvI/jcppSiXXsEJwfB4A6XZawY/Wg/EQGKANi/aPmQ==}
+  '@t3-oss/env-core@0.13.6':
+    resolution: {integrity: sha512-rH7FgcB1YGbv/tvv7mdJAxnNvRkK/gEqdVYBwO1AVvaWOTNuftqskxkEYyhM2O+lkNPJmTq5YBE7H+Unl7CLjg==}
     peerDependencies:
       arktype: ^2.1.0
       typescript: '>=5.0.0'
       valibot: ^1.0.0-beta.7 || ^1.0.0
       zod: ^3.24.0 || ^4.0.0-beta.0
     peerDependenciesMeta:
+      arktype:
+        optional: true
       typescript:
         optional: true
       valibot:
@@ -1596,13 +1601,16 @@ packages:
       zod:
         optional: true
 
-  '@t3-oss/env-nextjs@0.13.4':
-    resolution: {integrity: sha512-6ecXR7SH7zJKVcBODIkB7wV9QLMU23uV8D9ec6P+ULHJ5Ea/YXEHo+Z/2hSYip5i9ptD/qZh8VuOXyldspvTTg==}
+  '@t3-oss/env-nextjs@0.13.6':
+    resolution: {integrity: sha512-KcA5U8L+Be4OuR5YxmrBzkeo7WsKkEFJDwcAgYFwcBgxxc3oJBdTB7KPQfVrx7wjtX5aDr2jZ0LG55yEXqQi9A==}
     peerDependencies:
+      arktype: ^2.1.0
       typescript: '>=5.0.0'
       valibot: ^1.0.0-beta.7 || ^1.0.0
       zod: ^3.24.0 || ^4.0.0-beta.0
     peerDependenciesMeta:
+      arktype:
+        optional: true
       typescript:
         optional: true
       valibot:
@@ -1706,21 +1714,22 @@ packages:
     peerDependencies:
       react: ^18 || ^19
 
-  '@triplit/cli@1.0.47':
-    resolution: {integrity: sha512-nA70ZDhW9KPunjNnNPI0RbAGnom5RW7qu3ZaOT5ZUnDhFLElTVHTzl7bFtctq9+xtyhWqRfUZwqxzEzSPbCptg==}
+  '@triplit/cli@1.0.49':
+    resolution: {integrity: sha512-1XA+8gQxmMMi4SRD8uz6SSprBvy3/pOc1i7PINA0aoX0pWOM7+LmjRsx0HG6j2IqOe4ihw7hbQpCdr3PlR4g9g==}
     engines: {node: '>=16.0.0'}
     hasBin: true
 
-  '@triplit/client@1.0.37':
-    resolution: {integrity: sha512-yggnP39RyZLI9a82a5hGtKzu5q6t2JTscMaKwhHCgHzL1ZA4HpLFprW9WeqmW8JFauTtAUHuPhtRgOqBkIhYwA==}
+  '@triplit/client@1.0.39':
+    resolution: {integrity: sha512-gVZS5fpDK/T+bveqtnyozdmCPMsxkFQzzvVSkQADtLhG2weYiiXtytvX8ORZzJm1BDzznEV3xfCxom8xYIzSbA==}
     engines: {node: '>=18.0.0'}
 
-  '@triplit/db@1.0.35':
-    resolution: {integrity: sha512-db12UXR4cEvgUqSx0Kl3/rzerhCEGPtHF/83KqR0GR3nH/9rZN4+GdBJnGN7mceFJA3aVcFOmvNbUT1vmh1n4A==}
+  '@triplit/db@1.1.1':
+    resolution: {integrity: sha512-QhLdwGUlNTIo8wFkteZbnYgEkqJ+jFpjcet4h9qR0L91h11k8hSVL0K/Y7VT+sOjgZ8aYX3pop9W2YWzsDUl2Q==}
     peerDependencies:
       better-sqlite3: '*'
       expo-sqlite: '*'
       lmdb: '*'
+      uuidv7: '*'
     peerDependenciesMeta:
       better-sqlite3:
         optional: true
@@ -1728,14 +1737,16 @@ packages:
         optional: true
       lmdb:
         optional: true
+      uuidv7:
+        optional: true
 
   '@triplit/logger@0.0.3':
     resolution: {integrity: sha512-hHcoD6/BsNwBtXjEp8Wiy0/YA2SqIYXd1nMukEPBmFkjT7Cd30eqtsBRT0NRq2mIFX2mr5h9JaO27zDToKnwdw==}
     peerDependencies:
       typescript: ^5.0.0
 
-  '@triplit/react@1.0.37':
-    resolution: {integrity: sha512-T1nTbXBNeG0HZ/KRZmsu8jeJAqB+Ak66BjxzrcvDb0+21QcEGqfGBPoBFgjdL0MTnb82lUEP1RuUDRc6R3hLnw==}
+  '@triplit/react@1.0.39':
+    resolution: {integrity: sha512-AhyzSY/DG1D7/hI01irYR/JHOySaiCUM1JgXR5+clS52XvPtbWd/r/97q0lKn7aT5eCS+6iS56D3Cx/lanzOUQ==}
     peerDependencies:
       react: '*'
 
@@ -1757,8 +1768,8 @@ packages:
   '@types/node-fetch@2.6.12':
     resolution: {integrity: sha512-8nneRWKCg3rMtF69nLQJnOYUcbafYeFSjqkw3jCRLsqkWFlHaoQrr5mXmofFGOx3DKn7UfmBMyov8ySvLRVldA==}
 
-  '@types/node@20.17.50':
-    resolution: {integrity: sha512-Mxiq0ULv/zo1OzOhwPqOA13I81CV/W3nvd3ChtQZRT5Cwz3cr0FKo/wMSsbTqL3EXpaBAEQhva2B8ByRkOIh9A==}
+  '@types/node@22.15.23':
+    resolution: {integrity: sha512-7Ec1zaFPF4RJ0eXu1YT/xgiebqwqoJz8rYPDi/O2BcZ++Wpt0Kq9cl0eg6NN6bYbPnR67ZLo7St5Q3UK0SnARw==}
 
   '@types/react-dom@19.1.5':
     resolution: {integrity: sha512-CMCjrWucUBZvohgZxkjd6S9h0nZxXjzus6yDfUb+xLxYM7VvjKNH1tQrE9GWLql1XoOP4/Ds3bwFqShHUYraGg==}
@@ -3096,6 +3107,11 @@ packages:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
     engines: {node: '>=0.10.0'}
 
+  npm-check-updates@18.0.1:
+    resolution: {integrity: sha512-MO7mLp/8nm6kZNLLyPgz4gHmr9tLoU+pWPLdXuGAx+oZydBHkHWN0ibTonsrfwC2WEQNIQxuZagYwB67JQpAuw==}
+    engines: {node: ^18.18.0 || >=20.0.0, npm: '>=8.12.1'}
+    hasBin: true
+
   object-assign@4.1.1:
     resolution: {integrity: sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==}
     engines: {node: '>=0.10.0'}
@@ -3624,8 +3640,8 @@ packages:
   uncrypto@0.1.3:
     resolution: {integrity: sha512-Ql87qFHB3s/De2ClA9e0gsnS6zXG27SkTiSJwjCc9MebbfapQfuPzumMIUMi38ezPZVNFcHI9sUIepeQfw8J8Q==}
 
-  undici-types@6.19.8:
-    resolution: {integrity: sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==}
+  undici-types@6.21.0:
+    resolution: {integrity: sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==}
 
   unrs-resolver@1.7.2:
     resolution: {integrity: sha512-BBKpaylOW8KbHsu378Zky/dGh4ckT/4NW/0SHRABdqRLcQJ2dAOjDo9g97p04sWflm0kqPqpUatxReNV/dqI5A==}
@@ -3740,8 +3756,8 @@ packages:
     resolution: {integrity: sha512-GQHQqAopRhwU8Kt1DDM8NjibDXHC8eoh1erhGAJPEyveY9qqVeXvVikNKrDz69sHowPMorbPUrH/mx8c50eiBQ==}
     engines: {node: '>=18'}
 
-  zod@3.25.17:
-    resolution: {integrity: sha512-8hQzQ/kMOIFbwOgPrm9Sf9rtFHpFUMy4HvN0yEB0spw14aYi0uT5xG5CE2DB9cd51GWNsz+DNO7se1kztHMKnw==}
+  zod@3.25.32:
+    resolution: {integrity: sha512-OSm2xTIRfW8CV5/QKgngwmQW/8aPfGdaQFlrGoErlgg/Epm7cjb6K6VEyExfe65a3VybUOnu381edLb0dfJl0g==}
 
 snapshots:
 
@@ -3755,8 +3771,10 @@ snapshots:
   '@ark/schema@0.46.0':
     dependencies:
       '@ark/util': 0.46.0
+    optional: true
 
-  '@ark/util@0.46.0': {}
+  '@ark/util@0.46.0':
+    optional: true
 
   '@babel/code-frame@7.27.1':
     dependencies:
@@ -3820,15 +3838,15 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@daveyplate/better-auth-triplit@0.1.2(@triplit/client@1.0.37(typescript@5.8.3))(better-auth@1.2.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@daveyplate/better-auth-triplit@0.1.2(@triplit/client@1.0.39(typescript@5.8.3))(better-auth@1.2.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@triplit/client': 1.0.37(typescript@5.8.3)
+      '@triplit/client': 1.0.39(typescript@5.8.3)
       better-auth: 1.2.8
       jose: 6.0.11
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@daveyplate/better-auth-ui@1.7.3(bc92e326851e3d5fcb4f457e24f8dd83)':
+  '@daveyplate/better-auth-ui@1.7.3(19b45edab205c4e0cac763f559cbe331)':
     dependencies:
       '@better-fetch/fetch': 1.1.18
       '@daveyplate/better-auth-tanstack': 1.3.5(@tanstack/query-core@5.77.2)(@tanstack/react-query@5.77.2(react@19.1.0))(better-auth@1.2.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -3851,8 +3869,8 @@ snapshots:
       '@radix-ui/react-use-layout-effect': 1.1.1(@types/react@19.1.5)(react@19.1.0)
       '@react-email/components': 0.0.41(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@tanstack/react-query': 5.77.2(react@19.1.0)
-      '@triplit/client': 1.0.37(typescript@5.8.3)
-      '@triplit/react': 1.0.37(react@19.1.0)(typescript@5.8.3)
+      '@triplit/client': 1.0.39(typescript@5.8.3)
+      '@triplit/react': 1.0.39(react@19.1.0)(typescript@5.8.3)
       '@wojtekmaj/react-recaptcha-v3': 0.1.4(@types/react@19.1.5)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       better-auth: 1.2.8
       class-variance-authority: 0.7.1
@@ -3868,7 +3886,7 @@ snapshots:
       tailwind-merge: 3.3.0
       tailwindcss: 4.1.7
       ua-parser-js: 2.0.3
-      zod: 3.25.17
+      zod: 3.25.32
 
   '@dnd-kit/accessibility@3.1.1(react@19.1.0)':
     dependencies:
@@ -5009,21 +5027,19 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@t3-oss/env-core@0.13.4(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.17)':
-    dependencies:
+  '@t3-oss/env-core@0.13.6(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.32)':
+    optionalDependencies:
       arktype: 2.1.20
-    optionalDependencies:
       typescript: 5.8.3
-      zod: 3.25.17
+      zod: 3.25.32
 
-  '@t3-oss/env-nextjs@0.13.4(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.17)':
+  '@t3-oss/env-nextjs@0.13.6(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.32)':
     dependencies:
-      '@t3-oss/env-core': 0.13.4(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.17)
+      '@t3-oss/env-core': 0.13.6(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.32)
     optionalDependencies:
+      arktype: 2.1.20
       typescript: 5.8.3
-      zod: 3.25.17
-    transitivePeerDependencies:
-      - arktype
+      zod: 3.25.32
 
   '@tailwindcss/node@4.1.7':
     dependencies:
@@ -5104,16 +5120,16 @@ snapshots:
       '@tanstack/query-core': 5.77.2
       react: 19.1.0
 
-  '@triplit/cli@1.0.47':
+  '@triplit/cli@1.0.49':
     dependencies:
       esbuild: 0.23.1
       source-map: 0.7.4
     optionalDependencies:
       fsevents: 2.3.3
 
-  '@triplit/client@1.0.37(typescript@5.8.3)':
+  '@triplit/client@1.0.39(typescript@5.8.3)':
     dependencies:
-      '@triplit/db': 1.0.35(typescript@5.8.3)
+      '@triplit/db': 1.1.1(typescript@5.8.3)
       '@triplit/logger': 0.0.3(typescript@5.8.3)
       comlink: 4.4.2
       superjson: 2.2.2
@@ -5122,8 +5138,9 @@ snapshots:
       - expo-sqlite
       - lmdb
       - typescript
+      - uuidv7
 
-  '@triplit/db@1.0.35(typescript@5.8.3)':
+  '@triplit/db@1.1.1(typescript@5.8.3)':
     dependencies:
       '@triplit/logger': 0.0.3(typescript@5.8.3)
       core-js: 3.42.0
@@ -5138,15 +5155,16 @@ snapshots:
     dependencies:
       typescript: 5.8.3
 
-  '@triplit/react@1.0.37(react@19.1.0)(typescript@5.8.3)':
+  '@triplit/react@1.0.39(react@19.1.0)(typescript@5.8.3)':
     dependencies:
-      '@triplit/client': 1.0.37(typescript@5.8.3)
+      '@triplit/client': 1.0.39(typescript@5.8.3)
       react: 19.1.0
     transitivePeerDependencies:
       - better-sqlite3
       - expo-sqlite
       - lmdb
       - typescript
+      - uuidv7
 
   '@tybys/wasm-util@0.9.0':
     dependencies:
@@ -5155,7 +5173,7 @@ snapshots:
 
   '@types/cors@2.8.18':
     dependencies:
-      '@types/node': 20.17.50
+      '@types/node': 22.15.23
 
   '@types/estree@1.0.7': {}
 
@@ -5165,12 +5183,12 @@ snapshots:
 
   '@types/node-fetch@2.6.12':
     dependencies:
-      '@types/node': 20.17.50
+      '@types/node': 22.15.23
       form-data: 4.0.2
 
-  '@types/node@20.17.50':
+  '@types/node@22.15.23':
     dependencies:
-      undici-types: 6.19.8
+      undici-types: 6.21.0
 
   '@types/react-dom@19.1.5(@types/react@19.1.5)':
     dependencies:
@@ -5358,6 +5376,7 @@ snapshots:
     dependencies:
       '@ark/schema': 0.46.0
       '@ark/util': 0.46.0
+    optional: true
 
   array-buffer-byte-length@1.0.2:
     dependencies:
@@ -5461,7 +5480,7 @@ snapshots:
       jose: 5.10.0
       kysely: 0.28.2
       nanostores: 0.11.4
-      zod: 3.25.17
+      zod: 3.25.32
 
   better-call@1.0.9:
     dependencies:
@@ -5701,7 +5720,7 @@ snapshots:
   engine.io@6.6.4:
     dependencies:
       '@types/cors': 2.8.18
-      '@types/node': 20.17.50
+      '@types/node': 22.15.23
       accepts: 1.3.8
       base64id: 2.0.0
       cookie: 0.7.2
@@ -6673,6 +6692,8 @@ snapshots:
 
   normalize-path@3.0.0: {}
 
+  npm-check-updates@18.0.1: {}
+
   object-assign@4.1.1: {}
 
   object-inspect@1.13.4: {}
@@ -7337,7 +7358,7 @@ snapshots:
 
   uncrypto@0.1.3: {}
 
-  undici-types@6.19.8: {}
+  undici-types@6.21.0: {}
 
   unrs-resolver@1.7.2:
     dependencies:
@@ -7475,4 +7496,4 @@ snapshots:
 
   yoctocolors@2.1.1: {}
 
-  zod@3.25.17: {}
+  zod@3.25.32: {}
