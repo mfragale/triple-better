@@ -13,6 +13,7 @@ export const env = createEnv({
     PCO_SECRET: z.string().min(1),
     RESEND_API_KEY: z.string().min(1),
     EMAIL_FROM: z.string().min(1).email(),
+    UPLOADTHING_TOKEN: z.string().min(1),
   },
   onValidationError: (error) => {
     console.error("Error validating environment variables:", error);

@@ -13,6 +13,5 @@
 - [x] Make todos user especific
 - [x] To do item opacity and mobile ux
 - [x] Implement Email Service: Resend, React Email
-- [ ] Implement File Storage: UploadThing
-- [ ] Implement Payments: Stripe
-- [ ] Aditional fields for user on signup / profile page
+- [x] Aditional fields for user on signup / profile page
+- [x] Implement File Storage: UploadThing

@@ -12,6 +12,8 @@ import { authClient } from "@/lib/auth-client";
 import { AuthUIProviderTanstack } from "@daveyplate/better-auth-ui/tanstack";
 import { useTranslations } from "next-intl";
 import { Toaster } from "sonner";
+import { genUploader } from "uploadthing/client";
+import type { OurFileRouter } from "../app/api/uploadthing/core";
 import { PlanningCenterIcon } from "./icons/planning-center";
 import { ThemeProvider } from "./theme-provider";
 
@@ -247,6 +249,14 @@ export function Providers({ children }: { children: ReactNode }) {
           accountsDescription: t("accountsDescription"),
           accounts: t("accounts"),
           account: t("account"),
+        }}
+        uploadAvatar={async (file: File) => {
+          const { uploadFiles } = genUploader<OurFileRouter>();
+
+          const response = await uploadFiles("imageUploader", {
+            files: [file],
+          });
+          return response[0].ufsUrl;
         }}>
         {children}
         <Toaster richColors />
