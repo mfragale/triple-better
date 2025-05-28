@@ -3,14 +3,16 @@ import { z } from "zod";
 
 export const env = createEnv({
   server: {
-    BETTER_AUTH_SECRET: z.string(),
-    BETTER_AUTH_URL: z.string().url(),
-    TRIPLIT_DB_URL: z.string().url(),
-    TRIPLIT_ANON_TOKEN: z.string(),
-    TRIPLIT_SERVICE_TOKEN: z.string(),
-    EXTERNAL_JWT_SECRET: z.string(),
+    BETTER_AUTH_SECRET: z.string().min(1),
+    BETTER_AUTH_URL: z.string().min(1).url(),
+    TRIPLIT_DB_URL: z.string().min(1).url(),
+    TRIPLIT_ANON_TOKEN: z.string().min(1),
+    TRIPLIT_SERVICE_TOKEN: z.string().min(1),
+    EXTERNAL_JWT_SECRET: z.string().min(1),
     PCO_CLIENT_ID: z.string().min(1),
     PCO_SECRET: z.string().min(1),
+    RESEND_API_KEY: z.string().min(1),
+    EMAIL_FROM: z.string().min(1).email(),
   },
   onValidationError: (error) => {
     console.error("Error validating environment variables:", error);

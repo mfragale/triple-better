@@ -1,3 +1,4 @@
+import { sendEmail } from "@/actions/send-emails/route";
 import { env } from "@/env/server";
 import { triplitAdapter } from "@daveyplate/better-auth-triplit";
 import { betterAuth } from "better-auth";
@@ -11,6 +12,14 @@ export const auth = betterAuth({
   }),
   emailAndPassword: {
     enabled: true,
+    sendResetPassword: async ({ user, url }) => {
+      await sendEmail({
+        to: user.email,
+        subject: "Reset your password",
+        heading: "Reset your password",
+        text: `Click the link to reset your password: ${url}`,
+      });
+    },
   },
   plugins: [
     genericOAuth({
