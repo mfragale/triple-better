@@ -1,167 +1,131 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import {
-  useEditTodoFormSchema,
-  type TEditTodoFormSchema,
-} from "@/lib/zod-form-schemas";
-import { zodResolver } from "@hookform/resolvers/zod";
+  closestCenter,
+  DndContext,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+
+import {
+  restrictToParentElement,
+  restrictToVerticalAxis,
+} from "@dnd-kit/modifiers";
 import { useQuery } from "@triplit/react";
-import { Check, Square } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
 import { triplit } from "../../triplit/client";
+import { Todo } from "../../triplit/schema";
 import { AddTodoForm } from "./add-todo-form";
-import { SortableItem, SortableList } from "./sortable-list";
-import { Button } from "./ui/button";
-import { Form, FormControl, FormField, FormItem, FormMessage } from "./ui/form";
-import { Input } from "./ui/input";
-import { Skeleton } from "./ui/skeleton";
+import SortableItem from "./sortable-items";
 
 export default function Checklist() {
-  const [remoteFulfilled, setRemoteFulfilled] = useState(false);
+  // Define the item interface
+  interface Item {
+    name: string;
+    id: number;
+  }
 
-  const todosQuery = triplit.query("todos").Order("order", "ASC");
-  const {
-    results: todos,
-    fetching,
-    error,
-  } = useQuery(triplit, todosQuery, {
-    onRemoteFulfilled: () => setRemoteFulfilled(true),
-  });
+  interface HomeProps {
+    // You can add any additional props if needed
+  }
 
-  const t = useTranslations("Checklist");
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
 
-  const updateOrder = async (itemsIds: string[]) => {
-    if (itemsIds.length === 0) return { error: true, message: t("noItems") };
-
-    itemsIds.map((id, index) => {
-      triplit.update("todos", id, {
-        order: index,
-      });
+  function useTodos() {
+    const [remoteFulfilled, setRemoteFulfilled] = useState(false);
+    const todosQuery = triplit.query("todos").Order("order", "ASC");
+    const {
+      results: todos,
+      error,
+      fetching,
+      fetchingLocal,
+      fetchingRemote,
+    } = useQuery(triplit, todosQuery, {
+      onRemoteFulfilled: () => setRemoteFulfilled(true),
     });
 
-    return { error: false, message: t("orderUpdated") };
-  };
+    useEffect(() => {
+      console.log({
+        todos,
+        error,
+        fetching,
+        fetchingLocal,
+        fetchingRemote,
+        remoteFulfilled,
+      });
+    }, [
+      todos,
+      error,
+      fetching,
+      fetchingLocal,
+      fetchingRemote,
+      remoteFulfilled,
+    ]);
+    return { todos, error, fetching, remoteFulfilled };
+  }
 
-  const [isEditing, setIsEditing] = useState<string | null>(null);
+  const { todos, fetching } = useTodos();
 
-  const editTodoFormSchema = useEditTodoFormSchema();
+  const [items, setItems] = useState<Todo[]>(todos ?? []);
 
-  const form = useForm<TEditTodoFormSchema>({
-    resolver: zodResolver(editTodoFormSchema),
-  });
+  useEffect(() => {
+    setItems(todos ?? []);
+  }, [todos]);
 
-  async function onSubmit(values: TEditTodoFormSchema) {
-    try {
-      const updatedTodo = await triplit
-        .update("todos", values.editedTodoItemId, async (entity) => {
-          entity.text = values.editedTodoItem;
-        })
-        .then(async () => {
-          await new Promise((resolve) => setTimeout(resolve, 200));
-          setIsEditing(null);
+  function handleDragEnd(event: any) {
+    const { active, over } = event;
+
+    if (active.id !== over.id) {
+      function getNewArray(array: Todo[], activeId: string, overId: string) {
+        const oldIndex = array.findIndex((section) => section.id === activeId);
+        const newIndex = array.findIndex((section) => section.id === overId);
+        return arrayMove(array, oldIndex, newIndex);
+      }
+
+      setItems((prevItems) => getNewArray(prevItems, active.id, over.id));
+
+      const newItems = getNewArray(items, active.id, over.id).map((s) => s.id);
+
+      newItems.map((id: string, index: number) => {
+        triplit.update("todos", id, {
+          order: index,
         });
-      form.reset();
-      form.unregister("editedTodoItem");
-      form.unregister("editedTodoItemId");
-    } catch (error) {
-      console.error(error);
+      });
     }
   }
 
-  if (todos == null) {
-    return (
-      <div className="flex flex-col gap-2 mx-auto px-4 py-12 max-w-xl">
-        {Array.from({ length: 10 }).map((_, index) => (
-          <div key={index} className="flex items-center gap-2 grow">
-            <Skeleton className="rounded-xl w-full h-[54px]" />
-          </div>
-        ))}
-      </div>
-    );
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
+  function handleDelete(idToDelete: string) {
+    triplit.delete("todos", idToDelete);
   }
 
   return (
-    <>
-      <SortableList items={todos ?? []} onOrderChange={updateOrder}>
-        {(todos) => (
-          <div className="flex flex-col gap-2 mx-auto px-4 py-12 max-w-xl">
-            {todos.map((todo) => (
-              <SortableItem key={todo.id} id={todo.id}>
-                <div className="flex items-center gap-2 min-w-0 grow-1">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => {
-                      triplit.update("todos", todo.id, {
-                        completed: !todo.completed,
-                      });
-                    }}>
-                    {todo.completed ? (
-                      <Check className="text-green-500" />
-                    ) : (
-                      <Square />
-                    )}
-                  </Button>
-                  {isEditing === todo.id ? (
-                    <Form {...form}>
-                      <form
-                        onSubmit={form.handleSubmit(onSubmit)}
-                        className="flex items-center w-full">
-                        <FormField
-                          control={form.control}
-                          name="editedTodoItemId"
-                          defaultValue={todo.id}
-                          render={({ field }) => (
-                            <Input type="hidden" {...field} />
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="editedTodoItem"
-                          defaultValue={todo.text}
-                          render={({ field }) => (
-                            <FormItem className="w-full">
-                              <FormControl>
-                                <Input
-                                  autoFocus
-                                  className="dark:bg-transparent -my-2 pt-1 pl-3 border-0 focus-visible:ring-0 focus:ring-0 dark:focus:ring-0 w-full h-12 md:text-base"
-                                  {...field}
-                                  onBlur={form.handleSubmit(onSubmit)}
-                                />
-                              </FormControl>
-                              <FormMessage className="pl-3" />
-                            </FormItem>
-                          )}
-                        />
-                      </form>
-                    </Form>
-                  ) : (
-                    <div
-                      onClick={() => {
-                        setIsEditing(todo.id);
-                      }}
-                      className={cn(
-                        "w-full cursor-text pl-3 line-clamp-3",
-                        todo.completed &&
-                          "line-through text-muted-foreground/30"
-                      )}>
-                      {todo.text}
-                    </div>
-                  )}
-                </div>
-              </SortableItem>
-            ))}
-            <AddTodoForm nextItemIndex={todos?.length} />
-          </div>
-        )}
-      </SortableList>
-    </>
+    <div className="flex flex-col gap-2 mx-auto px-4 py-12 max-w-xl">
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+        modifiers={[restrictToVerticalAxis, restrictToParentElement]}>
+        <SortableContext items={items} strategy={verticalListSortingStrategy}>
+          {items.map((item) => (
+            <SortableItem key={item.id} todo={item} onDelete={handleDelete} />
+          ))}
+        </SortableContext>
+      </DndContext>
+      <AddTodoForm nextItemIndex={todos?.length ?? 0} />
+    </div>
   );
 }
