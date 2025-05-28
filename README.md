@@ -10,6 +10,6 @@
 - [x] Add loading state to checklist
 - [x] Publish to Vercel
 - [x] Close moblie menu after clicking on link
-- [ ] Make todos user especific
+- [x] Make todos user especific
 - [ ] To do item opacity and mobile ux
 - [ ] Move triplit. operations to DAL
