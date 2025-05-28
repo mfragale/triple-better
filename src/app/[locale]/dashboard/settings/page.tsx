@@ -1,3 +1,6 @@
+"use client";
+
+import { useSession } from "@/hooks/auth-hooks";
 import {
   ChangeEmailCard,
   ChangePasswordCard,
@@ -10,8 +13,14 @@ import {
   UpdateFieldCard,
   UpdateNameCard,
 } from "@daveyplate/better-auth-ui";
+import { useTranslations } from "next-intl";
+import { User } from "../../../../../triplit/schema";
 
 export default function CustomSettingsPage() {
+  const t = useTranslations("Settings");
+  const { data: session } = useSession();
+  const user = session?.user as User | undefined;
+
   return (
     <>
       <RedirectToSignIn />
@@ -21,12 +30,12 @@ export default function CustomSettingsPage() {
           <UpdateNameCard />
           <UpdateFieldCard
             name="company"
-            label="Company"
+            label={t("company")}
             description="Enter your company name"
             instructions="Enter your company name"
             required
             type="string"
-            value="Test"
+            value={user?.company}
           />
           <UpdateFieldCard
             name="age"
@@ -35,6 +44,7 @@ export default function CustomSettingsPage() {
             instructions="You must be 18 or older"
             required
             type="number"
+            value={user?.age}
           />
           <ChangeEmailCard />
           <ChangePasswordCard />

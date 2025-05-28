@@ -68,10 +68,6 @@ export function Providers({ children }: { children: ReactNode }) {
             instructions: "You must be 18 or older",
             required: true,
             type: "number",
-            validate: async (value: string) => {
-              const age = parseInt(value);
-              return age >= 18;
-            },
           },
         }}
         settingsFields={["company", "age"]}

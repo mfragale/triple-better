@@ -357,5 +357,8 @@
       "map": "mapa",
       "set": "conjunto"
     }
+  },
+  "Settings": {
+    "company": "Empresa"
   }
 }
