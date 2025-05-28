@@ -12,7 +12,7 @@
 - [x] Close moblie menu after clicking on link
 - [x] Make todos user especific
 - [x] To do item opacity and mobile ux
-- [ ] Implement Email Service: Resend, React Email
+- [x] Implement Email Service: Resend, React Email
 - [ ] Implement File Storage: UploadThing
 - [ ] Implement Payments: Stripe
 - [ ] Aditional fields for user on signup / profile page

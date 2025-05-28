@@ -10,6 +10,18 @@ export const auth = betterAuth({
     httpClient,
     debugLogs: false,
   }),
+  user: {
+    additionalFields: {
+      company: {
+        type: "string",
+        required: true,
+      },
+      age: {
+        type: "number",
+        required: true,
+      },
+    },
+  },
   emailAndPassword: {
     enabled: true,
     sendResetPassword: async ({ user, url }) => {

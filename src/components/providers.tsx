@@ -53,6 +53,29 @@ export function Providers({ children }: { children: ReactNode }) {
         Link={Link}
         hooks={hooks}
         settingsURL="/dashboard/settings"
+        additionalFields={{
+          company: {
+            label: "Company",
+            placeholder: "Your company name",
+            description: "Enter your company name",
+            required: true,
+            type: "string",
+          },
+          age: {
+            label: "Age",
+            placeholder: "Your age",
+            description: "Enter your age",
+            instructions: "You must be 18 or older",
+            required: true,
+            type: "number",
+            validate: async (value: string) => {
+              const age = parseInt(value);
+              return age >= 18;
+            },
+          },
+        }}
+        settingsFields={["company", "age"]}
+        signUpFields={["company", "age"]}
         localization={{
           missingCaptchaResponse: t("missingCaptchaResponse"),
           byContinuingYouAgree: t("byContinuingYouAgree"),
