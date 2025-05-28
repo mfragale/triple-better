@@ -15,8 +15,8 @@ importers:
         specifier: ^0.1.2
         version: 0.1.2(@triplit/client@1.0.37(typescript@5.8.3))(better-auth@1.2.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@daveyplate/better-auth-ui':
-        specifier: ^1.7.1
-        version: 1.7.1(eb510189009c181ff8db22af7fddb476)
+        specifier: ^1.7.3
+        version: 1.7.3(bc92e326851e3d5fcb4f457e24f8dd83)
       '@dnd-kit/core':
         specifier: ^6.3.1
         version: 6.3.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -170,8 +170,8 @@ packages:
   '@ark/util@0.46.0':
     resolution: {integrity: sha512-JPy/NGWn/lvf1WmGCPw2VGpBg5utZraE84I7wli18EDF3p3zc/e9WolT35tINeZO3l7C77SjqRJeAUoT0CvMRg==}
 
-  '@babel/runtime@7.27.1':
-    resolution: {integrity: sha512-1x3D2xEk2fRo3PAhwQwu5UubzgiVWSXTBfWpVd2Mx2AzRqJuDJCsgaDVZ7HB5iGzDW1Hl1sWN2mFyKjmR9uAog==}
+  '@babel/runtime@7.27.3':
+    resolution: {integrity: sha512-7EYtGezsdiDMyY80+65EzwiGmcJqpmcZCojSXaRgdrBaGtWTgDZKq69cPIVped6MkIM78cTQ2GOiEYjwOlG4xw==}
     engines: {node: '>=6.9.0'}
 
   '@better-auth/utils@0.2.5':
@@ -197,8 +197,8 @@ packages:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
 
-  '@daveyplate/better-auth-ui@1.7.1':
-    resolution: {integrity: sha512-GeIqkn06yo5w49NQ7jhSWtF2C5LnYd3odnL2wldAlcd8w41hFM9AIx/vWekG8qhVMBp8jVdlN+zDQZwhxLLCkQ==}
+  '@daveyplate/better-auth-ui@1.7.3':
+    resolution: {integrity: sha512-wZJAIXtO8HlrwECtrMFsUmSYGOw3dbsv9Pf+UgRd2KEAD5RYs99XIPx+aeQWFTl8qfKhBV9orRfjsJrPBLLAng==}
     peerDependencies:
       '@better-fetch/fetch': '>=1.1.0'
       '@daveyplate/better-auth-tanstack': ^1.3.5
@@ -645,11 +645,11 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@instantdb/core@0.19.8':
-    resolution: {integrity: sha512-U3l6sEmcKSd6UwFcvAvDOYcIPAIW5vSPJUdSI9BcBP8Jq0Jgf6cxR+0VM2ybBGRPgv1L31h24zkMAv2Ow3XegQ==}
+  '@instantdb/core@0.19.10':
+    resolution: {integrity: sha512-Zk6VzNFQ4BeXKNXxoeyhBX/89ko6xN1ZDAg12h2mefI/XoE45lkIuot4qJJ5QnsMevlBNbMlvlmQ6xNi6bhGjg==}
 
-  '@instantdb/react@0.19.8':
-    resolution: {integrity: sha512-2F6BAf3iBRkFM6sMkDU6R4xQEADuqdTLPpesWXmVbyrbQlfMCvZ8F5HGT1KCmJkNEE67AViO1UNIgZjhQvqdjQ==}
+  '@instantdb/react@0.19.10':
+    resolution: {integrity: sha512-Jh4aTSxsDC4wwwAw3f/1tycXZjtPvGuYnfZ/tdkyInUxcOHMn9SVnWj+0fg/evQsT/lc+M+hxLWFjCjm5xd5nA==}
     peerDependencies:
       react: '>=16'
 
@@ -2650,8 +2650,8 @@ packages:
   ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
 
-  mutative@1.1.0:
-    resolution: {integrity: sha512-2PJADREjOusk3iJkD3rXV2YjAxTuaLxdfqtqTEt6vcY07LtEBR1seHuBHXWEIuscqRDGvbauYPs+A4Rj/KTczQ==}
+  mutative@1.2.0:
+    resolution: {integrity: sha512-1muFw45Lwjso6TSBGiXfbjKS01fVSD/qaqBfTo/gXgp79e8KM4Sa1XP/S4iN2/DvSdIZgjFJI+JIhC7eKf3GTg==}
     engines: {node: '>=14.0'}
 
   nanoid@3.3.11:
@@ -3289,7 +3289,7 @@ snapshots:
 
   '@ark/util@0.46.0': {}
 
-  '@babel/runtime@7.27.1': {}
+  '@babel/runtime@7.27.3': {}
 
   '@better-auth/utils@0.2.5':
     dependencies:
@@ -3314,13 +3314,13 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@daveyplate/better-auth-ui@1.7.1(eb510189009c181ff8db22af7fddb476)':
+  '@daveyplate/better-auth-ui@1.7.3(bc92e326851e3d5fcb4f457e24f8dd83)':
     dependencies:
       '@better-fetch/fetch': 1.1.18
       '@daveyplate/better-auth-tanstack': 1.3.5(@tanstack/query-core@5.77.2)(@tanstack/react-query@5.77.2(react@19.1.0))(better-auth@1.2.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@hcaptcha/react-hcaptcha': 1.12.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@hookform/resolvers': 5.0.1(react-hook-form@7.56.4(react@19.1.0))
-      '@instantdb/react': 0.19.8(react@19.1.0)
+      '@instantdb/react': 0.19.10(react@19.1.0)
       '@marsidev/react-turnstile': 1.1.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-avatar': 1.1.10(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-checkbox': 1.3.2(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -3571,7 +3571,7 @@ snapshots:
 
   '@hcaptcha/react-hcaptcha@1.12.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@babel/runtime': 7.27.1
+      '@babel/runtime': 7.27.3
       '@hcaptcha/loader': 2.0.0
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
@@ -3677,14 +3677,14 @@ snapshots:
   '@img/sharp-win32-x64@0.34.2':
     optional: true
 
-  '@instantdb/core@0.19.8':
+  '@instantdb/core@0.19.10':
     dependencies:
-      mutative: 1.1.0
+      mutative: 1.2.0
       uuid: 9.0.1
 
-  '@instantdb/react@0.19.8(react@19.1.0)':
+  '@instantdb/react@0.19.10(react@19.1.0)':
     dependencies:
-      '@instantdb/core': 0.19.8
+      '@instantdb/core': 0.19.10
       react: 19.1.0
 
   '@isaacs/fs-minipass@4.0.1':
@@ -5851,7 +5851,7 @@ snapshots:
 
   ms@2.1.3: {}
 
-  mutative@1.1.0: {}
+  mutative@1.2.0: {}
 
   nanoid@3.3.11: {}
 

@@ -7,7 +7,7 @@ import { httpClient } from "../../triplit/http-client";
 export const auth = betterAuth({
   database: triplitAdapter({
     httpClient,
-    debugLogs: true,
+    debugLogs: false,
   }),
   emailAndPassword: {
     enabled: true,
