@@ -18,7 +18,7 @@ export default async function AuthLayout({
   });
 
   if (session) {
-    redirect({ href: "/dashboard", locale: await locale });
+    redirect({ href: "/", locale: await locale });
   }
 
   return (

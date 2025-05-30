@@ -13,7 +13,8 @@
     "checklistHref": "/",
     "signIn": "Entrar",
     "protected": "Protegida",
-    "protectedHref": "/protegida"
+    "protectedHref": "/protegida",
+    "signOut": "Sair"
   },
   "AddTodoForm": {
     "addItemPlaceholder": "Adicionar um item ..."
@@ -198,7 +199,8 @@
     "account": "Conta"
   },
   "ProtectedPage": {
-    "title": "Página protegida"
+    "title": "Página protegida",
+    "unauthorized": "Não autorizado"
   },
   "Checklist": {
     "noItems": "Nenhum item",
@@ -361,9 +363,6 @@
       "set": "conjunto"
     }
   },
-  "Settings": {
-    "company": "Empresa"
-  },
   "emailVerifiedPage": {
     "title": "Email verificado",
     "message": "Seu email foi verificado com sucesso."
@@ -449,7 +448,13 @@
       "confirmPassword": {
         "label": "Confirmar senha"
       },
-      "submitButton": "Registrar"
+      "submitButton": "Registrar",
+      "church": {
+        "label": "Igreja"
+      },
+      "birthdate": {
+        "label": "Data de nascimento"
+      }
     },
     "haveAccount": {
       "signInButton": "Entrar",
@@ -458,5 +463,12 @@
   },
   "authLayoutPage": {
     "backButton": "Voltar"
+  },
+  "authComponents": {
+    "loading": "Carregando..."
+  },
+  "authButtonsComponent": {
+    "signOut": "Sair",
+    "signIn": "Entrar"
   }
 }

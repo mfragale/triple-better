@@ -58,23 +58,23 @@ export default function Checklist() {
       onRemoteFulfilled: () => setRemoteFulfilled(true),
     });
 
-    useEffect(() => {
-      console.log({
-        todos,
-        error,
-        fetching,
-        fetchingLocal,
-        fetchingRemote,
-        remoteFulfilled,
-      });
-    }, [
-      todos,
-      error,
-      fetching,
-      fetchingLocal,
-      fetchingRemote,
-      remoteFulfilled,
-    ]);
+    // useEffect(() => {
+    //   console.log({
+    //     todos,
+    //     error,
+    //     fetching,
+    //     fetchingLocal,
+    //     fetchingRemote,
+    //     remoteFulfilled,
+    //   });
+    // }, [
+    //   todos,
+    //   error,
+    //   fetching,
+    //   fetchingLocal,
+    //   fetchingRemote,
+    //   remoteFulfilled,
+    // ]);
     return { todos, error, fetching, remoteFulfilled };
   }
 

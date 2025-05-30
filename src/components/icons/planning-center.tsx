@@ -1,6 +1,4 @@
-import { ProviderIcon } from "@daveyplate/better-auth-ui";
-
-export const PlanningCenterIcon: ProviderIcon = ({ className }) => (
+export const PlanningCenterIcon = ({ className }: { className: string }) => (
   <svg className={className} viewBox="0 0 42 43">
     <path
       fill="currentColor"

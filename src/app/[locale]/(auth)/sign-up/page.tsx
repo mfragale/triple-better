@@ -3,12 +3,16 @@
 import { useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 import LoadingButton from "@/components/loading-button";
 import { PasswordInput } from "@/components/password-input";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
@@ -19,8 +23,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Link } from "@/i18n/navigation";
 import { authClient } from "@/lib/auth-client";
+import { cn } from "@/lib/utils";
 import { TsignUpSchema, useSignUpSchema } from "@/lib/zod-form-schemas";
 
 export default function SignUp() {
@@ -35,6 +45,8 @@ export default function SignUp() {
     defaultValues: {
       name: "",
       email: "",
+      church: "",
+      birthdate: new Date(),
       password: "",
       confirmPassword: "",
     },
@@ -46,7 +58,8 @@ export default function SignUp() {
         email: values.email,
         password: values.password,
         name: values.name,
-        // role: "user",
+        church: values.church,
+        birthdate: values.birthdate,
       },
       {
         onRequest: () => {
@@ -100,6 +113,59 @@ export default function SignUp() {
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="church"
+                render={({ field: field }) => (
+                  <FormItem>
+                    <FormLabel>{t("form.church.label")}</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="birthdate"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>{t("form.birthdate.label")}</FormLabel>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={"outline"}
+                            className={cn(
+                              "w-[240px] pl-3 text-left font-normal",
+                              !field.value && "text-muted-foreground"
+                            )}>
+                            {field.value ? (
+                              format(field.value, "PPP")
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
+                            <CalendarIcon className="opacity-50 ml-auto w-4 h-4" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="p-0 w-auto" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          disabled={(date) =>
+                            date > new Date() || date < new Date("1900-01-01")
+                          }
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
                     <FormMessage />
                   </FormItem>
                 )}

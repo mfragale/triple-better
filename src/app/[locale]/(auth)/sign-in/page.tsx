@@ -51,7 +51,7 @@ export default function SignIn() {
           setPendingCredentials(true);
         },
         onSuccess: async () => {
-          router.push("/dashboard");
+          router.push("/");
           router.refresh();
         },
         onError: (ctx: ErrorContext) => {

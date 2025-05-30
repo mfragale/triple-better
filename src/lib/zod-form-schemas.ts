@@ -1,5 +1,5 @@
 import { useTranslations } from "next-intl";
-import { boolean, string, z } from "zod";
+import { boolean, date, string, z } from "zod";
 
 //https://github.com/gcascio/next-intl-zod/blob/main/messages/zod/en.json
 //https://github.com/aiji42/zod-i18n/blob/main/packages/core/locales/en/zod.json
@@ -84,6 +84,10 @@ export const useSignUpSchema = () => {
     .object({
       name: getNameSchema(),
       email: getEmailSchema(),
+      church: getNameSchema(),
+      birthdate: date({
+        required_error: t("errors.invalid_type_received_undefined"),
+      }),
       password: getPasswordSchema(),
       confirmPassword: getPasswordSchema(),
     })

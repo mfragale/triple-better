@@ -13,7 +13,8 @@
     "checklistHref": "/",
     "signIn": "Sign In",
     "protected": "Protected",
-    "protectedHref": "/protected"
+    "protectedHref": "/protected",
+    "signOut": "Sign out"
   },
   "AddTodoForm": {
     "addItemPlaceholder": "Add an item..."
@@ -198,7 +199,8 @@
     "account": "Account"
   },
   "ProtectedPage": {
-    "title": "Protected page"
+    "title": "Protected page",
+    "unauthorized": "Unauthorized"
   },
   "Checklist": {
     "noItems": "No items",
@@ -361,9 +363,6 @@
       "set": "set"
     }
   },
-  "Settings": {
-    "company": "Company"
-  },
   "emailVerifiedPage": {
     "title": "Email verified",
     "message": "Your email has been verified successfully."
@@ -449,7 +448,13 @@
       "confirmPassword": {
         "label": "Confirm password"
       },
-      "submitButton": "Sign up"
+      "submitButton": "Sign up",
+      "church": {
+        "label": "Church"
+      },
+      "birthdate": {
+        "label": "Birthdate"
+      }
     },
     "haveAccount": {
       "signInButton": "Sign in",
@@ -458,5 +463,12 @@
   },
   "authLayoutPage": {
     "backButton": "Back"
+  },
+  "authComponents": {
+    "loading": "Loading..."
+  },
+  "authButtonsComponent": {
+    "signOut": "Sign out",
+    "signIn": "Sign in"
   }
 }
