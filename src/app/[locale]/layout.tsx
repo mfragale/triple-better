@@ -40,7 +40,7 @@ export default async function RootLayout({
             <Providers>
               <Navbar />
               <div className="inset-x-4 mx-auto w-full max-w-screen-xl">
-                <div className="px-4 pt-20 lg:pt-28">{children}</div>
+                <div className="px-4 pt-20">{children}</div>
               </div>
             </Providers>
           </RootProviders>

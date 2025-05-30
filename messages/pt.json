@@ -325,6 +325,9 @@
           "inclusive": "Data deve ser menor ou igual a {- maximum, datetime}",
           "not_inclusive": "Data deve ser menor que {- maximum, datetime}"
         }
+      },
+      "confirmPassword": {
+        "match": "As senhas não coincidem"
       }
     },
     "validations": {
@@ -360,5 +363,100 @@
   },
   "Settings": {
     "company": "Empresa"
+  },
+  "emailVerifiedPage": {
+    "title": "Email verificado",
+    "message": "Seu email foi verificado com sucesso."
+  },
+  "forgotPasswordPage": {
+    "toastMessage": "Se existe uma conta com este email, você receberá um link para resetar sua senha.",
+    "title": "Esqueceu a senha",
+    "message": "Enviaremos um email com um link para resetar sua senha.",
+    "form": {
+      "email": {
+        "label": "Email",
+        "placeholder": "O email que você usa para entrar"
+      },
+      "submitButton": "Enviar link"
+    }
+  },
+  "resetPasswordPage": {
+    "toastMessage": "Senha resetada com sucesso. Entre para continuar.",
+    "invalid": {
+      "title": "Link inválido",
+      "message": "Este link para resetar a senha é inválido ou já expirou."
+    },
+    "title": "Resetar a senha",
+    "form": {
+      "newPassword": {
+        "label": "Nova senha",
+        "placeholder": "Escolha uma nova senha"
+      },
+      "confirmPassword": {
+        "label": "Confirme sua nova senha",
+        "placeholder": "Mesma que a senha acima"
+      },
+      "submitButton": "Resetar senha"
+    },
+    "message": "Crie uma nova senha"
+  },
+  "signInPage": {
+    "toast": {
+      "emailNotVerified": {
+        "message": "Deseja reenviar o email de verificação?",
+        "action": "Sim"
+      },
+      "verificationEmailSent": {
+        "message": "Email de verificação enviado."
+      },
+      "somethingWentWrong": "Algo deu errado"
+    },
+    "title": "Entrar",
+    "message": "Bem-vindo de volta! Entre para continuar.",
+    "form": {
+      "email": {
+        "label": "Email"
+      },
+      "password": {
+        "label": "Senha"
+      },
+      "forgotPasswordButton": "Esqueceu a senha?",
+      "submitButton": "Entrar"
+    },
+    "noAccount": {
+      "message": "Não possui uma conta?",
+      "signUpButton": "Registrar"
+    },
+    "tc": "Ao entrar, você concorda com os nossos Termos de Serviço e Política de Privacidade."
+  },
+  "signUpPage": {
+    "toast": {
+      "success": "Sua conta foi criada. Veja seu email com o link de verificação.",
+      "somethingWentWrong": "Algo deu errado"
+    },
+    "title": "Registrar",
+    "message": "Bem-vindo! Registre-se para continuar.",
+    "form": {
+      "name": {
+        "label": "Nome"
+      },
+      "email": {
+        "label": "Email"
+      },
+      "password": {
+        "label": "Senha"
+      },
+      "confirmPassword": {
+        "label": "Confirmar senha"
+      },
+      "submitButton": "Registrar"
+    },
+    "haveAccount": {
+      "signInButton": "Entrar",
+      "message": "Já possui uma conta?"
+    }
+  },
+  "authLayoutPage": {
+    "backButton": "Voltar"
   }
 }

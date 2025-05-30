@@ -242,6 +242,9 @@
     },
     "accept": "Accept"
   },
+  "ScheduleList": {
+    "noSchedule": "No schedule"
+  },
   "zod": {
     "errors": {
       "invalid_type": "Expected {expected}, received {received}",
@@ -322,6 +325,9 @@
           "inclusive": "Date must be smaller than or equal to {- maximum, datetime}",
           "not_inclusive": "Date must be smaller than {- maximum, datetime}"
         }
+      },
+      "confirmPassword": {
+        "match": "Passwords do not match"
       }
     },
     "validations": {
@@ -357,5 +363,100 @@
   },
   "Settings": {
     "company": "Company"
+  },
+  "emailVerifiedPage": {
+    "title": "Email verified",
+    "message": "Your email has been verified successfully."
+  },
+  "forgotPasswordPage": {
+    "toastMessage": "If an account exists with this email, you will receive a password reset link.",
+    "title": "Forgot password",
+    "message": "We'll send you an email with a link to reset your password.",
+    "form": {
+      "email": {
+        "label": "Email",
+        "placeholder": "The email you use to sign in"
+      },
+      "submitButton": "Send link"
+    }
+  },
+  "resetPasswordPage": {
+    "toastMessage": "Password reset successful. Login to continue.",
+    "invalid": {
+      "title": "Invalid reset link",
+      "message": "This password reset link is invalid or has expired."
+    },
+    "title": "Reset password",
+    "form": {
+      "newPassword": {
+        "label": "New password",
+        "placeholder": "Choose a new password"
+      },
+      "confirmPassword": {
+        "label": "Confirm new password",
+        "placeholder": "Same as password above"
+      },
+      "submitButton": "Reset password"
+    },
+    "message": "Please create a new password"
+  },
+  "signInPage": {
+    "toast": {
+      "emailNotVerified": {
+        "message": "Do you wish to resend the verification email?",
+        "action": "Yes"
+      },
+      "verificationEmailSent": {
+        "message": "Verification email sent."
+      },
+      "somethingWentWrong": "Something went wrong"
+    },
+    "title": "Sign in",
+    "message": "Welcome back! Sign in to continue.",
+    "form": {
+      "email": {
+        "label": "Email"
+      },
+      "password": {
+        "label": "Password"
+      },
+      "forgotPasswordButton": "Forgot your password?",
+      "submitButton": "Sign in"
+    },
+    "noAccount": {
+      "message": "Don't have an account?",
+      "signUpButton": "Sign up"
+    },
+    "tc": "By signing in, you agree to our Terms of Service and Privacy Policy."
+  },
+  "signUpPage": {
+    "toast": {
+      "success": "Your account has been created. Check your email for a verification link.",
+      "somethingWentWrong": "Something went wrong"
+    },
+    "title": "Sign up",
+    "message": "Welcome! Sign up to continue.",
+    "form": {
+      "name": {
+        "label": "Name"
+      },
+      "email": {
+        "label": "Email"
+      },
+      "password": {
+        "label": "Password"
+      },
+      "confirmPassword": {
+        "label": "Confirm password"
+      },
+      "submitButton": "Sign up"
+    },
+    "haveAccount": {
+      "signInButton": "Sign in",
+      "message": "Already have an account?"
+    }
+  },
+  "authLayoutPage": {
+    "backButton": "Back"
   }
 }

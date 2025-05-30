@@ -27,6 +27,22 @@ export const routing = defineRouting({
     // "/auth/settings": {
     //   pt: "/auth/configuracoes",
     // },
+    // AUTH
+    "/email-verified": {
+      pt: "/email-verificado",
+    },
+    "/forgot-password": {
+      pt: "/esqueceu-senha",
+    },
+    "/reset-password": {
+      pt: "/resetar-senha",
+    },
+    "/sign-in": {
+      pt: "/entrar",
+    },
+    "/sign-up": {
+      pt: "/registrar",
+    },
 
     // MARKETING
     "/": "/",
