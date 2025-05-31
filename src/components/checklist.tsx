@@ -86,9 +86,9 @@ export default function Checklist() {
     }
   }
 
-  function handleDelete(idToDelete: string) {
-    triplit.delete("todos", idToDelete);
-  }
+  // function handleDelete(idToDelete: string) {
+  //   triplit.delete("todos", idToDelete);
+  // }
 
   return (
     <div className="flex flex-col gap-2 mx-auto px-4 py-12 max-w-xl">
@@ -99,7 +99,7 @@ export default function Checklist() {
         modifiers={[restrictToVerticalAxis, restrictToParentElement]}>
         <SortableContext items={items} strategy={verticalListSortingStrategy}>
           {items.map((item) => (
-            <SortableItem key={item.id} todo={item} onDelete={handleDelete} />
+            <SortableItem key={item.id} todo={item} />
           ))}
         </SortableContext>
       </DndContext>
