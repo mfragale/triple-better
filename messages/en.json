@@ -492,5 +492,12 @@
         "updateButton": "Update {name}"
       }
     }
+  },
+  "EditAvatarCard": {
+    "title": "Picture",
+    "description": "Click on the avatar to upload a custom one from your files.",
+    "close": "Close",
+    "chooseProfileImage": "Choose profile image",
+    "uploadFailed": "Upload failed"
   }
 }

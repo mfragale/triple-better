@@ -492,5 +492,12 @@
         "updateButton": "Atualizar {name}"
       }
     }
+  },
+  "EditAvatarCard": {
+    "title": "Foto",
+    "description": "Clique no avatar para fazer upload a partir de seus arquivos.",
+    "close": "Fechar",
+    "chooseProfileImage": "Escolha a imagem do perfil",
+    "uploadFailed": "Falha no upload"
   }
 }

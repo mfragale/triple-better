@@ -5,7 +5,8 @@ import { getTranslations } from "next-intl/server";
 import { headers } from "next/headers";
 import Image from "next/image";
 import { User } from "../../../../../triplit/schema";
-import { UpdateUserForm } from "./update-user-form";
+import ProfileAvatar from "./_components/edit-avatar-card";
+import { UpdateUserForm } from "./_components/update-user-form";
 
 export default async function ProfilePage() {
   const t = await getTranslations("dashboard.settings");
@@ -34,6 +35,9 @@ export default async function ProfilePage() {
     <>
       <div className="flex flex-col gap-6 mx-auto px-4 py-12 max-w-xl">
         <h1 className="font-bold text-2xl">{t("profile.title")}</h1>
+
+        <ProfileAvatar session={session} />
+
         <UpdateUserForm user={user} />
         {user && (
           <div className="space-y-4">

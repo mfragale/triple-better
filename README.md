@@ -15,3 +15,4 @@
 - [x] Implement Email Service: Resend, React Email
 - [x] Aditional fields for user on signup / profile page
 - [x] Implement File Storage: UploadThing
+- [x] Dashboard settings cards
