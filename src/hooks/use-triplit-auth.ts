@@ -1,7 +1,8 @@
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useEffect } from "react";
 import { toast } from "sonner";
 
+import { env } from "@/env/client";
 import { authClient } from "@/lib/auth-client";
 import { triplit } from "../../triplit/client";
 import { useSession } from "./auth-hooks";
@@ -53,8 +54,7 @@ export function useTriplitAuth() {
 
       try {
         await triplit.startSession(
-          sessionData?.session.token ||
-            process.env.NEXT_PUBLIC_TRIPLIT_ANON_TOKEN!
+          sessionData?.session.token || env.NEXT_PUBLIC_TRIPLIT_ANON_TOKEN!
         );
       } catch (error) {
         console.error(error);
@@ -66,9 +66,9 @@ export function useTriplitAuth() {
       }
     };
 
-    const unlisten = triplit.onSessionError((error: any) => {
+    const unlisten = triplit.onSessionError((error: string) => {
       console.error(error);
-      toast.error(error);
+      toast.error(error as string);
       authClient.signOut().finally(() => refetchSession());
     });
 
@@ -77,5 +77,12 @@ export function useTriplitAuth() {
     return () => {
       unlisten();
     };
-  }, [sessionData, sessionPending, refetchSession]);
+  }, [
+    sessionData,
+    sessionPending,
+    refetchSession,
+    payload?.sub,
+    payload?.role,
+    router,
+  ]);
 }

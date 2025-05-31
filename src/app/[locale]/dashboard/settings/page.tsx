@@ -1,11 +1,15 @@
 import { redirect } from "@/i18n/navigation";
 import { auth } from "@/lib/auth";
 import { hasPermission } from "@/lib/has-permission";
+import { getTranslations } from "next-intl/server";
 import { headers } from "next/headers";
+import Image from "next/image";
 import { User } from "../../../../../triplit/schema";
 import { UpdateUserForm } from "./update-user-form";
 
 export default async function ProfilePage() {
+  const t = await getTranslations("dashboard.settings");
+
   const session = await auth.api.getSession({
     headers: await headers(), // you need to pass the headers object.
   });
@@ -29,45 +33,55 @@ export default async function ProfilePage() {
   return (
     <>
       <div className="flex flex-col gap-6 mx-auto px-4 py-12 max-w-xl">
-        <h1 className="font-bold text-2xl">Profile Information</h1>
+        <h1 className="font-bold text-2xl">{t("profile.title")}</h1>
         <UpdateUserForm user={user} />
         {user && (
           <div className="space-y-4">
             {user.image && (
               <div className="flex items-center gap-4">
-                <img
+                <Image
                   src={user.image}
                   alt="Profile"
                   className="rounded-full w-20 h-20"
+                  width={80}
+                  height={80}
                 />
               </div>
             )}
             <div className="gap-4 grid">
               {user.name && (
                 <div>
-                  <h2 className="font-medium text-gray-500 text-sm">Name</h2>
+                  <h2 className="font-medium text-gray-500 text-sm">
+                    {t("profile.name")}
+                  </h2>
                   <p className="mt-1">{user.name}</p>
                 </div>
               )}
               {user.email && (
                 <div>
-                  <h2 className="font-medium text-gray-500 text-sm">Email</h2>
+                  <h2 className="font-medium text-gray-500 text-sm">
+                    {t("profile.email")}
+                  </h2>
                   <p className="mt-1">{user.email}</p>
                   {user.emailVerified && (
-                    <span className="text-green-600 text-sm">✓ Verified</span>
+                    <span className="text-green-600 text-sm">
+                      {t("profile.verified")}
+                    </span>
                   )}
                 </div>
               )}
               {user.church && (
                 <div>
-                  <h2 className="font-medium text-gray-500 text-sm">Church</h2>
+                  <h2 className="font-medium text-gray-500 text-sm">
+                    {t("profile.church")}
+                  </h2>
                   <p className="mt-1">{user.church}</p>
                 </div>
               )}
               {user.birthdate && (
                 <div>
                   <h2 className="font-medium text-gray-500 text-sm">
-                    Birthdate
+                    {t("profile.birthdate")}
                   </h2>
                   <p className="mt-1">{user.birthdate.toLocaleDateString()}</p>
                 </div>

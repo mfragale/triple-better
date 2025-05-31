@@ -12,8 +12,11 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 export function DatePicker() {
+  const t = useTranslations("AddTodoForm");
+
   const [date, setDate] = React.useState<Date>();
 
   return (
@@ -26,7 +29,11 @@ export function DatePicker() {
             !date && "text-muted-foreground"
           )}>
           <CalendarIcon className="mr-2 w-4 h-4" />
-          {date ? format(date, "PPP") : <span>Pick a date</span>}
+          {date ? (
+            format(date, "PPP")
+          ) : (
+            <span>{t("form.birthdate.placeholder")}</span>
+          )}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="p-0 w-auto">

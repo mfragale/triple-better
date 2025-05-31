@@ -19,13 +19,7 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from "./ui/form";
 import { Input } from "./ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
-const SortableItem = ({
-  todo,
-  onDelete,
-}: {
-  todo: Todo;
-  onDelete: (id: string) => void;
-}) => {
+const SortableItem = ({ todo }: { todo: Todo }) => {
   const uniqueId = todo.id;
   const {
     setNodeRef,
@@ -36,10 +30,6 @@ const SortableItem = ({
     attributes,
     listeners,
   } = useSortable({ id: uniqueId });
-
-  const handleButtonClick = () => {
-    onDelete(uniqueId);
-  };
 
   const isCursorGrabbing = attributes["aria-pressed"];
 
@@ -56,7 +46,7 @@ const SortableItem = ({
 
   async function onSubmit(values: TEditTodoFormSchema) {
     try {
-      const updatedTodo = await triplit
+      await triplit
         .update("todos", values.editedTodoItemId, async (entity) => {
           entity.text = values.editedTodoItem;
         })

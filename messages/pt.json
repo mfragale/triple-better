@@ -14,10 +14,16 @@
     "signIn": "Entrar",
     "protected": "Protegida",
     "protectedHref": "/protegida",
-    "signOut": "Sair"
+    "signOut": "Sair",
+    "title": "Triple Better"
   },
   "AddTodoForm": {
-    "addItemPlaceholder": "Adicionar um item ..."
+    "addItemPlaceholder": "Adicionar um item ...",
+    "form": {
+      "birthdate": {
+        "placeholder": "Escolha uma data"
+      }
+    }
   },
   "AboutPage": {
     "title": "Sobre"
@@ -453,7 +459,8 @@
         "label": "Igreja"
       },
       "birthdate": {
-        "label": "Data de nascimento"
+        "label": "Data de nascimento",
+        "placeholder": "Data de nascimento"
       }
     },
     "haveAccount": {
@@ -469,6 +476,21 @@
   },
   "authButtonsComponent": {
     "signOut": "Sair",
-    "signIn": "Entrar"
+    "signIn": "Entrar",
+    "settings": "Configurações"
+  },
+  "dashboard": {
+    "settings": {
+      "profile": {
+        "title": "Informações de perfil",
+        "birthdate": "Data de nascimento",
+        "name": "Nome",
+        "email": "Email",
+        "verified": "Verificado",
+        "church": "Igreja",
+        "updated": "Usuário atualizado com sucesso",
+        "updateButton": "Atualizar {name}"
+      }
+    }
   }
 }

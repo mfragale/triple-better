@@ -12,7 +12,7 @@ import { useCallback, useMemo, useState, useSyncExternalStore } from "react";
 
 export function useConditionalQuery<
   M extends Models<M>,
-  Q extends SchemaQuery<M>
+  Q extends SchemaQuery<M>,
 >(
   client: TriplitClient<M> | WorkerClient<M>,
   query?: Q | false | null | "" | 0,
@@ -30,7 +30,6 @@ export function useConditionalQuery<
     error: undefined,
   };
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: prevent infinite re-renders
   const [subscribe, snapshot] = useMemo(
     () =>
       stringifiedQuery
@@ -39,6 +38,7 @@ export function useConditionalQuery<
             onRemoteFulfilled: () => setRemoteFulfilled(true),
           })
         : [() => () => {}, () => defaultValue],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [stringifiedQuery, localOnly]
   );
 
@@ -53,14 +53,14 @@ export function useConditionalQuery<
 
 type useConditionalQueryOnePayload<
   M extends Models<M>,
-  Q extends SchemaQuery<M>
+  Q extends SchemaQuery<M>,
 > = Omit<SubscriptionSignalPayload<M, Q>, "results"> & {
   result: FetchResult<M, Q, "one">;
 };
 
 export function useConditionalQueryOne<
   M extends Models<M>,
-  Q extends SchemaQuery<M>
+  Q extends SchemaQuery<M>,
 >(
   client: TriplitClient<M> | WorkerClient<M>,
   query?: Q | false | null | "" | 0,

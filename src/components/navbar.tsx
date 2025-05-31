@@ -7,10 +7,10 @@ import {
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
 
-import { Link } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
+import { MenuItem } from "@/types";
 import { Menu, X } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { SignInButton, UserButton } from "./auth-buttons";
 import { SignedIn, SignedOut } from "./auth-states";
@@ -24,10 +24,10 @@ const Navbar = () => {
   const [menuState, setMenuState] = useState(false);
   const pathname = usePathname();
 
-  const menuItems = [
-    { name: t("checklist"), href: t("checklistHref") },
-    { name: t("about"), href: t("aboutHref") },
-    { name: t("protected"), href: t("protectedHref") },
+  const menuItems: MenuItem[] = [
+    { name: t("checklist"), href: "/" },
+    { name: t("about"), href: "/about" },
+    { name: t("protected"), href: "/protected" },
   ];
 
   const handleMenuClick = () => {
@@ -47,7 +47,7 @@ const Navbar = () => {
                 aria-label="home"
                 className="flex items-center space-x-2">
                 <Logo />
-                <span className="font-bold text-xl">Triple Better</span>
+                <span className="font-bold text-xl">{t("title")}</span>
               </Link>
 
               {/* MOBILE MENU BUTTON*/}
@@ -68,9 +68,7 @@ const Navbar = () => {
                       <NavigationMenuItem key={index}>
                         <NavigationMenuLink asChild>
                           <Link
-                            href={{
-                              pathname: item.href as any,
-                            }}
+                            href={item.href}
                             onClick={handleMenuClick}
                             className={cn(
                               " block text-muted-foreground duration-150 hover:text-accent-foreground",

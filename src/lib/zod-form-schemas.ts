@@ -4,7 +4,7 @@ import { boolean, date, string, z } from "zod";
 //https://github.com/gcascio/next-intl-zod/blob/main/messages/zod/en.json
 //https://github.com/aiji42/zod-i18n/blob/main/packages/core/locales/en/zod.json
 
-const getPasswordSchema = () => {
+const usePasswordSchema = () => {
   const t = useTranslations("zod");
 
   return string({ required_error: t("errors.invalid_type_received_undefined") })
@@ -16,7 +16,7 @@ const getPasswordSchema = () => {
     });
 };
 
-const getEmailSchema = () => {
+const useEmailSchema = () => {
   const t = useTranslations("zod");
 
   return string({ required_error: t("errors.invalid_type_received_undefined") })
@@ -28,7 +28,7 @@ const getEmailSchema = () => {
     });
 };
 
-const getNameSchema = () => {
+const useNameSchema = () => {
   const t = useTranslations("zod");
 
   return string({ required_error: t("errors.invalid_type_received_undefined") })
@@ -40,7 +40,7 @@ const getNameSchema = () => {
     });
 };
 
-const getBooleanSchema = (initial: boolean) => boolean().default(initial);
+const useBooleanSchema = (initial: boolean) => boolean().default(initial);
 
 export const useEditTodoFormSchema = () => {
   const t = useTranslations("zod");
@@ -82,14 +82,14 @@ export const useSignUpSchema = () => {
 
   const signUpSchema = z
     .object({
-      name: getNameSchema(),
-      email: getEmailSchema(),
-      church: getNameSchema(),
+      name: useNameSchema(),
+      email: useEmailSchema(),
+      church: useNameSchema(),
       birthdate: date({
         required_error: t("errors.invalid_type_received_undefined"),
       }),
-      password: getPasswordSchema(),
-      confirmPassword: getPasswordSchema(),
+      password: usePasswordSchema(),
+      confirmPassword: usePasswordSchema(),
     })
     .refine((data) => data.password === data.confirmPassword, {
       message: t("errors.confirmPassword.match"),
@@ -99,20 +99,16 @@ export const useSignUpSchema = () => {
 };
 
 export const useSignInSchema = () => {
-  const t = useTranslations("zod");
-
   const signInSchema = z.object({
-    email: getEmailSchema(),
-    password: getPasswordSchema(),
+    email: useEmailSchema(),
+    password: usePasswordSchema(),
   });
   return signInSchema;
 };
 
 export const useForgotPasswordSchema = () => {
-  const t = useTranslations("zod");
-
   const forgotPasswordSchema = z.object({
-    email: getEmailSchema(),
+    email: useEmailSchema(),
   });
   return forgotPasswordSchema;
 };
@@ -122,8 +118,8 @@ export const useResetPasswordSchema = () => {
 
   const resetPasswordSchema = z
     .object({
-      password: getPasswordSchema(),
-      confirmPassword: getPasswordSchema(),
+      password: usePasswordSchema(),
+      confirmPassword: usePasswordSchema(),
     })
     .refine((data) => data.password === data.confirmPassword, {
       message: t("errors.confirmPassword.match"),
@@ -137,10 +133,10 @@ export const useChangePasswordSchema = () => {
 
   const changePasswordSchema = z
     .object({
-      currentPassword: getPasswordSchema(),
-      newPassword: getPasswordSchema(),
-      confirmNewPassword: getPasswordSchema(),
-      revokeOtherSessions: getBooleanSchema(true).optional(),
+      currentPassword: usePasswordSchema(),
+      newPassword: usePasswordSchema(),
+      confirmNewPassword: usePasswordSchema(),
+      revokeOtherSessions: useBooleanSchema(true).optional(),
     })
     .refine((data) => data.newPassword === data.confirmNewPassword, {
       message: t("errors.confirmPassword.match"),

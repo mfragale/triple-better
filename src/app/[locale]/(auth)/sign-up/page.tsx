@@ -148,7 +148,7 @@ export default function SignUp() {
                             {field.value ? (
                               format(field.value, "PPP")
                             ) : (
-                              <span>Pick a date</span>
+                              <span>{t("form.birthdate.placeholder")}</span>
                             )}
                             <CalendarIcon className="opacity-50 ml-auto w-4 h-4" />
                           </Button>

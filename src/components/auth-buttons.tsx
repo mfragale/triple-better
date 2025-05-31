@@ -19,7 +19,6 @@ import {
 } from "./ui/dropdown-menu";
 
 export function SignInButton() {
-  const router = useRouter();
   const t = useTranslations("authButtonsComponent");
 
   return (
@@ -100,7 +99,7 @@ export function UserButton() {
             }}
             className="flex items-center gap-2">
             <Settings />
-            Settings
+            {t("settings")}
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem

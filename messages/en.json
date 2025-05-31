@@ -14,10 +14,16 @@
     "signIn": "Sign In",
     "protected": "Protected",
     "protectedHref": "/protected",
-    "signOut": "Sign out"
+    "signOut": "Sign out",
+    "title": "Triple Better"
   },
   "AddTodoForm": {
-    "addItemPlaceholder": "Add an item..."
+    "addItemPlaceholder": "Add an item...",
+    "form": {
+      "birthdate": {
+        "placeholder": "Pick a date"
+      }
+    }
   },
   "AboutPage": {
     "title": "About"
@@ -453,7 +459,8 @@
         "label": "Church"
       },
       "birthdate": {
-        "label": "Birthdate"
+        "label": "Birthdate",
+        "placeholder": "Birthdate"
       }
     },
     "haveAccount": {
@@ -469,6 +476,21 @@
   },
   "authButtonsComponent": {
     "signOut": "Sign out",
-    "signIn": "Sign in"
+    "signIn": "Sign in",
+    "settings": "Settings"
+  },
+  "dashboard": {
+    "settings": {
+      "profile": {
+        "title": "Profile information",
+        "birthdate": "Birthdate",
+        "name": "Name",
+        "email": "Email",
+        "verified": "Verified",
+        "church": "Church",
+        "updated": "User updated successfully",
+        "updateButton": "Update {name}"
+      }
+    }
   }
 }

@@ -30,7 +30,7 @@ export function AddTodoForm({ nextItemIndex }: { nextItemIndex: number }) {
     if (!newTodoItem) return;
 
     try {
-      const insertedTodo = await triplit.insert("todos", {
+      await triplit.insert("todos", {
         text: newTodoItem,
         order: nextItemIndex,
         userId: triplit.vars.$token.sub,
