@@ -13,8 +13,13 @@ export async function getAccount(userId: string, providerId: string) {
   return account;
 }
 
-export async function updateAccount({ accountId }: { accountId: string }, data: Partial<Account>) {
+export async function updateAccount(
+  { accountId }: { accountId: string },
+  data: Partial<Account>
+) {
   // console.log("data: ", data);
 
   const updatedAccount = await triplit.update("accounts", accountId, data);
+
+  return updatedAccount;
 }

@@ -1,5 +1,4 @@
 import Checklist from "@/components/checklist";
-import { RedirectToSignIn, SignedIn } from "@daveyplate/better-auth-ui";
 import { useTranslations } from "next-intl";
 
 export default function Home() {
@@ -7,11 +6,8 @@ export default function Home() {
 
   return (
     <>
-      <RedirectToSignIn />
-
-      <SignedIn>
-        <Checklist />
-      </SignedIn>
+      <h1>{t("title")}</h1>
+      <Checklist />
     </>
   );
 }

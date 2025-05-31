@@ -1,5 +1,4 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -7,14 +6,14 @@ import {
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
-import { SignedIn, SignedOut, UserButton } from "@daveyplate/better-auth-ui";
 
-import { useIsMobile } from "@/hooks/use-mobile";
+import { Link, usePathname } from "@/i18n/navigation";
+import { MenuItem } from "@/types";
 import { Menu, X } from "lucide-react";
 import { useTranslations } from "next-intl";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
+import { SignInButton, UserButton } from "./auth-buttons";
+import { SignedIn, SignedOut } from "./auth-states";
 import LocaleSwitcher2 from "./locale-switcher";
 import { Logo } from "./logo";
 import ThemeToggle from "./theme-toggle";
@@ -24,30 +23,12 @@ const Navbar = () => {
 
   const [menuState, setMenuState] = useState(false);
   const pathname = usePathname();
-  const isMobile = useIsMobile();
-  const menuRef = useRef<HTMLDivElement>(null);
 
-  const menuItems = [
-    { name: t("checklist"), href: t("checklistHref") },
-    { name: t("about"), href: t("aboutHref") },
-    { name: t("protected"), href: t("protectedHref") },
+  const menuItems: MenuItem[] = [
+    { name: t("checklist"), href: "/" },
+    { name: t("about"), href: "/about" },
+    { name: t("protected"), href: "/protected" },
   ];
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setMenuState(false);
-      }
-    };
-
-    if (isMobile && menuState) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isMobile, menuState]);
 
   const handleMenuClick = () => {
     setMenuState(false);
@@ -66,7 +47,7 @@ const Navbar = () => {
                 aria-label="home"
                 className="flex items-center space-x-2">
                 <Logo />
-                <span className="font-bold text-xl">Triple Better</span>
+                <span className="font-bold text-xl">{t("title")}</span>
               </Link>
 
               {/* MOBILE MENU BUTTON*/}
@@ -79,9 +60,7 @@ const Navbar = () => {
               </button>
             </div>
 
-            <div
-              ref={menuRef}
-              className="hidden in-data-[state=active]:block sm:flex sm:in-data-[state=active]:flex flex-wrap sm:flex-nowrap justify-end items-center sm:gap-6 space-y-6 sm:space-y-0 bg-background sm:bg-transparent dark:sm:bg-transparent shadow-2xl shadow-zinc-300/20 sm:shadow-none dark:shadow-none sm:m-0 mb-6 p-6 sm:p-0 border sm:border-transparent rounded-3xl w-full sm:w-fit">
+            <div className="hidden in-data-[state=active]:block sm:flex sm:in-data-[state=active]:flex flex-wrap sm:flex-nowrap justify-end items-center sm:gap-6 space-y-6 sm:space-y-0 bg-background sm:bg-transparent dark:sm:bg-transparent shadow-2xl shadow-zinc-300/20 sm:shadow-none dark:shadow-none sm:m-0 mb-6 p-6 sm:p-0 border sm:border-transparent rounded-3xl w-full sm:w-fit">
               <div className="flex justify-center items-center">
                 <NavigationMenu>
                   <NavigationMenuList className="data-[orientation=vertical]:flex-col flex-wrap sm:flex-nowrap data-[orientation=vertical]:items-start gap-4 space-x-0">
@@ -112,9 +91,7 @@ const Navbar = () => {
                   <UserButton />
                 </SignedIn>
                 <SignedOut>
-                  <Button asChild className="rounded-full">
-                    <Link href="/auth/sign-in">{t("signIn")}</Link>
-                  </Button>
+                  <SignInButton />
                 </SignedOut>
               </div>
             </div>

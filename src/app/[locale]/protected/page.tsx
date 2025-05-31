@@ -1,5 +1,7 @@
+import { SignedIn } from "@/components/auth-states";
+import { redirect } from "@/i18n/navigation";
 import { auth } from "@/lib/auth";
-import { RedirectToSignIn, SignedIn } from "@daveyplate/better-auth-ui";
+import { hasPermission } from "@/lib/has-permission";
 import { getTranslations } from "next-intl/server";
 import { headers } from "next/headers";
 import { Suspense } from "react";
@@ -10,10 +12,22 @@ export default async function ProtectedPage() {
   const session = await auth.api.getSession({
     headers: await headers(), // you need to pass the headers object.
   });
+
+  if (
+    !session ||
+    !hasPermission(
+      { ...session.user, role: session.user.role || "user" },
+      "manage",
+      "dashboard"
+    )
+  ) {
+    redirect({
+      href: "/sign-in",
+      locale: "en",
+    });
+  }
   return (
     <>
-      <RedirectToSignIn />
-
       <SignedIn>
         <div>{t("title")}</div>
 

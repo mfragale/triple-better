@@ -11,6 +11,7 @@ export const env = createEnv({
     // The commented line below tells ESLint to allow the `process.env` usage in this file.
     //   eslint-disable-next-line n/no-process-env
     NEXT_PUBLIC_TRIPLIT_DB_URL: process.env.NEXT_PUBLIC_TRIPLIT_DB_URL,
+    //   eslint-disable-next-line n/no-process-env
     NEXT_PUBLIC_TRIPLIT_ANON_TOKEN: process.env.NEXT_PUBLIC_TRIPLIT_ANON_TOKEN,
   },
 });

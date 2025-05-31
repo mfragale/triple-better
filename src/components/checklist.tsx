@@ -3,6 +3,7 @@
 import {
   closestCenter,
   DndContext,
+  DragEndEvent,
   KeyboardSensor,
   PointerSensor,
   useSensor,
@@ -28,16 +29,6 @@ import { AddTodoForm } from "./add-todo-form";
 import SortableItem from "./sortable-items";
 
 export default function Checklist() {
-  // Define the item interface
-  interface Item {
-    name: string;
-    id: number;
-  }
-
-  interface HomeProps {
-    // You can add any additional props if needed
-  }
-
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -52,33 +43,14 @@ export default function Checklist() {
       results: todos,
       error,
       fetching,
-      fetchingLocal,
-      fetchingRemote,
     } = useQuery(triplit, todosQuery, {
       onRemoteFulfilled: () => setRemoteFulfilled(true),
     });
 
-    useEffect(() => {
-      console.log({
-        todos,
-        error,
-        fetching,
-        fetchingLocal,
-        fetchingRemote,
-        remoteFulfilled,
-      });
-    }, [
-      todos,
-      error,
-      fetching,
-      fetchingLocal,
-      fetchingRemote,
-      remoteFulfilled,
-    ]);
     return { todos, error, fetching, remoteFulfilled };
   }
 
-  const { todos, fetching } = useTodos();
+  const { todos } = useTodos();
 
   const [items, setItems] = useState<Todo[]>(todos ?? []);
 
@@ -86,19 +58,25 @@ export default function Checklist() {
     setItems(todos ?? []);
   }, [todos]);
 
-  function handleDragEnd(event: any) {
+  function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
 
-    if (active.id !== over.id) {
-      function getNewArray(array: Todo[], activeId: string, overId: string) {
+    if (active.id !== over?.id) {
+      function getNewArray(
+        array: Todo[],
+        activeId: string | number,
+        overId: string | number
+      ) {
         const oldIndex = array.findIndex((section) => section.id === activeId);
         const newIndex = array.findIndex((section) => section.id === overId);
         return arrayMove(array, oldIndex, newIndex);
       }
 
-      setItems((prevItems) => getNewArray(prevItems, active.id, over.id));
+      setItems((prevItems) => getNewArray(prevItems, active.id, over?.id ?? 0));
 
-      const newItems = getNewArray(items, active.id, over.id).map((s) => s.id);
+      const newItems = getNewArray(items, active.id, over?.id ?? 0).map(
+        (s) => s.id
+      );
 
       newItems.map((id: string, index: number) => {
         triplit.update("todos", id, {
@@ -108,9 +86,9 @@ export default function Checklist() {
     }
   }
 
-  function handleDelete(idToDelete: string) {
-    triplit.delete("todos", idToDelete);
-  }
+  // function handleDelete(idToDelete: string) {
+  //   triplit.delete("todos", idToDelete);
+  // }
 
   return (
     <div className="flex flex-col gap-2 mx-auto px-4 py-12 max-w-xl">
@@ -121,7 +99,7 @@ export default function Checklist() {
         modifiers={[restrictToVerticalAxis, restrictToParentElement]}>
         <SortableContext items={items} strategy={verticalListSortingStrategy}>
           {items.map((item) => (
-            <SortableItem key={item.id} todo={item} onDelete={handleDelete} />
+            <SortableItem key={item.id} todo={item} />
           ))}
         </SortableContext>
       </DndContext>

@@ -5,7 +5,6 @@ import { triplit } from "../../triplit/client";
 export function useTriplitToken() {
   const connectionStatus = useConnectionStatus(triplit);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: update when connection status changes
   const payload = useMemo(
     () =>
       triplit.token
@@ -15,6 +14,7 @@ export function useTriplitToken() {
             sub?: string;
           })
         : undefined,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [connectionStatus]
   );
 

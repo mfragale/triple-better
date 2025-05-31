@@ -134,9 +134,6 @@
   }
 }
 
-/* BETTER AUTH UI */
-@source "../../../node_modules/@daveyplate/better-auth-ui";
-
 /* UPLOADTHING */
 @import "uploadthing/tw/v4";
 @source "../../../node_modules/@uploadthing/react/dist";

@@ -8,10 +8,14 @@ export const authSchema = S.Collections({
       email: S.String(),
       emailVerified: S.Boolean({ default: false }),
       image: S.Optional(S.String()),
-      company: S.String(),
-      age: S.Number(),
       createdAt: S.Date({ default: S.Default.now() }),
       updatedAt: S.Date({ default: S.Default.now() }),
+      church: S.String(),
+      birthdate: S.Date(),
+      role: S.Optional(S.String({ default: "user" })),
+      banned: S.Optional(S.Boolean({ default: false })),
+      bannedReason: S.Optional(S.String()),
+      banExpires: S.Optional(S.Date()),
     }),
     relationships: {
       sessions: S.RelationMany("sessions", {
@@ -39,6 +43,7 @@ export const authSchema = S.Collections({
       userAgent: S.Optional(S.String()),
       createdAt: S.Date({ default: S.Default.now() }),
       updatedAt: S.Date({ default: S.Default.now() }),
+      impersonatedBy: S.Optional(S.String()),
     }),
     relationships: {
       user: S.RelationById("users", "$userId"),

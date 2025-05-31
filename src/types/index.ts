@@ -1,3 +1,5 @@
+import { routing } from "@/i18n/routing";
+
 // Define interfaces for PCO data structure
 export interface PcoScheduleItem {
   attributes: {
@@ -87,4 +89,11 @@ export interface PCOIncludedItem {
     address?: string;
     international?: string;
   };
+}
+
+export type AppPath = keyof typeof routing.pathnames;
+
+export interface MenuItem {
+  name: string;
+  href: AppPath;
 }

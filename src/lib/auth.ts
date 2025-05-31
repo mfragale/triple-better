@@ -1,8 +1,9 @@
 import { sendEmail } from "@/actions/send-emails/route";
 import { env } from "@/env/server";
+import { ac, admin, professor, user } from "@/lib/permissions";
 import { triplitAdapter } from "@daveyplate/better-auth-triplit";
 import { betterAuth } from "better-auth";
-import { genericOAuth } from "better-auth/plugins";
+import { admin as adminPlugin, genericOAuth } from "better-auth/plugins";
 import { httpClient } from "../../triplit/http-client";
 
 export const auth = betterAuth({
@@ -12,13 +13,13 @@ export const auth = betterAuth({
   }),
   user: {
     additionalFields: {
-      company: {
+      church: {
         type: "string",
-        required: true,
+        required: false,
       },
-      age: {
-        type: "number",
-        required: true,
+      birthdate: {
+        type: "date",
+        required: false,
       },
     },
   },
@@ -77,6 +78,14 @@ export const auth = betterAuth({
           },
         },
       ],
+    }),
+    adminPlugin({
+      ac: ac,
+      roles: {
+        admin,
+        user,
+        professor,
+      },
     }),
   ],
 });

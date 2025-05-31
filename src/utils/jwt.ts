@@ -5,11 +5,14 @@ const alg = "HS256";
 export const encode = async ({
   secret,
   token,
-  maxAge,
 }: {
   secret: string;
-  token: any;
-  maxAge?: number;
+  token: {
+    payload: Record<string, unknown>;
+    iat: number;
+    sub: string;
+    exp: number;
+  };
 }) => {
   const encodedSecret = new TextEncoder().encode(secret);
   const encodedToken = await new SignJWT(token.payload ?? token)
@@ -24,11 +27,9 @@ export const encode = async ({
 export const decode = async ({
   secret,
   token,
-  maxAge,
 }: {
   secret: string;
   token: string;
-  maxAge?: number;
 }) => {
   const encodedSecret = new TextEncoder().encode(secret);
   const decodedToken = await jwtVerify(token, encodedSecret, {

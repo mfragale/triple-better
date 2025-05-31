@@ -1,4 +1,4 @@
-import { getLocale, getTranslations } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { env } from "@/env/server";
@@ -80,22 +80,22 @@ export default async function PcoSchedule(props: { session: Session | null }) {
     ).then((res) => res.json()),
   ]);
 
-  const nowDate = new Intl.DateTimeFormat(await getLocale(), {
-    day: "2-digit",
-    month: "2-digit",
-    year: "2-digit",
-    weekday: "short",
-    hour: "2-digit",
-    minute: "2-digit",
-  }).format(Date.now());
-  const accessTokenExpiresAtDate = new Intl.DateTimeFormat(await getLocale(), {
-    day: "2-digit",
-    month: "2-digit",
-    year: "2-digit",
-    weekday: "short",
-    hour: "2-digit",
-    minute: "2-digit",
-  }).format(new Date(pcoDbAccount.accessTokenExpiresAt!.getTime()));
+  // const nowDate = new Intl.DateTimeFormat(await getLocale(), {
+  //   day: "2-digit",
+  //   month: "2-digit",
+  //   year: "2-digit",
+  //   weekday: "short",
+  //   hour: "2-digit",
+  //   minute: "2-digit",
+  // }).format(Date.now());
+  // const accessTokenExpiresAtDate = new Intl.DateTimeFormat(await getLocale(), {
+  //   day: "2-digit",
+  //   month: "2-digit",
+  //   year: "2-digit",
+  //   weekday: "short",
+  //   hour: "2-digit",
+  //   minute: "2-digit",
+  // }).format(new Date(pcoDbAccount.accessTokenExpiresAt!.getTime()));
 
   return (
     <>
@@ -125,16 +125,24 @@ export default async function PcoSchedule(props: { session: Session | null }) {
       />
 
       {availableSignups.errors &&
-        availableSignups.errors.map((error: any) => (
-          <Card key={error.id} className="text-red-500">
-            <CardContent>
-              <p>{error.title}</p>
-              <p>{error.detail}</p>
-              <p>{error.code}</p>
-              <p>{error.status}</p>
-            </CardContent>
-          </Card>
-        ))}
+        availableSignups.errors.map(
+          (error: {
+            id: string;
+            title: string;
+            detail: string;
+            code: string;
+            status: string;
+          }) => (
+            <Card key={error.id} className="text-red-500">
+              <CardContent>
+                <p>{error.title}</p>
+                <p>{error.detail}</p>
+                <p>{error.code}</p>
+                <p>{error.status}</p>
+              </CardContent>
+            </Card>
+          )
+        )}
     </>
   );
 }

@@ -6,27 +6,24 @@ export const routing = defineRouting({
   localePrefix: "never",
   pathnames: {
     // AUTH
-    "/auth/sign-in": {
-      pt: "/auth/entrar",
+    "/email-verified": {
+      pt: "/email-verificado",
     },
-    "/auth/sign-out": {
-      pt: "/auth/sair",
+    "/forgot-password": {
+      pt: "/esqueceu-senha",
     },
-    "/auth/sign-up": {
-      pt: "/auth/registrar",
+    "/reset-password": {
+      pt: "/resetar-senha",
     },
-    "/auth/forgot-password": {
-      pt: "/auth/esqueceu-senha",
+    "/sign-in": {
+      pt: "/entrar",
     },
-    "/auth/reset-password": {
-      pt: "/auth/resetar-senha",
+    "/sign-out": {
+      pt: "/sair",
     },
-    "/auth/magic-link": {
-      pt: "/auth/magic-link",
+    "/sign-up": {
+      pt: "/registrar",
     },
-    // "/auth/settings": {
-    //   pt: "/auth/configuracoes",
-    // },
 
     // MARKETING
     "/": "/",
