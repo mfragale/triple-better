@@ -499,5 +499,62 @@
     "close": "Close",
     "chooseProfileImage": "Choose profile image",
     "uploadFailed": "Upload failed"
+  },
+  "EditProfileInfo": {
+    "title": "Profile info",
+    "description": "Edit your personal information",
+    "role": {
+      "user": "Student",
+      "admin": "Admin",
+      "professor": "Professor"
+    },
+    "form": {
+      "name": {
+        "label": "Name"
+      },
+      "submitButton": "Save",
+      "email": {
+        "label": "Email",
+        "verified": "Verified",
+        "unverified": "Unverified",
+        "sendVerification": "Verify now"
+      },
+      "role": {
+        "label": "Role"
+      }
+    },
+    "toast": {
+      "changeName": {
+        "success": "Name changed successfully"
+      },
+      "verifyEmail": {
+        "success": "Verification email sent"
+      },
+      "changeEmail": {
+        "success": "Email changed successfully"
+      }
+    }
+  },
+  "EditEmail": {
+    "title": "Email",
+    "description": "Add your best email here",
+    "form": {
+      "email": {
+        "label": "Email",
+        "verified": "Verified",
+        "unverified": "Unverified",
+        "sendVerification": "Verify now"
+      },
+      "submitButton": "Update email"
+    },
+    "toast": {
+      "sendVerificationEmail": {
+        "success": "Verification email sent",
+        "error": "Verification email isn't enabled"
+      },
+      "changeEmail": {
+        "success": "Email changed successfully"
+      }
+    }
   }
 }
