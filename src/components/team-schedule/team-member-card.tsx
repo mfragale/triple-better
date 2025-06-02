@@ -26,7 +26,8 @@ export function TeamMemberCard({ team, pcoAccessToken }: TeamMemberCardProps) {
     <div className="flex items-center gap-2">
       <RespondsTo
         pcoId={team.respondsTo!.pcoId}
-        pcoAccessToken={pcoAccessToken}>
+        pcoAccessToken={pcoAccessToken}
+      >
         {(respondsToUser) => (
           <HoverCard key={team.respondsTo!.pcoId}>
             <HoverCardTrigger asChild>
@@ -62,7 +63,8 @@ export function TeamMemberCard({ team, pcoAccessToken }: TeamMemberCardProps) {
                     <Phone className="opacity-70 mr-2 w-4 h-4" />
                     <span className="text-muted-foreground text-xs">
                       <a
-                        href={`https://api.whatsapp.com/send?phone=${respondsToUser?.cleanPhoneNumber}`}>
+                        href={`https://api.whatsapp.com/send?phone=${respondsToUser?.cleanPhoneNumber}`}
+                      >
                         {respondsToUser?.phoneNumber}
                       </a>
                     </span>

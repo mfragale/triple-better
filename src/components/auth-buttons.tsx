@@ -26,7 +26,8 @@ export function SignInButton() {
       <Link
         href={{
           pathname: "/sign-in",
-        }}>
+        }}
+      >
         <LogIn />
         <span>{t("signIn")}</span>
       </Link>
@@ -73,7 +74,8 @@ export function UserButton() {
         <Link
           href={{
             pathname: "/dashboard/settings",
-          }}>
+          }}
+        >
           <Avatar>
             <AvatarImage src={user?.image ?? undefined} />
             <AvatarFallback>{user?.name?.charAt(0)}</AvatarFallback>
@@ -97,7 +99,8 @@ export function UserButton() {
             href={{
               pathname: "/dashboard/settings",
             }}
-            className="flex items-center gap-2">
+            className="flex items-center gap-2"
+          >
             <Settings />
             {t("settings")}
           </Link>
@@ -107,7 +110,8 @@ export function UserButton() {
             await authClient.signOut({
               fetchOptions: { onSuccess: () => router.push("/sign-in") },
             })
-          }>
+          }
+        >
           <LogOut />
           {t("signOut")}
         </DropdownMenuItem>

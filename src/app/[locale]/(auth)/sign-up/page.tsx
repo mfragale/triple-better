@@ -144,7 +144,8 @@ export default function SignUp() {
                             className={cn(
                               "w-[240px] pl-3 text-left font-normal",
                               !field.value && "text-muted-foreground"
-                            )}>
+                            )}
+                          >
                             {field.value ? (
                               format(field.value, "PPP")
                             ) : (
@@ -206,7 +207,8 @@ export default function SignUp() {
           <div className="mt-4 text-sm text-center">
             <Link
               href="/sign-in"
-              className="text-sm link intent-info variant-ghost">
+              className="text-sm link intent-info variant-ghost"
+            >
               {t("haveAccount.message")}
               <span className="ml-1 underline">
                 {t("haveAccount.signInButton")}

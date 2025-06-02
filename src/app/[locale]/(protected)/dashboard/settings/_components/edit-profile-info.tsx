@@ -67,7 +67,8 @@ export default function EditProfileInfo(props: { session: Session | null }) {
                 });
                 router.refresh();
                 setIsLoading(false);
-              }}>
+              }}
+            >
               {isLoading ? (
                 <Loader2 size={15} className="animate-spin" />
               ) : (

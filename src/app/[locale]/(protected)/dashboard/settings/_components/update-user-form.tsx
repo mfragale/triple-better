@@ -32,7 +32,8 @@ export function UpdateUserForm({ user }: { user: User }) {
         });
         router.refresh();
         setIsLoading(false);
-      }}>
+      }}
+    >
       {isLoading ? (
         <Loader2 size={15} className="animate-spin" />
       ) : (

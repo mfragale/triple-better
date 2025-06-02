@@ -97,10 +97,13 @@ function groupSignupsByDateAndTime(data: PcoData) {
           new Date(`1970-01-01T${a}`).getTime() -
           new Date(`1970-01-01T${b}`).getTime()
       )
-      .reduce((acc, time) => {
-        acc[time] = grouped[date][time];
-        return acc;
-      }, {} as Record<string, ScheduleItem[]>);
+      .reduce(
+        (acc, time) => {
+          acc[time] = grouped[date][time];
+          return acc;
+        },
+        {} as Record<string, ScheduleItem[]>
+      );
   });
 
   // Sort dates chronologically

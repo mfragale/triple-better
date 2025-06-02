@@ -98,7 +98,8 @@ export default function SignIn() {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(handleCredentialsSignIn)}
-              className="space-y-6">
+              className="space-y-6"
+            >
               <FormField
                 control={form.control}
                 name="email"
@@ -125,7 +126,8 @@ export default function SignIn() {
                         <Link
                           href="/forgot-password"
                           className="text-sm link intent-info variant-ghost"
-                          tabIndex={2}>
+                          tabIndex={2}
+                        >
                           {t("form.forgotPasswordButton")}
                         </Link>
                       </Button>
@@ -150,7 +152,8 @@ export default function SignIn() {
           <div className="mt-4 text-sm text-center">
             <Link
               href="/sign-up"
-              className="text-sm link intent-info variant-ghost">
+              className="text-sm link intent-info variant-ghost"
+            >
               {t("noAccount.message")}
               <span className="ml-1 underline">
                 {t("noAccount.signUpButton")}

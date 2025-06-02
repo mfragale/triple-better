@@ -103,7 +103,8 @@ export function TeamScheduleCard({
     <Card
       className={`mb-6 w-full ${
         scheduledTeams.length > 0 ? "bg-accent/30 border-emerald-400/20" : ""
-      }`}>
+      }`}
+    >
       <CardHeader>
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-3">
@@ -144,7 +145,8 @@ export function TeamScheduleCard({
               {scheduledTeams.map((team, index) => (
                 <div
                   className="flex justify-between items-center gap-2"
-                  key={index}>
+                  key={index}
+                >
                   <div className="flex items-center gap-2">
                     <Clock className="w-4 h-4 text-emerald-500" />
                     <span className="text-emerald-500">
@@ -206,7 +208,8 @@ export function TeamScheduleCard({
                   role="combobox"
                   aria-expanded={open}
                   className="justify-between w-auto grow"
-                  disabled={!selectedTime}>
+                  disabled={!selectedTime}
+                >
                   {selectedTeam
                     ? availableTeams.find(
                         (team) => team.position === selectedTeam
@@ -231,7 +234,8 @@ export function TeamScheduleCard({
                             // );
                             setSelectedTeam(currentValue);
                             setOpen(false);
-                          }}>
+                          }}
+                        >
                           {team.position}
                           <Check
                             className={cn(
@@ -265,7 +269,8 @@ export function TeamScheduleCard({
                   router.refresh();
                 }
                 setIsPending(false);
-              }}>
+              }}
+            >
               {t("confirmSchedule")}
             </LoadingButton>
           </div>

@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "format": "prettier src/ --write",
     "db:dev": "npx triplit dev",
     "db:snapshot": "triplit snapshot create --outDir ./triplit/snapshots",
     "db:seed": "triplit snapshot push --snapshot ./triplit/snapshots",

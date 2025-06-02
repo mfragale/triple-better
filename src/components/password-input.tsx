@@ -31,7 +31,8 @@ const PasswordInput = React.forwardRef<
         className="top-0 right-0 absolute hover:bg-transparent px-3 py-2 h-full"
         onClick={() => setShowPassword((prev) => !prev)}
         disabled={disabled}
-        tabIndex={2}>
+        tabIndex={2}
+      >
         {showPassword && !disabled ? (
           <EyeIcon className="w-4 h-4" aria-hidden="true" />
         ) : (

@@ -96,7 +96,8 @@ export default function Checklist() {
         sensors={sensors}
         collisionDetection={closestCenter}
         onDragEnd={handleDragEnd}
-        modifiers={[restrictToVerticalAxis, restrictToParentElement]}>
+        modifiers={[restrictToVerticalAxis, restrictToParentElement]}
+      >
         <SortableContext items={items} strategy={verticalListSortingStrategy}>
           {items.map((item) => (
             <SortableItem key={item.id} todo={item} />

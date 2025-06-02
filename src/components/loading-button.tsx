@@ -23,7 +23,8 @@ export default function LoadingButton({
       className={cn("", className)}
       onClick={onClick}
       type="submit"
-      disabled={pending || props.disabled}>
+      disabled={pending || props.disabled}
+    >
       {pending ? <Loader2 className="animate-spin" /> : children}
     </Button>
   );

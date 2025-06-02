@@ -75,7 +75,8 @@ const SortableItem = ({ todo }: { todo: Todo }) => {
         "group py-2",
         isActive && "z-10 border-t border-b bg-accent/80",
         isPopoverOpen && "border-red-500"
-      )}>
+      )}
+    >
       <CardHeader className="flex justify-between items-center px-2">
         <div className="flex items-center gap-2 min-w-0 grow-1">
           <Button
@@ -85,14 +86,16 @@ const SortableItem = ({ todo }: { todo: Todo }) => {
               triplit.update("todos", todo.id, {
                 completed: !todo.completed,
               });
-            }}>
+            }}
+          >
             {todo.completed ? <Check className="text-green-500" /> : <Square />}
           </Button>
           {isEditing === todo.id ? (
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="flex items-center w-full">
+                className="flex items-center w-full"
+              >
                 <FormField
                   control={form.control}
                   name="editedTodoItemId"
@@ -127,7 +130,8 @@ const SortableItem = ({ todo }: { todo: Todo }) => {
               className={cn(
                 "w-full cursor-text pl-3 line-clamp-3",
                 todo.completed && "line-through text-muted-foreground/30"
-              )}>
+              )}
+            >
               {todo.text}
             </div>
           )}
@@ -142,7 +146,8 @@ const SortableItem = ({ todo }: { todo: Todo }) => {
                 className={cn(
                   "opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-destructive transition-opacity",
                   (isPopoverOpen || isMobile) && "opacity-100"
-                )}>
+                )}
+              >
                 <Trash2 />
               </Button>
             </PopoverTrigger>
@@ -160,7 +165,8 @@ const SortableItem = ({ todo }: { todo: Todo }) => {
                   variant="destructive"
                   onClick={() => {
                     triplit.delete("todos", uniqueId);
-                  }}>
+                  }}
+                >
                   {t("deletePopover.action")}
                 </Button>
               </div>
@@ -176,7 +182,8 @@ const SortableItem = ({ todo }: { todo: Todo }) => {
               "opacity-0 group-hover:opacity-100 transition-opacity",
               isMobile && "opacity-100",
               isCursorGrabbing ? "cursor-grabbing" : "cursor-grab"
-            )}>
+            )}
+          >
             <GripVerticalIcon />
           </Button>
         </div>

@@ -37,14 +37,16 @@ const Navbar = () => {
     <header>
       <nav
         data-state={menuState && "active"}
-        className="z-20 fixed bg-white sm:dark:bg-transparent dark:bg-zinc-950/50 backdrop-blur border-b border-dashed w-full">
+        className="z-20 fixed bg-white sm:dark:bg-transparent dark:bg-zinc-950/50 backdrop-blur border-b border-dashed w-full"
+      >
         <div className="m-auto px-6 max-w-5xl">
           <div className="flex flex-wrap justify-between items-center gap-6 sm:gap-0 py-3">
             <div className="flex justify-between w-full sm:w-auto">
               <Link
                 href="/"
                 aria-label="home"
-                className="flex items-center space-x-2">
+                className="flex items-center space-x-2"
+              >
                 <Logo />
                 <span className="font-bold text-xl">{t("title")}</span>
               </Link>
@@ -53,7 +55,8 @@ const Navbar = () => {
               <button
                 onClick={() => setMenuState(!menuState)}
                 aria-label={menuState == true ? "Close Menu" : "Open Menu"}
-                className="sm:hidden block z-20 relative -m-2.5 -mr-4 p-2.5 cursor-pointer">
+                className="sm:hidden block z-20 relative -m-2.5 -mr-4 p-2.5 cursor-pointer"
+              >
                 <Menu className="in-data-[state=active]:opacity-0 m-auto size-6 in-data-[state=active]:rotate-180 in-data-[state=active]:scale-0 duration-200" />
                 <X className="absolute inset-0 opacity-0 in-data-[state=active]:opacity-100 m-auto size-6 -rotate-180 in-data-[state=active]:rotate-0 scale-0 in-data-[state=active]:scale-100 duration-200" />
               </button>
@@ -73,7 +76,8 @@ const Navbar = () => {
                               " block text-muted-foreground duration-150 hover:text-accent-foreground",
                               pathname === item.href &&
                                 "bg-accent text-accent-foreground"
-                            )}>
+                            )}
+                          >
                             <span>{item.name}</span>
                           </Link>
                         </NavigationMenuLink>
