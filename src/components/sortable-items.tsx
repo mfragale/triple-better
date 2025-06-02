@@ -2,7 +2,7 @@ import { Card, CardHeader } from "@/components/ui/card";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
 import {
-  TEditTodoFormSchema,
+  TeditTodoFormSchema,
   useEditTodoFormSchema,
 } from "@/lib/zod-form-schemas";
 import { useSortable } from "@dnd-kit/sortable";
@@ -40,11 +40,11 @@ const SortableItem = ({ todo }: { todo: Todo }) => {
   const [isEditing, setIsEditing] = useState<string | null>(null);
   const editTodoFormSchema = useEditTodoFormSchema();
 
-  const form = useForm<TEditTodoFormSchema>({
+  const form = useForm<TeditTodoFormSchema>({
     resolver: zodResolver(editTodoFormSchema),
   });
 
-  async function onSubmit(values: TEditTodoFormSchema) {
+  async function onSubmit(values: TeditTodoFormSchema) {
     try {
       await triplit
         .update("todos", values.editedTodoItemId, async (entity) => {

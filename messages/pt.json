@@ -505,9 +505,10 @@
     "description": "Edite suas informações pessoais",
     "form": {
       "name": {
-        "label": "Nome"
+        "label": "Nome",
+        "placeholder": "Nome"
       },
-      "submitButton": "Salvar",
+      "submitButton": "Atualizar perfil",
       "email": {
         "label": "Email",
         "verified": "Verificado",
@@ -516,6 +517,14 @@
       },
       "role": {
         "label": "Função"
+      },
+      "church": {
+        "label": "Igreja",
+        "placeholder": "Igreja"
+      },
+      "birthdate": {
+        "label": "Data de nascimento",
+        "placeholder": "Selecione uma data"
       }
     },
     "toast": {
@@ -527,6 +536,9 @@
       },
       "changeEmail": {
         "success": "Email alterado com sucesso"
+      },
+      "changeProfileInfo": {
+        "success": "Perfil atualizado com sucesso"
       }
     },
     "role": {

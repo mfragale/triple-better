@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import {
-  TNewTodoFormSchema,
+  TnewTodoFormSchema,
   useNewTodoFormSchema,
 } from "@/lib/zod-form-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,14 +17,14 @@ import { Input } from "./ui/input";
 export function AddTodoForm({ nextItemIndex }: { nextItemIndex: number }) {
   const newTodoFormSchema = useNewTodoFormSchema();
 
-  const form = useForm<TNewTodoFormSchema>({
+  const form = useForm<TnewTodoFormSchema>({
     resolver: zodResolver(newTodoFormSchema),
     defaultValues: {
       newTodoItem: "",
     },
   });
 
-  async function onSubmit(values: TNewTodoFormSchema) {
+  async function onSubmit(values: TnewTodoFormSchema) {
     const newTodoItem = values.newTodoItem;
 
     if (!newTodoItem) return;

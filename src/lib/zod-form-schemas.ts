@@ -145,10 +145,21 @@ export const useChangePasswordSchema = () => {
   return changePasswordSchema;
 };
 
-export type TEditTodoFormSchema = z.infer<
+export const useEditProfileInfoSchema = () => {
+  const t = useTranslations("zod");
+
+  const editProfileInfoSchema = z.object({
+    name: useNameSchema(),
+    church: useNameSchema(),
+    birthdate: date(),
+  });
+  return editProfileInfoSchema;
+};
+
+export type TeditTodoFormSchema = z.infer<
   ReturnType<typeof useEditTodoFormSchema>
 >;
-export type TNewTodoFormSchema = z.infer<
+export type TnewTodoFormSchema = z.infer<
   ReturnType<typeof useNewTodoFormSchema>
 >;
 export type TsignUpSchema = z.infer<ReturnType<typeof useSignUpSchema>>;
@@ -161,4 +172,7 @@ export type TresetPasswordSchema = z.infer<
 >;
 export type TchangePasswordSchema = z.infer<
   ReturnType<typeof useChangePasswordSchema>
+>;
+export type TeditProfileInfoSchema = z.infer<
+  ReturnType<typeof useEditProfileInfoSchema>
 >;

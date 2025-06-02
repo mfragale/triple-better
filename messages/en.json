@@ -510,9 +510,10 @@
     },
     "form": {
       "name": {
-        "label": "Name"
+        "label": "Name",
+        "placeholder": "Name"
       },
-      "submitButton": "Save",
+      "submitButton": "Update profile",
       "email": {
         "label": "Email",
         "verified": "Verified",
@@ -521,6 +522,14 @@
       },
       "role": {
         "label": "Role"
+      },
+      "church": {
+        "label": "Church",
+        "placeholder": "Church"
+      },
+      "birthdate": {
+        "label": "Birthdate",
+        "placeholder": "Select a date"
       }
     },
     "toast": {
@@ -532,6 +541,9 @@
       },
       "changeEmail": {
         "success": "Email changed successfully"
+      },
+      "changeProfileInfo": {
+        "success": "Profile updated successfully"
       }
     }
   },
