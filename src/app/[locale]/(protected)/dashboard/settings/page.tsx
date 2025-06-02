@@ -4,7 +4,7 @@ import { hasPermission } from "@/lib/has-permission";
 import { getTranslations } from "next-intl/server";
 import { headers } from "next/headers";
 import Image from "next/image";
-import { User } from "../../../../../triplit/schema";
+import { User } from "../../../../../../triplit/schema";
 import ProfileAvatar from "./_components/edit-avatar-card";
 import { UpdateUserForm } from "./_components/update-user-form";
 

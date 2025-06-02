@@ -38,8 +38,5 @@ export const routing = defineRouting({
     "/dashboard/settings": {
       pt: "/painel/configuracoes",
     },
-    "/protected": {
-      pt: "/protegida",
-    },
   },
 });
