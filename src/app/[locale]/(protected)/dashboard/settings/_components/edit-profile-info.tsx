@@ -68,10 +68,33 @@ export default function EditProfileInfo(props: { session: Session | null }) {
   async function onSubmit(values: TeditProfileInfoSchema) {
     try {
       setIsLoading(true);
+      const result = editProfileInfoSchema.safeParse(values, {
+        errorMap(issue, ctx) {
+          const path = issue.path.join(".");
+
+          const message = {
+            name: t("zod.errors.invalid_string"),
+            church: t("zod.errors.invalid_string"),
+            birthdate: t("zod.errors.invalid_string"),
+          }[path];
+
+          return { message: message || ctx.defaultError };
+        },
+      });
+
+      if (!result.success) {
+        setIsLoading(false);
+        setFeedback({
+          error: true,
+          message: result.error.message,
+        });
+        return;
+      }
+
       await authClient.updateUser({
-        name: values.name ? values.name : undefined,
-        church: values.church ? values.church : undefined,
-        birthdate: values.birthdate ? values.birthdate : undefined,
+        name: result.data.name ? result.data.name : undefined,
+        church: result.data.church ? result.data.church : undefined,
+        birthdate: result.data.birthdate ? result.data.birthdate : undefined,
         fetchOptions: {
           onSuccess: () => {
             setFeedback({

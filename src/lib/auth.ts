@@ -1,9 +1,14 @@
-import { sendEmail } from "@/actions/send-emails/route";
+import {
+  sendEmail,
+  sendResetPasswordEmail,
+  sendVerificationEmail,
+} from "@/actions/send-emails/route";
 import { env } from "@/env/server";
 import { ac, admin, professor, user } from "@/lib/permissions";
 import { triplitAdapter } from "@daveyplate/better-auth-triplit";
 import { betterAuth } from "better-auth";
 import { admin as adminPlugin, genericOAuth } from "better-auth/plugins";
+import { getTranslations } from "next-intl/server";
 import { httpClient } from "../../triplit/http-client";
 
 export const auth = betterAuth({
@@ -12,6 +17,18 @@ export const auth = betterAuth({
     debugLogs: false,
   }),
   user: {
+    changeEmail: {
+      enabled: true,
+      sendChangeEmailVerification: async ({ newEmail, url }) => {
+        const t = await getTranslations("sendEmail");
+        await sendEmail({
+          to: newEmail,
+          subject: t("changeEmail.subject"),
+          heading: t("changeEmail.heading"),
+          text: t("changeEmail.text", { url }),
+        });
+      },
+    },
     additionalFields: {
       church: {
         type: "string",
@@ -26,11 +43,19 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     sendResetPassword: async ({ user, url }) => {
-      await sendEmail({
-        to: user.email,
-        subject: "Reset your password",
-        heading: "Reset your password",
-        text: `Click the link to reset your password: ${url}`,
+      await sendResetPasswordEmail({
+        user: user,
+        url: url,
+      });
+    },
+  },
+  emailVerification: {
+    sendOnSignUp: true,
+    autoSignInAfterVerification: true,
+    sendVerificationEmail: async ({ user, token }) => {
+      await sendVerificationEmail({
+        user: user,
+        token: token,
       });
     },
   },

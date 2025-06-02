@@ -545,7 +545,10 @@
       "user": "Aluno",
       "admin": "Admin",
       "professor": "Professor"
-    }
+    },
+    "invalidEmail": "asdf",
+    "invalidPassword": "xzcv",
+    "invalidBirthdate": "qwer"
   },
   "EditEmail": {
     "title": "Email",
@@ -568,5 +571,25 @@
         "success": "Email alterado com sucesso"
       }
     }
+  },
+  "sendEmail": {
+    "changeEmail": {
+      "subject": "Verifique sua mudança de email",
+      "heading": "Verifique sua mudança de email",
+      "text": "Clique no link para verificar: {url}"
+    },
+    "resetPassword": {
+      "subject": "Redefina sua senha",
+      "heading": "Redefina sua senha",
+      "text": "Clique no link para redefinir sua senha: {url}"
+    },
+    "verifyEmail": {
+      "subject": "Verifique seu endereço de email",
+      "heading": "Verifique seu endereço de email",
+      "text": "Clique no link para verificar seu e -mail: {url}"
+    }
+  },
+  "LoginForm": {
+    "invalidCredentials": "Inválido"
   }
 }

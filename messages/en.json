@@ -545,7 +545,10 @@
       "changeProfileInfo": {
         "success": "Profile updated successfully"
       }
-    }
+    },
+    "invalidEmail": "asdf",
+    "invalidPassword": "zxcv",
+    "invalidBirthdate": "qwer"
   },
   "EditEmail": {
     "title": "Email",
@@ -568,5 +571,25 @@
         "success": "Email changed successfully"
       }
     }
+  },
+  "sendEmail": {
+    "changeEmail": {
+      "subject": "Verify your email change",
+      "heading": "Verify your email change",
+      "text": "Click the link to verify: {url}"
+    },
+    "resetPassword": {
+      "subject": "Reset your password",
+      "heading": "Reset your password",
+      "text": "Click the link to reset your password: {url}"
+    },
+    "verifyEmail": {
+      "subject": "Verify your email address",
+      "heading": "Verify your email address",
+      "text": "Click the link to verify your email: {url}"
+    }
+  },
+  "LoginForm": {
+    "invalidCredentials": "Invalid"
   }
 }

@@ -5,6 +5,7 @@ export const env = createEnv({
   server: {
     BETTER_AUTH_SECRET: z.string().min(1),
     BETTER_AUTH_URL: z.string().min(1).url(),
+    EMAIL_VERIFICATION_CALLBACK_URL: z.string().min(1).url(),
     TRIPLIT_DB_URL: z.string().min(1).url(),
     TRIPLIT_ANON_TOKEN: z.string().min(1),
     TRIPLIT_SERVICE_TOKEN: z.string().min(1),
