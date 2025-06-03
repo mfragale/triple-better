@@ -500,7 +500,7 @@
     "chooseProfileImage": "Escolha a imagem do perfil",
     "uploadFailed": "Falha no upload"
   },
-  "EditProfileInfo": {
+  "EditProfileInfoCard": {
     "title": "Informações de perfil",
     "description": "Edite suas informações pessoais",
     "form": {
@@ -550,7 +550,7 @@
     "invalidPassword": "xzcv",
     "invalidBirthdate": "qwer"
   },
-  "EditEmail": {
+  "EditEmailCard": {
     "title": "Email",
     "description": "Coloque aqui seu melhor email",
     "form": {
@@ -591,5 +591,39 @@
   },
   "LoginForm": {
     "invalidCredentials": "Inválido"
+  },
+  "ChangePasswordCard": {
+    "title": "Alterar senha",
+    "zod": {
+      "errors": {
+        "invalid_string": ""
+      }
+    },
+    "description": "Digite sua senha atual e uma nova senha",
+    "form": {
+      "password": {
+        "label": "Senha atual",
+        "placeholder": "Senha atual"
+      },
+      "confirmPassword": {},
+      "newPassword": {
+        "label": "Nova senha",
+        "placeholder": "Nova senha"
+      },
+      "submitButton": "Alterar senha",
+      "confirmNewPassword": {
+        "label": "Confirmar nova senha",
+        "placeholder": "Confirmar nova senha"
+      },
+      "currentPassword": {
+        "label": "Senha atual",
+        "placeholder": "Senha atual"
+      },
+      "revokeOtherSessions": {
+        "label": "Revogar outras sessões?",
+        "description": "Ao verificar esta caixa, você será deslogado de todos os outros computadores."
+      },
+      "successMessage": "Senha alterada"
+    }
   }
 }

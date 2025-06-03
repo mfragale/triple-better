@@ -136,11 +136,11 @@ export const useChangePasswordSchema = () => {
       currentPassword: usePasswordSchema(),
       newPassword: usePasswordSchema(),
       confirmNewPassword: usePasswordSchema(),
-      revokeOtherSessions: useBooleanSchema(true).optional(),
+      revokeOtherSessions: useBooleanSchema(false).optional(),
     })
     .refine((data) => data.newPassword === data.confirmNewPassword, {
       message: t("errors.confirmPassword.match"),
-      path: ["confirmPassword"],
+      path: ["confirmNewPassword"],
     });
   return changePasswordSchema;
 };

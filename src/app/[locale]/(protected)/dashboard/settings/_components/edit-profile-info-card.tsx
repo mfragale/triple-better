@@ -42,10 +42,15 @@ import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-export default function EditProfileInfo(props: { session: Session | null }) {
-  const t = useTranslations("EditProfileInfo");
+export default function EditProfileInfoCard(props: {
+  session: Session | null;
+}) {
+  const t = useTranslations("EditProfileInfoCard");
+
+  // Required for the calendar to work
   const locale = useLocale();
   const localeDate = locale === "pt" ? pt : enUS;
+  // Required for the calendar to work
 
   const [feedback, setFeedback] = useState<{
     error: boolean;

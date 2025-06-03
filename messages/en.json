@@ -500,7 +500,7 @@
     "chooseProfileImage": "Choose profile image",
     "uploadFailed": "Upload failed"
   },
-  "EditProfileInfo": {
+  "EditProfileInfoCard": {
     "title": "Profile info",
     "description": "Edit your personal information",
     "role": {
@@ -550,7 +550,7 @@
     "invalidPassword": "zxcv",
     "invalidBirthdate": "qwer"
   },
-  "EditEmail": {
+  "EditEmailCard": {
     "title": "Email",
     "description": "Add your best email here",
     "form": {
@@ -591,5 +591,39 @@
   },
   "LoginForm": {
     "invalidCredentials": "Invalid"
+  },
+  "ChangePasswordCard": {
+    "title": "Change password",
+    "zod": {
+      "errors": {
+        "invalid_string": ""
+      }
+    },
+    "description": "Enter your current password and a new password",
+    "form": {
+      "password": {
+        "label": "Current password",
+        "placeholder": "Current password"
+      },
+      "confirmPassword": {},
+      "newPassword": {
+        "label": "New password",
+        "placeholder": "New password"
+      },
+      "submitButton": "Change password",
+      "confirmNewPassword": {
+        "label": "Confirm new password",
+        "placeholder": "Confirm new password"
+      },
+      "currentPassword": {
+        "label": "Current password",
+        "placeholder": "Current password"
+      },
+      "revokeOtherSessions": {
+        "label": "Revoke other sessions?",
+        "description": "By checking this box, you will be logouted from all other computers."
+      },
+      "successMessage": "Password changed"
+    }
   }
 }

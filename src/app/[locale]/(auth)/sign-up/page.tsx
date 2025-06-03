@@ -5,14 +5,14 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
+import { CalendarWithYearPicker } from "@/components/calendar-with-year-picker";
 import LoadingButton from "@/components/loading-button";
 import { PasswordInput } from "@/components/password-input";
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
@@ -32,9 +32,15 @@ import { Link } from "@/i18n/navigation";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import { TsignUpSchema, useSignUpSchema } from "@/lib/zod-form-schemas";
+import { enUS, pt } from "date-fns/locale";
 
 export default function SignUp() {
   const t = useTranslations("signUpPage");
+
+  // Required for the calendar to work
+  const locale = useLocale();
+  const localeDate = locale === "pt" ? pt : enUS;
+  // Required for the calendar to work
 
   const signUpSchema = useSignUpSchema();
 
@@ -142,12 +148,12 @@ export default function SignUp() {
                           <Button
                             variant={"outline"}
                             className={cn(
-                              "w-[240px] pl-3 text-left font-normal",
+                              "w-full pl-3 text-left font-normal",
                               !field.value && "text-muted-foreground"
                             )}
                           >
                             {field.value ? (
-                              format(field.value, "PPP")
+                              format(field.value, "dd / MMM / yyyy")
                             ) : (
                               <span>{t("form.birthdate.placeholder")}</span>
                             )}
@@ -156,8 +162,9 @@ export default function SignUp() {
                         </FormControl>
                       </PopoverTrigger>
                       <PopoverContent className="p-0 w-auto" align="start">
-                        <Calendar
+                        <CalendarWithYearPicker
                           mode="single"
+                          locale={localeDate}
                           selected={field.value}
                           onSelect={field.onChange}
                           disabled={(date) =>

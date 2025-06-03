@@ -4,9 +4,10 @@ import { hasPermission } from "@/lib/has-permission";
 import { getTranslations } from "next-intl/server";
 import { headers } from "next/headers";
 import { User } from "../../../../../../triplit/schema";
+import ChangePasswordCard from "./_components/change-password-card";
 import EditAvatarCard from "./_components/edit-avatar-card";
-import EditEmail from "./_components/edit-email";
-import EditProfileInfo from "./_components/edit-profile-info";
+import EditEmailCard from "./_components/edit-email-card";
+import EditProfileInfoCard from "./_components/edit-profile-info-card";
 
 export default async function ProfilePage() {
   const t = await getTranslations("dashboard.settings");
@@ -37,8 +38,9 @@ export default async function ProfilePage() {
         <h1 className="font-bold text-2xl">{t("profile.title")}</h1>
 
         <EditAvatarCard session={session} />
-        <EditProfileInfo session={session} />
-        <EditEmail session={session} />
+        <EditProfileInfoCard session={session} />
+        <EditEmailCard session={session} />
+        <ChangePasswordCard session={session} />
       </div>
     </>
   );

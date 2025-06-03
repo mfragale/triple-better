@@ -20,8 +20,8 @@ import { BadgeCheck, Check, Loader2, Send, ShieldAlert, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
-export default function EditEmail(props: { session: Session | null }) {
-  const t = useTranslations("EditEmail");
+export default function EditEmailCard(props: { session: Session | null }) {
+  const t = useTranslations("EditEmailCard");
   const [email, setEmail] = useState(props.session?.user.email);
   const [feedback, setFeedback] = useState<{
     error: boolean;
