@@ -101,25 +101,23 @@ export default function ResetPasswordContent() {
 
   if (error === "invalid_token") {
     return (
-      <div className="flex justify-center items-center p-4 grow">
-        <Card className="w-full max-w-md">
-          <CardHeader>
-            <CardTitle className="font-bold text-3xl">
-              {t("invalid.title")}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <p className="text-center">{t("invalid.message")}</p>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      <Card className="w-full">
+        <CardHeader>
+          <CardTitle className="font-bold text-3xl">
+            {t("invalid.title")}
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            <p className="text-center">{t("invalid.message")}</p>
+          </div>
+        </CardContent>
+      </Card>
     );
   }
 
   return (
-    <Card className="w-full max-w-sm">
+    <Card className="w-full">
       <CardHeader>
         <CardTitle className="font-bold text-3xl">
           <h1 className="mt-4 mb-1 font-semibold text-xl">{t("title")}</h1>

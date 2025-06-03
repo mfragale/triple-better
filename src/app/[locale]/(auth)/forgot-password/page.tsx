@@ -84,7 +84,7 @@ export default function ForgotPassword() {
   }
 
   return (
-    <Card className="w-full max-w-sm">
+    <Card className="w-full">
       <CardHeader>
         <CardTitle className="font-bold text-3xl">
           <h1 className="mt-4 mb-1 font-semibold text-xl">{t("title")}</h1>

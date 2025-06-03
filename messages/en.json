@@ -484,7 +484,8 @@
   "authButtonsComponent": {
     "signOut": "Sign out",
     "signIn": "Sign in",
-    "settings": "Settings"
+    "settings": "Settings",
+    "signUp": "Sign up"
   },
   "dashboard": {
     "settings": {

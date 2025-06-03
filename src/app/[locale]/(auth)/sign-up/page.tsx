@@ -107,7 +107,7 @@ export default function SignUp() {
   }
 
   return (
-    <Card className="w-full max-w-sm">
+    <Card className="w-full">
       <CardHeader>
         <CardTitle className="font-bold text-3xl">
           <h1 className="mb-1 font-semibold text-xl">{t("title")}</h1>

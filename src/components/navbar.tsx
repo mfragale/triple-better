@@ -12,8 +12,7 @@ import { MenuItem } from "@/types";
 import { Menu, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { SignInButton, UserButton } from "./auth-buttons";
-import { SignedIn, SignedOut } from "./auth-states";
+import { UserButton } from "./auth-buttons";
 import LocaleSwitcher2 from "./locale-switcher";
 import { Logo } from "./logo";
 import ThemeToggle from "./theme-toggle";
@@ -90,12 +89,7 @@ const Navbar = () => {
               <div className="flex flex-row justify-center items-center gap-3 space-y-0 pt-6 sm:pt-0 sm:pl-6 border-t sm:border-t-0 sm:border-l">
                 <LocaleSwitcher2 />
                 <ThemeToggle />
-                <SignedIn>
-                  <UserButton />
-                </SignedIn>
-                <SignedOut>
-                  <SignInButton />
-                </SignedOut>
+                <UserButton />
               </div>
             </div>
           </div>

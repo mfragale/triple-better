@@ -484,7 +484,8 @@
   "authButtonsComponent": {
     "signOut": "Sair",
     "signIn": "Entrar",
-    "settings": "Configurações"
+    "settings": "Configurações",
+    "signUp": "Registrar"
   },
   "dashboard": {
     "settings": {
