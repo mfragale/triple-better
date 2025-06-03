@@ -1,6 +1,6 @@
 {
   "HomePage": {
-    "title": "Hello world!"
+    "title": "My Checklist"
   },
   "LocaleSwitcher": {
     "locale": "{locale, select, pt {🇧🇷} en {🇺🇸} other {Unknown}}",

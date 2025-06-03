@@ -1,6 +1,6 @@
 {
   "HomePage": {
-    "title": "Olá mundo!"
+    "title": "Minha lista"
   },
   "LocaleSwitcher": {
     "locale": "{locale, select, pt {🇧🇷} en {🇺🇸} other {Desconhecido}}",

@@ -86,12 +86,8 @@ export default function Checklist() {
     }
   }
 
-  // function handleDelete(idToDelete: string) {
-  //   triplit.delete("todos", idToDelete);
-  // }
-
   return (
-    <div className="flex flex-col gap-2 mx-auto px-4 py-12 max-w-xl">
+    <div className="flex flex-col gap-2">
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
