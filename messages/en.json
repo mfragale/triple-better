@@ -632,5 +632,13 @@
     },
     "title": "Email",
     "description": "Enter the email address you want to use to log in"
+  },
+  "ActiveSessionsComponent": {
+    "currentSession": "Current session",
+    "description": "Manage your active sessinos and revoke access",
+    "title": "Active sessions",
+    "sessionTerminated": "Session terminated",
+    "signOutButton": "Sign out",
+    "terminateButton": "Terminate"
   }
 }

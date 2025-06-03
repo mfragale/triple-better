@@ -632,5 +632,13 @@
     },
     "title": "Email",
     "description": "Digite o endereço de email que você deseja usar para fazer login"
+  },
+  "ActiveSessionsComponent": {
+    "currentSession": "Sessão atual",
+    "description": "Gerencie seus sessinos ativos e revogue o acesso",
+    "title": "Sessões ativas",
+    "sessionTerminated": "Sessão encerrada",
+    "signOutButton": "Sair",
+    "terminateButton": "Encerrar"
   }
 }
