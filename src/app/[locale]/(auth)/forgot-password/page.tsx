@@ -87,14 +87,14 @@ export default function ForgotPassword() {
     <Card className="w-full">
       <CardHeader>
         <CardTitle className="font-bold text-3xl">
-          <h1 className="mt-4 mb-1 font-semibold text-xl">{t("title")}</h1>
+          <h1 className="mb-1 font-semibold text-xl">{t("title")}</h1>
           <p className="font-light text-muted-foreground text-sm">
             {t("message")}
           </p>
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="space-y-6 mt-6">
+        <div className="space-y-6 mt-2">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <FormField
