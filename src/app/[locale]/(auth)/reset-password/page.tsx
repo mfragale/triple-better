@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 import LoadingButton from "@/components/loading-button";
+import { PasswordInput } from "@/components/password-input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
@@ -18,24 +19,26 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { useRouter } from "@/i18n/navigation";
 import { authClient } from "@/lib/auth-client";
 import {
   TresetPasswordSchema,
   useResetPasswordSchema,
 } from "@/lib/zod-form-schemas";
+import { ErrorContext } from "better-auth/react";
 
 export default function ResetPasswordContent() {
-  const t = useTranslations("resetPasswordPage");
+  const t = useTranslations("ResetPasswordPage");
 
   const router = useRouter();
   const searchParams = useSearchParams();
   const error = searchParams.get("error");
-  const [isPending, setIsPending] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const resetPasswordSchema = useResetPasswordSchema();
 
   const form = useForm<TresetPasswordSchema>({
+    // Client side validation
     resolver: zodResolver(resetPasswordSchema),
     defaultValues: {
       password: "",
@@ -43,24 +46,56 @@ export default function ResetPasswordContent() {
     },
   });
 
-  const onSubmit = async (data: TresetPasswordSchema) => {
-    setIsPending(true);
-    const token = searchParams.get("token");
-    if (!token) {
-      // Handle the error
+  async function onSubmit(values: TresetPasswordSchema) {
+    try {
+      setIsLoading(true);
+      const token = searchParams.get("token");
+
+      if (!token) {
+        toast(t("form.noToken"));
+        setIsLoading(false);
+        return;
+      }
+
+      const result = resetPasswordSchema.safeParse(values);
+
+      // Server side validation
+      if (!result.success) {
+        const zodError = result.error;
+        if (zodError && zodError.errors) {
+          zodError.errors.forEach((err) => {
+            const field = err.path.join(".");
+            form.setError(field as any, { message: err.message });
+          });
+        }
+        return;
+      }
+
+      // Do form action
+      await authClient.resetPassword(
+        {
+          newPassword: values.password,
+          token: token || undefined,
+        },
+        {
+          onSuccess: () => {
+            toast(t("form.successMessage"));
+            router.push("/sign-in");
+            router.refresh();
+          },
+          onError: (ctx: ErrorContext) => {
+            console.error("error", ctx);
+            toast.error(ctx.error.message ?? t("form.errorMessage"));
+          },
+        }
+      );
+    } catch (error) {
+      console.error("error", error);
+      toast.error((error as string) ?? t("form.errorMessage"));
+    } finally {
+      setIsLoading(false);
     }
-    const { error } = await authClient.resetPassword({
-      newPassword: data.password,
-      token: token || undefined,
-    });
-    if (error) {
-      toast(error.message);
-    } else {
-      toast(t("toastMessage"));
-      router.push("/sign-in");
-    }
-    setIsPending(false);
-  };
+  }
 
   if (error === "invalid_token") {
     return (
@@ -102,8 +137,7 @@ export default function ResetPasswordContent() {
                   <FormItem>
                     <FormLabel>{t("form.newPassword.label")}</FormLabel>
                     <FormControl>
-                      <Input
-                        type="password"
+                      <PasswordInput
                         placeholder={t("form.newPassword.placeholder")}
                         {...field}
                       />
@@ -120,8 +154,7 @@ export default function ResetPasswordContent() {
                   <FormItem>
                     <FormLabel>{t("form.confirmPassword.label")}</FormLabel>
                     <FormControl>
-                      <Input
-                        type="password"
+                      <PasswordInput
                         placeholder={t("form.confirmPassword.placeholder")}
                         {...field}
                       />
@@ -131,7 +164,7 @@ export default function ResetPasswordContent() {
                 )}
               />
 
-              <LoadingButton className="w-full" pending={isPending}>
+              <LoadingButton className="w-full" pending={isLoading}>
                 {t("form.submitButton")}
               </LoadingButton>
             </form>

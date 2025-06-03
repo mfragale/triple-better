@@ -29,6 +29,7 @@ import {
   useChangePasswordSchema,
 } from "@/lib/zod-form-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ErrorContext } from "better-auth/react";
 import { Check, Loader2, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
@@ -75,23 +76,34 @@ export default function ChangePasswordCard(props: { session: Session | null }) {
       }
 
       // Do form action
-      await authClient.changePassword({
-        newPassword: result.data.newPassword,
-        currentPassword: result.data.currentPassword,
-        revokeOtherSessions: result.data.revokeOtherSessions,
-      });
-
-      setFeedback({
-        error: false,
-        message: t("form.successMessage"),
-      });
-
-      router.refresh();
+      await authClient.changePassword(
+        {
+          newPassword: result.data.newPassword,
+          currentPassword: result.data.currentPassword,
+          revokeOtherSessions: result.data.revokeOtherSessions,
+        },
+        {
+          onSuccess: () => {
+            setFeedback({
+              error: false,
+              message: t("form.successMessage"),
+            });
+            router.refresh();
+          },
+          onError: (ctx: ErrorContext) => {
+            console.error("error", ctx);
+            setFeedback({
+              error: true,
+              message: ctx.error.message ?? t("form.errorMessage"),
+            });
+          },
+        }
+      );
     } catch (error) {
-      console.error(error);
+      console.error("error", error);
       setFeedback({
         error: true,
-        message: error as string,
+        message: (error as string) ?? t("form.errorMessage"),
       });
     } finally {
       setIsLoading(false);

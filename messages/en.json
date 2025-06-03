@@ -369,11 +369,11 @@
       "set": "set"
     }
   },
-  "emailVerifiedPage": {
+  "EmailVerifiedPage": {
     "title": "Email verified",
     "message": "Your email has been verified successfully."
   },
-  "forgotPasswordPage": {
+  "ForgotPasswordPage": {
     "toastMessage": "If an account exists with this email, you will receive a password reset link.",
     "title": "Forgot password",
     "message": "We'll send you an email with a link to reset your password.",
@@ -382,10 +382,11 @@
         "label": "Email",
         "placeholder": "The email you use to sign in"
       },
-      "submitButton": "Send link"
+      "submitButton": "Send link",
+      "errorMessage": "Something went wrong"
     }
   },
-  "resetPasswordPage": {
+  "ResetPasswordPage": {
     "toastMessage": "Password reset successful. Login to continue.",
     "invalid": {
       "title": "Invalid reset link",
@@ -401,11 +402,14 @@
         "label": "Confirm new password",
         "placeholder": "Same as password above"
       },
-      "submitButton": "Reset password"
+      "submitButton": "Reset password",
+      "noToken": "No token was found",
+      "successMessage": "Your password has been reseted",
+      "errorMessage": "Something went wrong"
     },
     "message": "Please create a new password"
   },
-  "signInPage": {
+  "SignInPage": {
     "toast": {
       "emailNotVerified": {
         "message": "Do you wish to resend the verification email?",
@@ -426,7 +430,8 @@
         "label": "Password"
       },
       "forgotPasswordButton": "Forgot your password?",
-      "submitButton": "Sign in"
+      "submitButton": "Sign in",
+      "errorMessage": "Something went wrong"
     },
     "noAccount": {
       "message": "Don't have an account?",
@@ -434,7 +439,7 @@
     },
     "tc": "By signing in, you agree to our Terms of Service and Privacy Policy."
   },
-  "signUpPage": {
+  "SignUpPage": {
     "toast": {
       "success": "Your account has been created. Check your email for a verification link.",
       "somethingWentWrong": "Something went wrong"
@@ -461,7 +466,9 @@
       "birthdate": {
         "label": "Birthdate",
         "placeholder": "Birthdate"
-      }
+      },
+      "successMessage": "Your account has been created. Check your email for a verification link.",
+      "errorMessage": "Something went wrong"
     },
     "haveAccount": {
       "signInButton": "Sign in",
@@ -623,7 +630,8 @@
         "label": "Revoke other sessions?",
         "description": "By checking this box, you will be logouted from all other computers."
       },
-      "successMessage": "Password changed"
+      "successMessage": "Password changed",
+      "errorMessage": "Something went wrong"
     }
   }
 }

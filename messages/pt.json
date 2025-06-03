@@ -369,11 +369,11 @@
       "set": "conjunto"
     }
   },
-  "emailVerifiedPage": {
+  "EmailVerifiedPage": {
     "title": "Email verificado",
     "message": "Seu email foi verificado com sucesso."
   },
-  "forgotPasswordPage": {
+  "ForgotPasswordPage": {
     "toastMessage": "Se existe uma conta com este email, você receberá um link para resetar sua senha.",
     "title": "Esqueceu a senha",
     "message": "Enviaremos um email com um link para resetar sua senha.",
@@ -382,10 +382,11 @@
         "label": "Email",
         "placeholder": "O email que você usa para entrar"
       },
-      "submitButton": "Enviar link"
+      "submitButton": "Enviar link",
+      "errorMessage": "Algo deu errado"
     }
   },
-  "resetPasswordPage": {
+  "ResetPasswordPage": {
     "toastMessage": "Senha resetada com sucesso. Entre para continuar.",
     "invalid": {
       "title": "Link inválido",
@@ -401,11 +402,14 @@
         "label": "Confirme sua nova senha",
         "placeholder": "Mesma que a senha acima"
       },
-      "submitButton": "Resetar senha"
+      "submitButton": "Resetar senha",
+      "noToken": "Não foi encontrado nenhum token",
+      "successMessage": "Sua senha foi redefinida",
+      "errorMessage": "Algo deu errado"
     },
     "message": "Crie uma nova senha"
   },
-  "signInPage": {
+  "SignInPage": {
     "toast": {
       "emailNotVerified": {
         "message": "Deseja reenviar o email de verificação?",
@@ -426,7 +430,8 @@
         "label": "Senha"
       },
       "forgotPasswordButton": "Esqueceu a senha?",
-      "submitButton": "Entrar"
+      "submitButton": "Entrar",
+      "errorMessage": "Algo deu errado"
     },
     "noAccount": {
       "message": "Não possui uma conta?",
@@ -434,7 +439,7 @@
     },
     "tc": "Ao entrar, você concorda com os nossos Termos de Serviço e Política de Privacidade."
   },
-  "signUpPage": {
+  "SignUpPage": {
     "toast": {
       "success": "Sua conta foi criada. Veja seu email com o link de verificação.",
       "somethingWentWrong": "Algo deu errado"
@@ -461,7 +466,9 @@
       "birthdate": {
         "label": "Data de nascimento",
         "placeholder": "Data de nascimento"
-      }
+      },
+      "successMessage": "Sua conta foi criada. Veja seu email com o link de verificação.",
+      "errorMessage": "Algo deu errado"
     },
     "haveAccount": {
       "signInButton": "Entrar",
@@ -623,7 +630,8 @@
         "label": "Revogar outras sessões?",
         "description": "Ao verificar esta caixa, você será deslogado de todos os outros computadores."
       },
-      "successMessage": "Senha alterada"
+      "successMessage": "Senha alterada",
+      "errorMessage": "Algo deu errado"
     }
   }
 }

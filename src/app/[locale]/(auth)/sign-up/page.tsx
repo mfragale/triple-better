@@ -32,21 +32,23 @@ import { Link } from "@/i18n/navigation";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import { TsignUpSchema, useSignUpSchema } from "@/lib/zod-form-schemas";
+import { ErrorContext } from "better-auth/react";
 import { enUS, pt } from "date-fns/locale";
 
 export default function SignUp() {
-  const t = useTranslations("signUpPage");
+  const t = useTranslations("SignUpPage");
 
   // Required for the calendar to work
   const locale = useLocale();
   const localeDate = locale === "pt" ? pt : enUS;
   // Required for the calendar to work
 
+  const [loading, setLoading] = useState(false);
+
   const signUpSchema = useSignUpSchema();
 
-  const [pending, setPending] = useState(false);
-
   const form = useForm<TsignUpSchema>({
+    // Client side validation
     resolver: zodResolver(signUpSchema),
     defaultValues: {
       name: "",
@@ -58,43 +60,62 @@ export default function SignUp() {
     },
   });
 
-  const onSubmit = async (values: TsignUpSchema) => {
-    await authClient.signUp.email(
-      {
-        email: values.email,
-        password: values.password,
-        name: values.name,
-        church: values.church,
-        birthdate: values.birthdate,
-      },
-      {
-        onRequest: () => {
-          setPending(true);
-        },
-        onSuccess: () => {
-          toast(t("toast.success"));
-        },
-        onError: (ctx) => {
-          console.log("error", ctx);
-          toast(ctx.error.message ?? t("toast.somethingWentWrong"));
-        },
+  async function onSubmit(values: TsignUpSchema) {
+    try {
+      setLoading(true);
+      const result = signUpSchema.safeParse(values);
+
+      // Server side validation
+      if (!result.success) {
+        const zodError = result.error;
+        if (zodError && zodError.errors) {
+          zodError.errors.forEach((err) => {
+            const field = err.path.join(".");
+            form.setError(field as any, { message: err.message });
+          });
+        }
+        return;
       }
-    );
-    setPending(false);
-  };
+
+      // Do form action
+      await authClient.signUp.email(
+        {
+          name: result.data.name,
+          email: result.data.email,
+          church: result.data.church,
+          birthdate: result.data.birthdate,
+          password: result.data.password,
+        },
+        {
+          onSuccess: () => {
+            toast(t("form.successMessage"));
+          },
+          onError: (ctx: ErrorContext) => {
+            console.error("error", ctx);
+            toast(ctx.error.message ?? t("form.errorMessage"));
+          },
+        }
+      );
+    } catch (error) {
+      console.error("error", error);
+      toast(t("form.errorMessage"));
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <Card className="w-full max-w-sm">
       <CardHeader>
         <CardTitle className="font-bold text-3xl">
-          <h1 className="mt-4 mb-1 font-semibold text-xl">{t("title")}</h1>
+          <h1 className="mb-1 font-semibold text-xl">{t("title")}</h1>
           <p className="font-light text-muted-foreground text-sm">
             {t("message")}
           </p>
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="space-y-6 mt-6">
+        <div className="space-y-6 mt-2">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <FormField
@@ -204,8 +225,7 @@ export default function SignUp() {
                   </FormItem>
                 )}
               />
-              <LoadingButton className="w-full" pending={pending}>
-                {/* Sign up */}
+              <LoadingButton className="w-full" pending={loading}>
                 {t("form.submitButton")}
               </LoadingButton>
             </form>

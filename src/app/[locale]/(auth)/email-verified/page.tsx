@@ -1,7 +1,7 @@
 import { useTranslations } from "next-intl";
 
 export default function EmailVerifiedPage() {
-  const t = useTranslations("emailVerifiedPage");
+  const t = useTranslations("EmailVerifiedPage");
 
   return (
     <div className="flex flex-col justify-center items-center p-4 grow">

@@ -26,10 +26,11 @@ import { authClient } from "@/lib/auth-client";
 import { TsignInSchema, useSignInSchema } from "@/lib/zod-form-schemas";
 
 export default function SignIn() {
-  const t = useTranslations("signInPage");
+  const t = useTranslations("SignInPage");
 
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const [pendingCredentials, setPendingCredentials] = useState(false);
+
   const signInSchema = useSignInSchema();
 
   const form = useForm<TsignInSchema>({
@@ -40,66 +41,77 @@ export default function SignIn() {
     },
   });
 
-  const handleCredentialsSignIn = async (values: TsignInSchema) => {
-    await authClient.signIn.email(
-      {
-        email: values.email,
-        password: values.password,
-      },
-      {
-        onRequest: () => {
-          setPendingCredentials(true);
-        },
-        onSuccess: async () => {
-          router.push("/");
-          router.refresh();
-        },
-        onError: (ctx: ErrorContext) => {
-          console.log(ctx);
-          if (ctx.error.code === "EMAIL_NOT_VERIFIED") {
-            toast(ctx.error.message, {
-              description: t("toast.emailNotVerified.message"),
-              action: {
-                label: t("toast.emailNotVerified.action"),
-                onClick: () => {
-                  authClient.sendVerificationEmail({ email: values.email });
-                  toast(t("toast.verificationEmailSent.message"));
-                },
-              },
-            });
-            return;
-          }
-          toast(ctx.error.message ?? t("toast.somethingWentWrong"));
-        },
-      }
-    );
-    setPendingCredentials(false);
-  };
+  async function onSubmit(values: TsignInSchema) {
+    try {
+      setLoading(true);
+      const result = signInSchema.safeParse(values);
 
-  // const handlePcoSignIn = async () => {
-  //   await client.signIn.oauth2({
-  //     providerId: "planning-center",
-  //     callbackURL: "/dashboard", // the path to redirect to after the user is authenticated
-  //   });
-  // };
+      // Server side validation
+      if (!result.success) {
+        const zodError = result.error;
+        if (zodError && zodError.errors) {
+          zodError.errors.forEach((err) => {
+            const field = err.path.join(".");
+            form.setError(field as any, { message: err.message });
+          });
+        }
+        return;
+      }
+
+      // Do form action
+      await authClient.signIn.email(
+        {
+          email: result.data.email,
+          password: result.data.password,
+        },
+        {
+          onSuccess: () => {
+            router.push("/");
+            router.refresh();
+          },
+          onError: (ctx: ErrorContext) => {
+            console.error("error", ctx);
+            if (ctx.error.code === "EMAIL_NOT_VERIFIED") {
+              toast(ctx.error.message, {
+                description: t("toast.emailNotVerified.message"),
+                action: {
+                  label: t("toast.emailNotVerified.action"),
+                  onClick: () => {
+                    authClient.sendVerificationEmail({
+                      email: result.data.email,
+                    });
+                    toast(t("toast.verificationEmailSent.message"));
+                  },
+                },
+              });
+              return;
+            }
+            toast(ctx.error.message ?? t("form.errorMessage"));
+          },
+        }
+      );
+    } catch (error) {
+      console.error("error", error);
+      toast(t("form.errorMessage"));
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <Card className="w-full max-w-sm">
       <CardHeader>
         <CardTitle className="font-bold text-3xl">
-          <h1 className="mt-4 mb-1 font-semibold text-xl">{t("title")}</h1>
+          <h1 className="mb-1 font-semibold text-xl">{t("title")}</h1>
           <p className="font-light text-muted-foreground text-sm">
             {t("message")}
           </p>
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="space-y-6 mt-6">
+        <div className="space-y-6 mt-2">
           <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(handleCredentialsSignIn)}
-              className="space-y-6"
-            >
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <FormField
                 control={form.control}
                 name="email"
@@ -139,15 +151,11 @@ export default function SignIn() {
                   </FormItem>
                 )}
               />
-              <LoadingButton className="w-full" pending={pendingCredentials}>
+              <LoadingButton className="w-full" pending={loading}>
                 {t("form.submitButton")}
               </LoadingButton>
             </form>
           </Form>
-
-          {/* <div>
-            <Button onClick={handlePcoSignIn}>{"PCO"}</Button>
-          </div> */}
 
           <div className="mt-4 text-sm text-center">
             <Link

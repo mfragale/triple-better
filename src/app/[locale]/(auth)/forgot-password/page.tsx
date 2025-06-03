@@ -23,34 +23,63 @@ import {
   TforgotPasswordSchema,
   useForgotPasswordSchema,
 } from "@/lib/zod-form-schemas";
+import { ErrorContext } from "better-auth/react";
 
 export default function ForgotPassword() {
-  const t = useTranslations("forgotPasswordPage");
+  const t = useTranslations("ForgotPasswordPage");
 
-  const [isPending, setIsPending] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const forgotPasswordSchema = useForgotPasswordSchema();
 
   const form = useForm<TforgotPasswordSchema>({
+    // Client side validation
     resolver: zodResolver(forgotPasswordSchema),
     defaultValues: {
       email: "",
     },
   });
 
-  const onSubmit = async (data: TforgotPasswordSchema) => {
-    setIsPending(true);
-    const { error } = await authClient.forgetPassword({
-      email: data.email,
-      redirectTo: "/reset-password",
-    });
+  async function onSubmit(values: TforgotPasswordSchema) {
+    try {
+      setIsLoading(true);
+      const result = forgotPasswordSchema.safeParse(values);
 
-    if (error) {
-      toast(error.message);
-    } else {
-      toast(t("toastMessage"));
+      // Server side validation
+      if (!result.success) {
+        const zodError = result.error;
+        if (zodError && zodError.errors) {
+          zodError.errors.forEach((err) => {
+            const field = err.path.join(".");
+            form.setError(field as any, { message: err.message });
+          });
+        }
+        return;
+      }
+
+      // Do form action
+      await authClient.forgetPassword(
+        {
+          email: result.data.email,
+          redirectTo: "/reset-password",
+        },
+        {
+          onSuccess: () => {
+            toast(t("toastMessage"));
+          },
+          onError: (ctx: ErrorContext) => {
+            console.error("error", ctx);
+            toast.error(ctx.error.message ?? t("form.errorMessage"));
+          },
+        }
+      );
+    } catch (error) {
+      console.error("error", error);
+      toast.error((error as string) ?? t("form.errorMessage"));
+    } finally {
+      setIsLoading(false);
     }
-    setIsPending(false);
-  };
+  }
 
   return (
     <Card className="w-full max-w-sm">
@@ -84,7 +113,7 @@ export default function ForgotPassword() {
                   </FormItem>
                 )}
               />
-              <LoadingButton className="w-full" pending={isPending}>
+              <LoadingButton className="w-full" pending={isLoading}>
                 {t("form.submitButton")}
               </LoadingButton>
             </form>
