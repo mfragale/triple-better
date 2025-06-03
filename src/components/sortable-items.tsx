@@ -20,6 +20,8 @@ import { Input } from "./ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
 const SortableItem = ({ todo }: { todo: Todo }) => {
+  const t = useTranslations("ChecklistItem");
+
   const uniqueId = todo.id;
   const {
     setNodeRef,
@@ -34,21 +36,39 @@ const SortableItem = ({ todo }: { todo: Todo }) => {
   const isCursorGrabbing = attributes["aria-pressed"];
 
   const isActive = activeIndex === index;
-  const t = useTranslations("ChecklistItem");
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const isMobile = useIsMobile();
   const [isEditing, setIsEditing] = useState<string | null>(null);
+
   const editTodoFormSchema = useEditTodoFormSchema();
 
   const form = useForm<TeditTodoFormSchema>({
+    // Client side validation
     resolver: zodResolver(editTodoFormSchema),
   });
 
   async function onSubmit(values: TeditTodoFormSchema) {
     try {
+      const result = editTodoFormSchema.safeParse(values);
+
+      // Server side validation
+      if (!result.success) {
+        const zodError = result.error;
+        if (zodError && zodError.errors) {
+          zodError.errors.forEach((err) => {
+            const field = err.path.join(".");
+            form.setError(field as keyof TeditTodoFormSchema, {
+              message: err.message,
+            });
+          });
+        }
+        return;
+      }
+
+      // Do form action
       await triplit
-        .update("todos", values.editedTodoItemId, async (entity) => {
-          entity.text = values.editedTodoItem;
+        .update("todos", result.data.editedTodoItemId, async (entity) => {
+          entity.text = result.data.editedTodoItem;
         })
         .then(async () => {
           await new Promise((resolve) => setTimeout(resolve, 200));
