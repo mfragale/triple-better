@@ -662,5 +662,17 @@
     "noUser": "Nenhum usuário",
     "noPcoAccount": "Nenhuma conta do Planning Center encontrada",
     "userAlreadyHasAvatar": "Usuário já possui avatar"
+  },
+  "ActionButton": {
+    "title": "Tem certeza?",
+    "description": "Esta ação não pode ser desfeita.",
+    "cancelButton": "Cancelar",
+    "confirmButton": "Sim"
+  },
+  "DeleteAccountComponent": {
+    "title": "Excluir conta",
+    "description": "Remova permanentemente sua conta e todo o seu conteúdo. \nEsta ação não é reversível; portanto, continue com cautela.",
+    "deleteAccountButton": "Excluir conta",
+    "deleteAccountSuccess": "{name}, entre em contato com o suporte para deletar sua conta."
   }
 }

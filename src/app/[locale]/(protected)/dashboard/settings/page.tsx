@@ -5,6 +5,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { headers } from "next/headers";
 import ActiveSessions from "./_components/active-sessions";
 import ChangePasswordCard from "./_components/change-password-card";
+import DeleteAccount from "./_components/delete-account";
 import EditAvatarCard from "./_components/edit-avatar-card";
 import EditEmailCard from "./_components/edit-email-card";
 import EditProfileInfoCard from "./_components/edit-profile-info-card";
@@ -52,6 +53,7 @@ export default async function ProfilePage() {
       <ChangePasswordCard />
       <ActiveSessions session={session} activeSessions={activeSessions} />
       <LinkedAccounts userAccounts={userAccounts} />
+      <DeleteAccount session={session} />
     </div>
   );
 }

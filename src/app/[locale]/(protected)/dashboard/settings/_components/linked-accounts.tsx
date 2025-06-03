@@ -32,7 +32,7 @@ export default function LinkedAccounts(props: {
           {t("description")}
         </CardDescription>
       </CardHeader>
-      <CardContent className="gap-6 grid">
+      <CardContent className="gap-4 grid">
         {props.userAccounts?.map((account: Account) => {
           return (
             <div
