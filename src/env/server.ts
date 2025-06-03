@@ -15,6 +15,9 @@ export const env = createEnv({
     RESEND_API_KEY: z.string().min(1),
     EMAIL_FROM: z.string().min(1).email(),
     UPLOADTHING_TOKEN: z.string().min(1),
+    APP_NAME: z.string().min(1),
+    APP_DESCRIPTION: z.string().min(1),
+    DEPLOYED_URL: z.string().min(1).url(),
   },
   onValidationError: (error) => {
     console.error("Error validating environment variables:", error);

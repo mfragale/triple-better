@@ -3,6 +3,7 @@ import { Resend } from "resend";
 
 import DefaultEmail from "@/components/emails/default-email-template";
 import { env } from "@/env/server";
+import { render } from "@react-email/components";
 import { User } from "better-auth";
 import { getTranslations } from "next-intl/server";
 
@@ -21,10 +22,11 @@ export async function sendEmail({
 }) {
   try {
     const { data, error } = await resend.emails.send({
-      from: env.EMAIL_FROM,
+      from: `${env.APP_NAME} <${env.EMAIL_FROM}>`,
       to: to.toLowerCase().trim(),
       subject: subject.trim(),
       react: DefaultEmail({ heading, text }),
+      text: await render(DefaultEmail({ heading, text }), { plainText: true }), // plaintext
     });
 
     if (error) {
@@ -48,13 +50,20 @@ export async function sendResetPasswordEmail({
 
   try {
     const { data, error } = await resend.emails.send({
-      from: env.EMAIL_FROM,
+      from: `${env.APP_NAME} <${env.EMAIL_FROM}>`,
       to: user.email.toLowerCase().trim(),
       subject: t("resetPassword.subject"),
       react: DefaultEmail({
         heading: t("resetPassword.heading"),
         text: t("resetPassword.text", { url: url }),
       }),
+      text: await render(
+        DefaultEmail({
+          heading: t("resetPassword.heading"),
+          text: t("resetPassword.text", { url: url }),
+        }),
+        { plainText: true }
+      ), // plaintext
     });
 
     if (error) {
@@ -79,13 +88,20 @@ export async function sendVerificationEmail({
 
   try {
     const { data, error } = await resend.emails.send({
-      from: env.EMAIL_FROM,
+      from: `${env.APP_NAME} <${env.EMAIL_FROM}>`,
       to: user.email.toLowerCase().trim(),
       subject: t("verifyEmail.subject"),
       react: DefaultEmail({
         heading: t("verifyEmail.heading"),
         text: t("verifyEmail.text", { url: verificationUrl }),
       }),
+      text: await render(
+        DefaultEmail({
+          heading: t("verifyEmail.heading"),
+          text: t("verifyEmail.text", { url: verificationUrl }),
+        }),
+        { plainText: true }
+      ), // plaintext
     });
 
     if (error) {
@@ -109,13 +125,20 @@ export async function sendChangeEmailVerificationEmail({
 
   try {
     const { data, error } = await resend.emails.send({
-      from: env.EMAIL_FROM,
+      from: `${env.APP_NAME} <${env.EMAIL_FROM}>`,
       to: newEmail.toLowerCase().trim(),
       subject: t("changeEmail.subject"),
       react: DefaultEmail({
         heading: t("changeEmail.heading"),
         text: t("changeEmail.text", { url: url }),
       }),
+      text: await render(
+        DefaultEmail({
+          heading: t("changeEmail.heading"),
+          text: t("changeEmail.text", { url: url }),
+        }),
+        { plainText: true }
+      ), // plaintext
     });
 
     if (error) {

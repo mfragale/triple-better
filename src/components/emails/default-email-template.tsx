@@ -5,6 +5,7 @@ import {
   Heading,
   Html,
   Img,
+  Link,
   Preview,
   Section,
   Tailwind,
@@ -14,8 +15,8 @@ import {
 import { env } from "@/env/server";
 
 interface DefaultEmailProps {
-  heading?: string;
-  text?: string;
+  heading: string;
+  text: string;
 }
 
 export const DefaultEmail = ({ heading, text }: DefaultEmailProps) => {
@@ -24,23 +25,43 @@ export const DefaultEmail = ({ heading, text }: DefaultEmailProps) => {
       <Head />
       <Tailwind>
         <Body className="bg-white mx-auto my-auto px-2 font-sans">
-          <Preview>{"Preview"}</Preview>
-          <Container className="mx-auto my-[40px] p-[20px] border border-[#eaeaea] border-solid rounded max-w-[465px]">
-            <Section className="my-[32px]">
-              <Img
-                src={`${env.BETTER_AUTH_URL}/icon.png`}
-                width="40"
-                height="37"
-                alt="Vercel"
-                className="mx-auto my-0"
-              />
-            </Section>
-            <Heading className="font-semibold text-[24px] text-black">
+          <Preview>{text}</Preview>
+          <Container className="mx-auto my-10 p-8 border border-gray-200 border-solid rounded-xl max-w-96">
+            {/* HEADER */}
+            <Heading className="font-semibold text-gray-700 text-2xl">
               {heading}
             </Heading>
-            <Text className="text-[#666666] text-[16px] leading-[26px]">
-              {text}
-            </Text>
+
+            {/* BODY */}
+            <Text className="text-gray-500 text-base">{text}</Text>
+
+            {/* FOOTER */}
+            <Section className="mt-12">
+              <table className="w-full">
+                <tr className="w-full">
+                  <td>
+                    <Link href={env.DEPLOYED_URL}>
+                      <Img
+                        src={`${env.DEPLOYED_URL}/icon.png`}
+                        width="40"
+                        height="40"
+                        alt={env.APP_NAME}
+                      />
+                    </Link>
+                  </td>
+                </tr>
+                <tr className="w-full">
+                  <td>
+                    <Text className="my-1 font-semibold text-gray-900 text-base">
+                      {env.APP_NAME}
+                    </Text>
+                    <Text className="my-0 text-gray-500 text-xs">
+                      {env.APP_DESCRIPTION}
+                    </Text>
+                  </td>
+                </tr>
+              </table>
+            </Section>
           </Container>
         </Body>
       </Tailwind>
