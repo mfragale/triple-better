@@ -156,6 +156,15 @@ export const useEditProfileInfoSchema = () => {
   return editProfileInfoSchema;
 };
 
+export const useEditEmailSchema = () => {
+  const t = useTranslations("zod");
+
+  const editEmailSchema = z.object({
+    newEmail: useEmailSchema(),
+  });
+  return editEmailSchema;
+};
+
 export type TeditTodoFormSchema = z.infer<
   ReturnType<typeof useEditTodoFormSchema>
 >;
@@ -176,3 +185,4 @@ export type TchangePasswordSchema = z.infer<
 export type TeditProfileInfoSchema = z.infer<
   ReturnType<typeof useEditProfileInfoSchema>
 >;
+export type TeditEmailSchema = z.infer<ReturnType<typeof useEditEmailSchema>>;

@@ -102,12 +102,7 @@ export default function ForgotPassword() {
                   <FormItem>
                     <FormLabel>{t("form.email.label")}</FormLabel>
                     <FormControl>
-                      <Input
-                        type="email"
-                        placeholder={t("form.email.placeholder")}
-                        {...field}
-                        autoComplete="email"
-                      />
+                      <Input type="email" {...field} autoComplete="email" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

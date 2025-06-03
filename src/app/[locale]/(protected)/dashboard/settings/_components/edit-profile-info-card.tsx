@@ -1,6 +1,7 @@
 "use client";
 
 import { CalendarWithYearPicker } from "@/components/calendar-with-year-picker";
+import LoadingButton from "@/components/loading-button";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -35,9 +36,10 @@ import {
   useEditProfileInfoSchema,
 } from "@/lib/zod-form-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ErrorContext } from "better-auth/react";
 import { format } from "date-fns";
 import { enUS, pt } from "date-fns/locale";
-import { CalendarIcon, Check, Loader2, X } from "lucide-react";
+import { CalendarIcon, Check, X } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -62,6 +64,7 @@ export default function EditProfileInfoCard(props: {
   const editProfileInfoSchema = useEditProfileInfoSchema();
 
   const form = useForm<TeditProfileInfoSchema>({
+    // Client side validation
     resolver: zodResolver(editProfileInfoSchema),
     defaultValues: {
       name: props.session?.user.name,
@@ -73,52 +76,51 @@ export default function EditProfileInfoCard(props: {
   async function onSubmit(values: TeditProfileInfoSchema) {
     try {
       setIsLoading(true);
-      const result = editProfileInfoSchema.safeParse(values, {
-        errorMap(issue, ctx) {
-          const path = issue.path.join(".");
+      const result = editProfileInfoSchema.safeParse(values);
 
-          const message = {
-            name: t("zod.errors.invalid_string"),
-            church: t("zod.errors.invalid_string"),
-            birthdate: t("zod.errors.invalid_string"),
-          }[path];
-
-          return { message: message || ctx.defaultError };
-        },
-      });
-
+      // Server side validation
       if (!result.success) {
-        setIsLoading(false);
-        setFeedback({
-          error: true,
-          message: result.error.message,
-        });
+        const zodError = result.error;
+        if (zodError && zodError.errors) {
+          zodError.errors.forEach((err) => {
+            const field = err.path.join(".");
+            form.setError(field as any, { message: err.message });
+          });
+        }
         return;
       }
 
-      await authClient.updateUser({
-        name: result.data.name ? result.data.name : undefined,
-        church: result.data.church ? result.data.church : undefined,
-        birthdate: result.data.birthdate ? result.data.birthdate : undefined,
-        fetchOptions: {
+      // Do form action
+      await authClient.updateUser(
+        {
+          name: result.data.name,
+          church: result.data.church,
+          birthdate: result.data.birthdate,
+        },
+        {
           onSuccess: () => {
             setFeedback({
               error: false,
               message: t("toast.changeProfileInfo.success"),
             });
           },
-          onError: (error) => {
+          onError: (ctx: ErrorContext) => {
+            console.error("error", ctx);
             setFeedback({
               error: true,
-              message: error.error.message,
+              message: ctx.error.message ?? t("form.errorMessage"),
             });
           },
-        },
-      });
-      router.refresh();
-      setIsLoading(false);
+        }
+      );
     } catch (error) {
-      console.error(error);
+      console.error("error", error);
+      setFeedback({
+        error: true,
+        message: (error as string) ?? t("form.errorMessage"),
+      });
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -146,12 +148,7 @@ export default function EditProfileInfoCard(props: {
                 <FormItem>
                   <FormLabel>{t("form.name.label")}</FormLabel>
                   <FormControl>
-                    <Input
-                      type="name"
-                      placeholder={t("form.name.placeholder")}
-                      {...field}
-                      autoComplete="name"
-                    />
+                    <Input type="name" {...field} autoComplete="name" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -164,12 +161,7 @@ export default function EditProfileInfoCard(props: {
                 <FormItem>
                   <FormLabel>{t("form.church.label")}</FormLabel>
                   <FormControl>
-                    <Input
-                      type="church"
-                      placeholder={t("form.church.placeholder")}
-                      {...field}
-                      autoComplete="church"
-                    />
+                    <Input type="church" {...field} autoComplete="church" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -239,13 +231,9 @@ export default function EditProfileInfoCard(props: {
                 </span>
               )}
             </div>
-            <Button disabled={isLoading} type="submit">
-              {isLoading ? (
-                <Loader2 size={15} className="animate-spin" />
-              ) : (
-                t("form.submitButton")
-              )}
-            </Button>
+            <LoadingButton pending={isLoading}>
+              {t("form.submitButton")}
+            </LoadingButton>
           </CardFooter>
         </form>
       </Form>

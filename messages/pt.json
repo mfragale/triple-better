@@ -532,7 +532,8 @@
       "birthdate": {
         "label": "Data de nascimento",
         "placeholder": "Selecione uma data"
-      }
+      },
+      "errorMessage": "Algo deu errado"
     },
     "toast": {
       "changeName": {
@@ -556,28 +557,6 @@
     "invalidEmail": "asdf",
     "invalidPassword": "xzcv",
     "invalidBirthdate": "qwer"
-  },
-  "EditEmailCard": {
-    "title": "Email",
-    "description": "Coloque aqui seu melhor email",
-    "form": {
-      "email": {
-        "label": "Email",
-        "verified": "Verificado",
-        "unverified": "Não verificado",
-        "sendVerification": "Verificar agora"
-      },
-      "submitButton": "Atualizar email"
-    },
-    "toast": {
-      "sendVerificationEmail": {
-        "success": "Email de verificação enviado",
-        "error": "O email de verificação não está ativado"
-      },
-      "changeEmail": {
-        "success": "Email alterado com sucesso"
-      }
-    }
   },
   "sendEmail": {
     "changeEmail": {
@@ -633,5 +612,25 @@
       "successMessage": "Senha alterada",
       "errorMessage": "Algo deu errado"
     }
+  },
+  "EditEmailCard": {
+    "form": {
+      "successMessage": "Clique no link enviado para {newEmail} para confirmar a alteração do email",
+      "errorMessage": "Algo deu errado",
+      "newEmail": {
+        "label": "Email"
+      },
+      "email": {
+        "verified": "Verificado",
+        "unverified": "Não verificado",
+        "sendVerification": "Verificar email"
+      },
+      "submitButton": "Alterar email",
+      "sendVerificationEmail": {
+        "success": "Clique no link no email que foi enviado para verificar seu email"
+      }
+    },
+    "title": "Email",
+    "description": "Digite o endereço de email que você deseja usar para fazer login"
   }
 }

@@ -97,3 +97,33 @@ export async function sendVerificationEmail({
     return Response.json({ error }, { status: 500 });
   }
 }
+
+export async function sendChangeEmailVerificationEmail({
+  newEmail,
+  url,
+}: {
+  newEmail: string;
+  url: string;
+}) {
+  const t = await getTranslations("sendEmail");
+
+  try {
+    const { data, error } = await resend.emails.send({
+      from: env.EMAIL_FROM,
+      to: newEmail.toLowerCase().trim(),
+      subject: t("changeEmail.subject"),
+      react: DefaultEmail({
+        heading: t("changeEmail.heading"),
+        text: t("changeEmail.text", { url: url }),
+      }),
+    });
+
+    if (error) {
+      return Response.json({ error }, { status: 500 });
+    }
+
+    return Response.json(data);
+  } catch (error) {
+    return Response.json({ error }, { status: 500 });
+  }
+}

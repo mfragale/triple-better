@@ -28,7 +28,7 @@ import { TsignInSchema, useSignInSchema } from "@/lib/zod-form-schemas";
 export default function SignIn() {
   const t = useTranslations("SignInPage");
 
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const signInSchema = useSignInSchema();
@@ -43,7 +43,7 @@ export default function SignIn() {
 
   async function onSubmit(values: TsignInSchema) {
     try {
-      setLoading(true);
+      setIsLoading(true);
       const result = signInSchema.safeParse(values);
 
       // Server side validation
@@ -94,7 +94,7 @@ export default function SignIn() {
       console.error("error", error);
       toast(t("form.errorMessage"));
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   }
 
@@ -151,7 +151,7 @@ export default function SignIn() {
                   </FormItem>
                 )}
               />
-              <LoadingButton className="w-full" pending={loading}>
+              <LoadingButton className="w-full" pending={isLoading}>
                 {t("form.submitButton")}
               </LoadingButton>
             </form>

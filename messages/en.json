@@ -537,7 +537,8 @@
       "birthdate": {
         "label": "Birthdate",
         "placeholder": "Select a date"
-      }
+      },
+      "errorMessage": "Something went wrong"
     },
     "toast": {
       "changeName": {
@@ -556,28 +557,6 @@
     "invalidEmail": "asdf",
     "invalidPassword": "zxcv",
     "invalidBirthdate": "qwer"
-  },
-  "EditEmailCard": {
-    "title": "Email",
-    "description": "Add your best email here",
-    "form": {
-      "email": {
-        "label": "Email",
-        "verified": "Verified",
-        "unverified": "Unverified",
-        "sendVerification": "Verify now"
-      },
-      "submitButton": "Update email"
-    },
-    "toast": {
-      "sendVerificationEmail": {
-        "success": "Verification email sent",
-        "error": "Verification email isn't enabled"
-      },
-      "changeEmail": {
-        "success": "Email changed successfully"
-      }
-    }
   },
   "sendEmail": {
     "changeEmail": {
@@ -633,5 +612,25 @@
       "successMessage": "Password changed",
       "errorMessage": "Something went wrong"
     }
+  },
+  "EditEmailCard": {
+    "form": {
+      "successMessage": "Click the link sent to {newEmail} to confirm the email change",
+      "errorMessage": "Something went wrong",
+      "newEmail": {
+        "label": "Email"
+      },
+      "email": {
+        "verified": "Verified",
+        "unverified": "Unverified",
+        "sendVerification": "Verify email"
+      },
+      "submitButton": "Change email",
+      "sendVerificationEmail": {
+        "success": "Click the link in the email that was sent to verify your email"
+      }
+    },
+    "title": "Email",
+    "description": "Enter the email address you want to use to log in"
   }
 }

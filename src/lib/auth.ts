@@ -1,5 +1,5 @@
 import {
-  sendEmail,
+  sendChangeEmailVerificationEmail,
   sendResetPasswordEmail,
   sendVerificationEmail,
 } from "@/actions/send-emails/route";
@@ -8,7 +8,6 @@ import { ac, admin, professor, user } from "@/lib/permissions";
 import { triplitAdapter } from "@daveyplate/better-auth-triplit";
 import { betterAuth } from "better-auth";
 import { admin as adminPlugin, genericOAuth } from "better-auth/plugins";
-import { getTranslations } from "next-intl/server";
 import { httpClient } from "../../triplit/http-client";
 
 export const auth = betterAuth({
@@ -20,12 +19,9 @@ export const auth = betterAuth({
     changeEmail: {
       enabled: true,
       sendChangeEmailVerification: async ({ newEmail, url }) => {
-        const t = await getTranslations("sendEmail");
-        await sendEmail({
-          to: newEmail,
-          subject: t("changeEmail.subject"),
-          heading: t("changeEmail.heading"),
-          text: t("changeEmail.text", { url }),
+        await sendChangeEmailVerificationEmail({
+          newEmail: newEmail,
+          url: url,
         });
       },
     },

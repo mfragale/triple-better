@@ -43,7 +43,7 @@ export default function SignUp() {
   const localeDate = locale === "pt" ? pt : enUS;
   // Required for the calendar to work
 
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const signUpSchema = useSignUpSchema();
 
@@ -62,7 +62,7 @@ export default function SignUp() {
 
   async function onSubmit(values: TsignUpSchema) {
     try {
-      setLoading(true);
+      setIsLoading(true);
       const result = signUpSchema.safeParse(values);
 
       // Server side validation
@@ -100,7 +100,7 @@ export default function SignUp() {
       console.error("error", error);
       toast(t("form.errorMessage"));
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   }
 
@@ -225,7 +225,7 @@ export default function SignUp() {
                   </FormItem>
                 )}
               />
-              <LoadingButton className="w-full" pending={loading}>
+              <LoadingButton className="w-full" pending={isLoading}>
                 {t("form.submitButton")}
               </LoadingButton>
             </form>

@@ -137,10 +137,7 @@ export default function ResetPasswordContent() {
                   <FormItem>
                     <FormLabel>{t("form.newPassword.label")}</FormLabel>
                     <FormControl>
-                      <PasswordInput
-                        placeholder={t("form.newPassword.placeholder")}
-                        {...field}
-                      />
+                      <PasswordInput {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -154,10 +151,7 @@ export default function ResetPasswordContent() {
                   <FormItem>
                     <FormLabel>{t("form.confirmPassword.label")}</FormLabel>
                     <FormControl>
-                      <PasswordInput
-                        placeholder={t("form.confirmPassword.placeholder")}
-                        {...field}
-                      />
+                      <PasswordInput {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

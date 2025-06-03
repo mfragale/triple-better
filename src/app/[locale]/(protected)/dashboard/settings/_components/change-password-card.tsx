@@ -1,7 +1,7 @@
 "use client";
 
+import LoadingButton from "@/components/loading-button";
 import { PasswordInput } from "@/components/password-input";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -30,7 +30,7 @@ import {
 } from "@/lib/zod-form-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ErrorContext } from "better-auth/react";
-import { Check, Loader2, X } from "lucide-react";
+import { Check, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -130,11 +130,7 @@ export default function ChangePasswordCard(props: { session: Session | null }) {
                 <FormItem>
                   <FormLabel>{t("form.currentPassword.label")}</FormLabel>
                   <FormControl>
-                    <PasswordInput
-                      placeholder={t("form.currentPassword.placeholder")}
-                      {...field}
-                      autoComplete="password"
-                    />
+                    <PasswordInput {...field} autoComplete="password" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -147,10 +143,7 @@ export default function ChangePasswordCard(props: { session: Session | null }) {
                 <FormItem>
                   <FormLabel>{t("form.newPassword.label")}</FormLabel>
                   <FormControl>
-                    <PasswordInput
-                      placeholder={t("form.newPassword.placeholder")}
-                      {...field}
-                    />
+                    <PasswordInput {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -163,10 +156,7 @@ export default function ChangePasswordCard(props: { session: Session | null }) {
                 <FormItem>
                   <FormLabel>{t("form.confirmNewPassword.label")}</FormLabel>
                   <FormControl>
-                    <PasswordInput
-                      placeholder={t("form.confirmNewPassword.placeholder")}
-                      {...field}
-                    />
+                    <PasswordInput {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -222,13 +212,9 @@ export default function ChangePasswordCard(props: { session: Session | null }) {
                 </span>
               )}
             </div>
-            <Button disabled={isLoading} type="submit">
-              {isLoading ? (
-                <Loader2 size={15} className="animate-spin" />
-              ) : (
-                t("form.submitButton")
-              )}
-            </Button>
+            <LoadingButton pending={isLoading}>
+              {t("form.submitButton")}
+            </LoadingButton>
           </CardFooter>
         </form>
       </Form>
