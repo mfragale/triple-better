@@ -51,6 +51,7 @@ export default function Checklist() {
   }
 
   const { todos } = useTodos();
+  console.log("my todos", { todos });
 
   const [items, setItems] = useState<Todo[]>(todos ?? []);
 
