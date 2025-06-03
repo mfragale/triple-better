@@ -3,7 +3,6 @@ import { auth } from "@/lib/auth";
 import { hasPermission } from "@/lib/has-permission";
 import { getTranslations } from "next-intl/server";
 import { headers } from "next/headers";
-import { User } from "../../../../../../triplit/schema";
 import ChangePasswordCard from "./_components/change-password-card";
 import EditAvatarCard from "./_components/edit-avatar-card";
 import EditEmailCard from "./_components/edit-email-card";
@@ -15,8 +14,6 @@ export default async function ProfilePage() {
   const session = await auth.api.getSession({
     headers: await headers(), // you need to pass the headers object.
   });
-
-  const user = session?.user as User;
 
   if (
     !session ||
@@ -40,7 +37,7 @@ export default async function ProfilePage() {
         <EditAvatarCard session={session} />
         <EditProfileInfoCard session={session} />
         <EditEmailCard session={session} />
-        <ChangePasswordCard session={session} />
+        <ChangePasswordCard />
       </div>
     </>
   );

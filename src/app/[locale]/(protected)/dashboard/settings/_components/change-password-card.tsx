@@ -21,7 +21,6 @@ import {
 } from "@/components/ui/form";
 import { Label } from "@/components/ui/label";
 import { useRouter } from "@/i18n/navigation";
-import { Session } from "@/lib/auth";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import {
@@ -35,7 +34,7 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-export default function ChangePasswordCard(props: { session: Session | null }) {
+export default function ChangePasswordCard() {
   const t = useTranslations("ChangePasswordCard");
 
   const [feedback, setFeedback] = useState<{
@@ -69,7 +68,9 @@ export default function ChangePasswordCard(props: { session: Session | null }) {
         if (zodError && zodError.errors) {
           zodError.errors.forEach((err) => {
             const field = err.path.join(".");
-            form.setError(field as any, { message: err.message });
+            form.setError(field as keyof TchangePasswordSchema, {
+              message: err.message,
+            });
           });
         }
         return;

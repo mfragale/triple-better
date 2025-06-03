@@ -146,8 +146,6 @@ export const useChangePasswordSchema = () => {
 };
 
 export const useEditProfileInfoSchema = () => {
-  const t = useTranslations("zod");
-
   const editProfileInfoSchema = z.object({
     name: useNameSchema(),
     church: useNameSchema(),
@@ -157,8 +155,6 @@ export const useEditProfileInfoSchema = () => {
 };
 
 export const useEditEmailSchema = () => {
-  const t = useTranslations("zod");
-
   const editEmailSchema = z.object({
     newEmail: useEmailSchema(),
   });

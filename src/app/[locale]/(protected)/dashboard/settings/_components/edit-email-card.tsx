@@ -63,7 +63,9 @@ export default function EditEmailCard(props: { session: Session | null }) {
         if (zodError && zodError.errors) {
           zodError.errors.forEach((err) => {
             const field = err.path.join(".");
-            form.setError(field as any, { message: err.message });
+            form.setError(field as keyof TeditEmailSchema, {
+              message: err.message,
+            });
           });
         }
         return;

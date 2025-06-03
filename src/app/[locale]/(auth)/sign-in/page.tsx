@@ -52,7 +52,9 @@ export default function SignIn() {
         if (zodError && zodError.errors) {
           zodError.errors.forEach((err) => {
             const field = err.path.join(".");
-            form.setError(field as any, { message: err.message });
+            form.setError(field as keyof TsignInSchema, {
+              message: err.message,
+            });
           });
         }
         return;

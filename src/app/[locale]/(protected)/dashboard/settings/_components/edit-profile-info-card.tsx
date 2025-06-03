@@ -27,7 +27,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useRouter } from "@/i18n/navigation";
 import { Session } from "@/lib/auth";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
@@ -59,7 +58,6 @@ export default function EditProfileInfoCard(props: {
     message: string;
   } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
 
   const editProfileInfoSchema = useEditProfileInfoSchema();
 
@@ -84,7 +82,9 @@ export default function EditProfileInfoCard(props: {
         if (zodError && zodError.errors) {
           zodError.errors.forEach((err) => {
             const field = err.path.join(".");
-            form.setError(field as any, { message: err.message });
+            form.setError(field as keyof TeditProfileInfoSchema, {
+              message: err.message,
+            });
           });
         }
         return;

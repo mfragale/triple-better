@@ -71,7 +71,9 @@ export default function SignUp() {
         if (zodError && zodError.errors) {
           zodError.errors.forEach((err) => {
             const field = err.path.join(".");
-            form.setError(field as any, { message: err.message });
+            form.setError(field as keyof TsignUpSchema, {
+              message: err.message,
+            });
           });
         }
         return;
