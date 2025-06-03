@@ -8,15 +8,19 @@ import ChangePasswordCard from "./_components/change-password-card";
 import EditAvatarCard from "./_components/edit-avatar-card";
 import EditEmailCard from "./_components/edit-email-card";
 import EditProfileInfoCard from "./_components/edit-profile-info-card";
+import LinkedAccounts from "./_components/linked-accounts";
 
 export default async function ProfilePage() {
   const t = await getTranslations("dashboard.settings");
   const locale = getLocale();
-  const [session, activeSessions] = await Promise.all([
+  const [session, activeSessions, userAccounts] = await Promise.all([
     auth.api.getSession({
       headers: await headers(),
     }),
     auth.api.listSessions({
+      headers: await headers(),
+    }),
+    auth.api.listUserAccounts({
       headers: await headers(),
     }),
   ]).catch(async (e) => {
@@ -47,6 +51,7 @@ export default async function ProfilePage() {
       <EditEmailCard session={session} />
       <ChangePasswordCard />
       <ActiveSessions session={session} activeSessions={activeSessions} />
+      <LinkedAccounts userAccounts={userAccounts} />
     </div>
   );
 }

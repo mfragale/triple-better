@@ -640,5 +640,27 @@
     "sessionTerminated": "Session terminated",
     "signOutButton": "Sign out",
     "terminateButton": "Terminate"
+  },
+  "linkedAccountsComponent": {
+    "title": "Providers",
+    "description": "Connect your account with a third-party service",
+    "credentialAccount": "Email and password",
+    "unlinkPlanningCenterButton": "Unlink Planning Center",
+    "linkPlanningCenterButton": "Link Planning Center",
+    "noLinkedAccounts": "No linked accounts",
+    "unlinkAccountButton": "Unlink {provider}"
+  },
+  "LinkedAccountsComponent": {
+    "title": "Providers",
+    "description": "Connect your account with a third-party service",
+    "credentialAccount": "Email and password",
+    "unlinkPlanningCenterButton": "Unlink Planning Center",
+    "linkPlanningCenterButton": "Link Planning Center",
+    "noLinkedAccounts": "No accounts linked"
+  },
+  "ApiPcoAvatarSync": {
+    "noUser": "No user",
+    "noPcoAccount": "No Planning Center Account found",
+    "userAlreadyHasAvatar": "User already has avatar"
   }
 }

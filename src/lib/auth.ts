@@ -112,3 +112,11 @@ export const auth = betterAuth({
 });
 
 export type Session = typeof auth.$Infer.Session;
+export type Account = {
+  accountId: string;
+  createdAt: Date;
+  id: string;
+  provider: string;
+  scopes: Array<string>;
+  updatedAt: Date;
+};

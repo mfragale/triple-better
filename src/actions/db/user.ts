@@ -1,14 +1,22 @@
-import { triplit } from "../../../triplit/client";
+"use server";
+
+import { httpClient } from "../../../triplit/http-client";
 import { Account } from "../../../triplit/schema";
 
 export async function getAccount(userId: string, providerId: string) {
-  const query = triplit.query("accounts").Where([
+  const query = httpClient.query("accounts").Where([
     ["userId", "=", userId],
     ["providerId", "=", providerId],
   ]);
-  const account = await triplit.fetchOne(query);
 
-  // console.log("account: ", account);
+  console.log("userId in getAccount action: ", userId);
+  console.log("providerId in getAccount action: ", providerId);
+
+  const account = await httpClient.fetchOne(query);
+
+  console.log("account in getAccount action: ", account);
+
+  // await new Promise((resolve) => setTimeout(resolve, 10000));
 
   return account;
 }
@@ -19,7 +27,7 @@ export async function updateAccount(
 ) {
   // console.log("data: ", data);
 
-  const updatedAccount = await triplit.update("accounts", accountId, data);
+  const updatedAccount = await httpClient.update("accounts", accountId, data);
 
   return updatedAccount;
 }
