@@ -74,7 +74,7 @@ export default function EditAvatarCard(props: { session: Session | null }) {
                   //   // console.log("Accepted files: ", acceptedFiles);
                   // }}
                   onBeforeUploadBegin={async (files) => {
-                    console.log("Will upload", files.length, "files");
+                    // console.log("Will upload", files.length, "files");
                     if (props.session?.user.image) {
                       // We can pass the image URL to deleteUTFiles because in the delete function we are extracting the file key from the url
                       await deleteUTFiles([props.session?.user.image]);
