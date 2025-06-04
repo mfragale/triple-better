@@ -1,6 +1,8 @@
 import { Schema as S, type Entity } from "@triplit/client";
 import { authSchema } from "./auth-schema";
 
+const isUid = ["userId", "=", "$token.sub"] as const;
+
 export const schema = S.Collections({
   ...authSchema,
   todos: {
@@ -18,11 +20,11 @@ export const schema = S.Collections({
     },
     permissions: {
       authenticated: {
-        read: { filter: [["userId", "=", "$token.sub"]] },
-        insert: { filter: [["userId", "=", "$token.sub"]] },
-        update: { filter: [["userId", "=", "$token.sub"]] },
-        postUpdate: { filter: [["userId", "=", "$token.sub"]] },
-        delete: { filter: [["userId", "=", "$token.sub"]] },
+        read: { filter: [isUid] },
+        insert: { filter: [isUid] },
+        update: { filter: [isUid] },
+        postUpdate: { filter: [isUid] },
+        delete: { filter: [isUid] },
       },
     },
   },

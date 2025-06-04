@@ -2,6 +2,7 @@ import {
   adminClient,
   genericOAuthClient,
   inferAdditionalFields,
+  multiSessionClient,
 } from "better-auth/client/plugins";
 import { createAuthClient } from "better-auth/react";
 import { ac, admin, professor, user } from "./permissions";
@@ -29,6 +30,7 @@ export const authClient = createAuthClient({
         professor,
       },
     }),
+    multiSessionClient(),
   ],
 });
 export const { signIn, signUp, signOut } = createAuthClient();

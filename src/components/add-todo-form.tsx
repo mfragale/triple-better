@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { authClient } from "@/lib/auth-client";
 import {
   TnewTodoFormSchema,
   useNewTodoFormSchema,
@@ -8,6 +9,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight, Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { triplit } from "../../triplit/client";
 import { Card, CardHeader } from "./ui/card";
@@ -15,9 +17,16 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from "./ui/form";
 import { Input } from "./ui/input";
 
 export function AddTodoForm({ nextItemIndex }: { nextItemIndex: number }) {
+  const t = useTranslations("AddTodoForm");
+
+  const { data: sessionData } = authClient.useSession();
+
+  const [isLoading, setIsLoading] = useState(false);
+
   const newTodoFormSchema = useNewTodoFormSchema();
 
   const form = useForm<TnewTodoFormSchema>({
+    // Client side validation
     resolver: zodResolver(newTodoFormSchema),
     defaultValues: {
       newTodoItem: "",
@@ -25,24 +34,52 @@ export function AddTodoForm({ nextItemIndex }: { nextItemIndex: number }) {
   });
 
   async function onSubmit(values: TnewTodoFormSchema) {
-    const newTodoItem = values.newTodoItem;
-
-    if (!newTodoItem) return;
+    if (!sessionData?.user?.id) {
+      form.setError("newTodoItem", {
+        message: t("form.errorMessage.notAuthenticated"),
+      });
+      return;
+    }
 
     try {
-      await triplit.insert("todos", {
-        text: newTodoItem,
-        order: nextItemIndex,
-        userId: triplit.vars.$token.sub,
+      setIsLoading(true);
+      const result = newTodoFormSchema.safeParse(values);
+
+      // Server side validation
+      if (!result.success) {
+        const zodError = result.error;
+        if (zodError && zodError.errors) {
+          zodError.errors.forEach((err) => {
+            const field = err.path.join(".");
+            form.setError(field as keyof TnewTodoFormSchema, {
+              message: err.message,
+            });
+          });
+        }
+        return;
+      }
+
+      // Do form action
+      await triplit
+        .insert("todos", {
+          text: result.data.newTodoItem,
+          order: nextItemIndex,
+          userId: sessionData.user.id,
+        })
+        .then(async () => {
+          await new Promise((resolve) => setTimeout(resolve, 100));
+          form.reset();
+        });
+    } catch (error: any) {
+      // console.error("error", error);
+
+      form.setError("newTodoItem", {
+        message: error.message,
       });
-      await new Promise((resolve) => setTimeout(resolve, 200));
-      form.reset();
-    } catch (error) {
-      console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   }
-
-  const t = useTranslations("AddTodoForm");
 
   return (
     <>

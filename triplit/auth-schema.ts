@@ -1,5 +1,7 @@
 import { Schema as S } from "@triplit/client";
 
+const isUid = ["userId", "=", "$token.sub"] as const;
+
 export const authSchema = S.Collections({
   users: {
     schema: S.Schema({
@@ -13,7 +15,7 @@ export const authSchema = S.Collections({
       church: S.String(),
       birthdate: S.Date(),
       role: S.Optional(S.String({ default: "user" })),
-      banned: S.Optional(S.Boolean({ default: false })),
+      banned: S.Boolean({ default: false }),
       bannedReason: S.Optional(S.String()),
       banExpires: S.Optional(S.Date()),
     }),
@@ -51,7 +53,7 @@ export const authSchema = S.Collections({
     permissions: {
       authenticated: {
         read: {
-          filter: [["userId", "=", "$token.sub"]],
+          filter: [isUid],
         },
       },
     },
@@ -78,7 +80,7 @@ export const authSchema = S.Collections({
     permissions: {
       authenticated: {
         read: {
-          filter: [["userId", "=", "$token.sub"]],
+          filter: [isUid],
         },
       },
     },

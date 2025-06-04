@@ -1,88 +1,18 @@
-import { useRouter } from "@/i18n/navigation";
+import type { AnyAuthClient } from "@/types/any-auth-client";
+import type { TriplitClient } from "@triplit/client";
 import { useEffect } from "react";
-import { toast } from "sonner";
+import {
+  type InitTriplitAuthOptions,
+  initTriplitAuth,
+} from "./init-triplit-auth";
 
-import { env } from "@/env/client";
-import { authClient } from "@/lib/auth-client";
-import { triplit } from "../../triplit/client";
-import { useSession } from "./auth-hooks";
-import { useTriplitToken } from "./use-triplit-token";
-
-// useTriplitAuth hook will change your token on your TriplitClient from anon to the signed JWT for the current user
-export function useTriplitAuth() {
-  const { payload } = useTriplitToken();
-  const {
-    data: sessionData,
-    isPending: sessionPending,
-    refetch: refetchSession,
-  } = useSession();
-
-  const router = useRouter();
-
-  useEffect(() => {
-    if (sessionPending) return;
-
-    const startSession = async () => {
-      const user = sessionData?.user as
-        | {
-            id: string;
-            role?: string;
-          }
-        | undefined;
-
-      if (
-        sessionData &&
-        user?.id === payload?.sub &&
-        user?.role === payload?.role
-      ) {
-        triplit.updateSessionToken(sessionData.session.token);
-        return;
-      }
-
-      if (triplit.token && sessionData?.user.id !== payload?.sub) {
-        await triplit.endSession();
-
-        while (
-          triplit.connectionStatus === "OPEN" ||
-          triplit.connectionStatus === "CLOSING"
-        ) {
-          await new Promise((resolve) => requestAnimationFrame(resolve));
-        }
-
-        await triplit.clear();
-      }
-
-      try {
-        await triplit.startSession(
-          sessionData?.session.token || env.NEXT_PUBLIC_TRIPLIT_ANON_TOKEN!
-        );
-      } catch (error) {
-        console.error(error);
-        toast.error((error as Error).message);
-        authClient.signOut().finally(async () => {
-          await refetchSession();
-          router.refresh();
-        });
-      }
-    };
-
-    const unlisten = triplit.onSessionError((error: string) => {
-      console.error(error);
-      toast.error(error as string);
-      authClient.signOut().finally(() => refetchSession());
-    });
-
-    startSession();
-
-    return () => {
-      unlisten();
-    };
-  }, [
-    sessionData,
-    sessionPending,
-    refetchSession,
-    payload?.sub,
-    payload?.role,
-    router,
-  ]);
+export function useTriplitAuth(
+  triplit: TriplitClient<any>,
+  authClient: AnyAuthClient,
+  options?: InitTriplitAuthOptions
+) {
+  useEffect(
+    () => initTriplitAuth(triplit, authClient, options),
+    [triplit, authClient, options]
+  );
 }

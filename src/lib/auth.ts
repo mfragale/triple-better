@@ -7,7 +7,11 @@ import { env } from "@/env/server";
 import { ac, admin, professor, user } from "@/lib/permissions";
 import { triplitAdapter } from "@daveyplate/better-auth-triplit";
 import { betterAuth } from "better-auth";
-import { admin as adminPlugin, genericOAuth } from "better-auth/plugins";
+import {
+  admin as adminPlugin,
+  genericOAuth,
+  multiSession,
+} from "better-auth/plugins";
 import { httpClient } from "../../triplit/http-client";
 
 export const auth = betterAuth({
@@ -108,6 +112,7 @@ export const auth = betterAuth({
         professor,
       },
     }),
+    multiSession(),
   ],
 });
 

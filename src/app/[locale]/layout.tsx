@@ -1,6 +1,6 @@
 import Navbar from "@/components/navbar";
 import { Providers } from "@/components/providers";
-import { RootProviders } from "@/components/root-providers";
+import { env } from "@/env/server";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Triple Better",
-  description: "by Mauricio Fragale",
+  title: env.APP_NAME,
+  description: env.APP_DESCRIPTION,
   icons: [{ rel: "icon", url: "/icon-circle.png" }],
 };
 
@@ -37,14 +37,12 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <NextIntlClientProvider>
-          <RootProviders>
-            <Providers>
-              <Navbar />
-              <div className="inset-x-4 mx-auto w-full max-w-screen-xl">
-                <div className="px-4 pt-20">{children}</div>
-              </div>
-            </Providers>
-          </RootProviders>
+          <Providers>
+            <Navbar />
+            <div className="inset-x-4 mx-auto w-full max-w-screen-xl">
+              <div className="px-4 pt-20">{children}</div>
+            </div>
+          </Providers>
         </NextIntlClientProvider>
       </body>
     </html>

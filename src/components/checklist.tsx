@@ -17,16 +17,37 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 
+import { useConditionalQuery } from "@/hooks/use-conditional-query";
+import { authClient } from "@/lib/auth-client";
 import {
   restrictToParentElement,
   restrictToVerticalAxis,
 } from "@dnd-kit/modifiers";
-import { useQuery } from "@triplit/react";
 import { useEffect, useState } from "react";
 import { triplit } from "../../triplit/client";
 import { Todo } from "../../triplit/schema";
 import { AddTodoForm } from "./add-todo-form";
 import SortableItem from "./sortable-items";
+import TodoSkeleton from "./todo-skeleton";
+
+function useTodos() {
+  const { data: sessionData } = authClient.useSession();
+  const userId = sessionData?.user?.id;
+  const todosQuery = triplit.query("todos").Order("order", "ASC");
+  // .Where("userId", "=", userId);
+
+  const {
+    results: todos,
+    error,
+    fetching,
+  } = useConditionalQuery(
+    triplit,
+    // sessionData?.session.token === triplit.token &&
+    todosQuery
+  );
+
+  return { todos, error, fetching };
+}
 
 export default function Checklist() {
   const sensors = useSensors(
@@ -36,25 +57,9 @@ export default function Checklist() {
     })
   );
 
-  function useTodos() {
-    const [remoteFulfilled, setRemoteFulfilled] = useState(false);
-    const todosQuery = triplit.query("todos").Order("order", "ASC");
-    const {
-      results: todos,
-      error,
-      fetching,
-    } = useQuery(triplit, todosQuery, {
-      onRemoteFulfilled: () => setRemoteFulfilled(true),
-    });
-
-    return { todos, error, fetching, remoteFulfilled };
-  }
-
-  const { todos } = useTodos();
-  console.log("my todos", { todos });
+  const { todos, fetching } = useTodos();
 
   const [items, setItems] = useState<Todo[]>(todos ?? []);
-
   useEffect(() => {
     setItems(todos ?? []);
   }, [todos]);
@@ -89,19 +94,36 @@ export default function Checklist() {
 
   return (
     <div className="flex flex-col gap-2">
-      <DndContext
-        sensors={sensors}
-        collisionDetection={closestCenter}
-        onDragEnd={handleDragEnd}
-        modifiers={[restrictToVerticalAxis, restrictToParentElement]}
-      >
-        <SortableContext items={items} strategy={verticalListSortingStrategy}>
-          {items.map((item) => (
-            <SortableItem key={item.id} todo={item} />
+      {fetching && (
+        <div>
+          {[...Array(4)].map((_, index) => (
+            <TodoSkeleton key={index} />
           ))}
-        </SortableContext>
-      </DndContext>
-      <AddTodoForm nextItemIndex={todos?.length ?? 0} />
+        </div>
+      )}
+
+      {/* {!fetching && todos?.length === 0 && <p>No todos</p>} */}
+
+      {!fetching && (
+        <>
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
+            modifiers={[restrictToVerticalAxis, restrictToParentElement]}
+          >
+            <SortableContext
+              items={items}
+              strategy={verticalListSortingStrategy}
+            >
+              {items.map((item) => (
+                <SortableItem key={item.id} todo={item} />
+              ))}
+            </SortableContext>
+          </DndContext>
+          <AddTodoForm nextItemIndex={todos?.length ?? 0} />{" "}
+        </>
+      )}
     </div>
   );
 }

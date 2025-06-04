@@ -8,7 +8,7 @@ import type {
 } from "@triplit/client";
 import type { WorkerClient } from "@triplit/client/worker-client";
 import { createStateSubscription } from "@triplit/react";
-import { useCallback, useMemo, useState, useSyncExternalStore } from "react";
+import { useCallback, useMemo, useSyncExternalStore } from "react";
 
 export function useConditionalQuery<
   M extends Models<M>,
@@ -20,7 +20,6 @@ export function useConditionalQuery<
 ) {
   const stringifiedQuery = !options?.disabled && query && JSON.stringify(query);
   const localOnly = !!options?.localOnly;
-  const [remoteFulfilled, setRemoteFulfilled] = useState(false);
 
   const defaultValue: SubscriptionSignalPayload<M, Q> = {
     results: undefined,
@@ -30,25 +29,19 @@ export function useConditionalQuery<
     error: undefined,
   };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: prevent infinite re-renders
   const [subscribe, snapshot] = useMemo(
     () =>
       stringifiedQuery
         ? createStateSubscription(client, query, {
             ...options,
-            onRemoteFulfilled: () => setRemoteFulfilled(true),
           })
         : [() => () => {}, () => defaultValue],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [stringifiedQuery, localOnly]
   );
 
   const getServerSnapshot = useCallback(() => snapshot(), [snapshot]);
-  const { fetching, ...rest } = useSyncExternalStore(
-    subscribe,
-    snapshot,
-    getServerSnapshot
-  );
-  return { fetching: fetching && !remoteFulfilled, ...rest };
+  return useSyncExternalStore(subscribe, snapshot, getServerSnapshot);
 }
 
 type useConditionalQueryOnePayload<
