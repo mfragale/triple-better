@@ -36,7 +36,7 @@ const Navbar = () => {
     <header>
       <nav
         data-state={menuState && "active"}
-        className="z-20 fixed bg-white sm:dark:bg-transparent dark:bg-zinc-950/50 backdrop-blur border-b border-dashed w-full"
+        className="z-20 fixed bg-white/70 dark:bg-zinc-950/70 backdrop-blur border-b border-dashed w-full"
       >
         <div className="m-auto px-6 max-w-5xl">
           <div className="flex flex-wrap justify-between items-center gap-6 sm:gap-0 py-3">

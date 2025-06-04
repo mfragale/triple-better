@@ -82,6 +82,9 @@ export default function EditAvatarCard(props: { session: Session | null }) {
                     }
                     return files;
                   }}
+                  config={{
+                    mode: "auto",
+                  }}
                   // onUploadBegin={(name) => {
                   //   // Do something once upload begins
                   //   // console.log("Beginning upload of", name);

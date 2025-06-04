@@ -13,20 +13,20 @@ export default function Footer() {
   ];
   return (
     <footer className="top-[100vh] sticky">
-      <div className="md:flex md:justify-between md:items-center mx-auto px-6 py-12 border-t border-dashed max-w-5xl">
+      <div className="md:flex md:justify-between md:items-center mx-auto px-6 py-6 max-w-5xl">
         <div className="flex justify-center gap-x-6 md:order-2">
           {navigation.map((item) => (
             <a
               key={item.name}
               href={item.href}
-              className="text-muted-foreground hover:text-foreground"
+              className="text-muted-foreground/20 hover:text-foreground"
             >
               <span className="sr-only">{item.name}</span>
               <item.icon aria-hidden="true" className="size-6" />
             </a>
           ))}
         </div>
-        <p className="md:order-1 mt-8 md:mt-0 text-muted-foreground text-sm/6 text-center">
+        <p className="md:order-1 mt-8 md:mt-0 text-muted-foreground/20 text-sm/6 text-center">
           <a
             href="https://newtech.dev/"
             target="_blank"
