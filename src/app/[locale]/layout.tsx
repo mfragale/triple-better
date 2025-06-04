@@ -1,3 +1,4 @@
+import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import { Providers } from "@/components/providers";
 import { env } from "@/env/server";
@@ -34,7 +35,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
       >
         <NextIntlClientProvider>
           <Providers>
@@ -42,6 +43,7 @@ export default async function RootLayout({
             <div className="inset-x-4 mx-auto w-full max-w-screen-xl">
               <div className="px-4 pt-20">{children}</div>
             </div>
+            <Footer />
           </Providers>
         </NextIntlClientProvider>
       </body>

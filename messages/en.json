@@ -678,5 +678,8 @@
     "description": "Permanently remove your account and all of its contents. This action is not reversible, so please continue with caution.",
     "deleteAccountButton": "Delete Account",
     "deleteAccountSuccess": "{name}, get in touch with the support team to delete your account."
+  },
+  "FooterComponent": {
+    "copyright": "Made in Rio, inspired by Newtech."
   }
 }

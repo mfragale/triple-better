@@ -678,5 +678,8 @@
     "description": "Remova permanentemente sua conta e todo o seu conteúdo. \nEsta ação não é reversível; portanto, continue com cautela.",
     "deleteAccountButton": "Excluir conta",
     "deleteAccountSuccess": "{name}, entre em contato com o suporte para deletar sua conta."
+  },
+  "FooterComponent": {
+    "copyright": "Feito no Rio, inspirado por Newtech."
   }
 }
