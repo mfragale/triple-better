@@ -681,5 +681,14 @@
   },
   "FooterComponent": {
     "copyright": "Made in Rio, inspired by Newtech."
+  },
+  "SubscriptionsListComponent": {
+    "title": "Subscriptions",
+    "description": "Manage your subscriptions",
+    "noSubscription": "No active subscription",
+    "cancelled": "Cancelled",
+    "manageSubscriptionButton": "Manage subscriptions",
+    "expires": "until {at}",
+    "nextBilling": "Next billing: {at}"
   }
 }

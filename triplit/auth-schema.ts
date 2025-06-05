@@ -18,6 +18,7 @@ export const authSchema = S.Collections({
       banned: S.Boolean({ default: false }),
       bannedReason: S.Optional(S.String()),
       banExpires: S.Optional(S.Date()),
+      stripeCustomerId: S.Optional(S.String()),
     }),
     relationships: {
       sessions: S.RelationMany("sessions", {

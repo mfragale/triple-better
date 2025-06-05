@@ -681,5 +681,14 @@
   },
   "FooterComponent": {
     "copyright": "Feito no Rio, inspirado por Newtech."
+  },
+  "SubscriptionsListComponent": {
+    "title": "Assinaturas",
+    "description": "Gerencie suas assinaturas",
+    "noSubscription": "Nenhuma assinatura ativa",
+    "cancelled": "Cancelado",
+    "manageSubscriptionButton": "Gerenciar assinaturas",
+    "expires": "até {at}",
+    "nextBilling": "Próximo faturamento: {at}"
   }
 }

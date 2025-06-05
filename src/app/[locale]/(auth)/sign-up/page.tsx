@@ -28,7 +28,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Link } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import { TsignUpSchema, useSignUpSchema } from "@/lib/zod-form-schemas";
@@ -44,6 +44,7 @@ export default function SignUp() {
   // Required for the calendar to work
 
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const signUpSchema = useSignUpSchema();
 
@@ -91,6 +92,7 @@ export default function SignUp() {
         {
           onSuccess: () => {
             toast(t("form.successMessage"));
+            router.push("/sign-in");
           },
           onError: (ctx: ErrorContext) => {
             console.error("error", ctx);

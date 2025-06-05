@@ -10,6 +10,7 @@ import EditAvatarCard from "./_components/edit-avatar-card";
 import EditEmailCard from "./_components/edit-email-card";
 import EditProfileInfoCard from "./_components/edit-profile-info-card";
 import LinkedAccounts from "./_components/linked-accounts";
+import SubscriptionsList from "./_components/subscriptions-list";
 
 export default async function ProfilePage() {
   const t = await getTranslations("dashboard.settings");
@@ -43,6 +44,8 @@ export default async function ProfilePage() {
     });
   }
 
+  const subscriptions = {};
+
   return (
     <div className="flex flex-col gap-6 mx-auto px-4 py-12 max-w-xl">
       <h1 className="font-bold text-2xl">{t("profile.title")}</h1>
@@ -51,6 +54,7 @@ export default async function ProfilePage() {
       <EditProfileInfoCard session={session} />
       <EditEmailCard session={session} />
       <ChangePasswordCard />
+      <SubscriptionsList session={session} subscription={subscriptions} />
       <ActiveSessions session={session} activeSessions={activeSessions} />
       <LinkedAccounts userAccounts={userAccounts} />
       <DeleteAccount session={session} />
