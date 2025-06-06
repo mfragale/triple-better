@@ -38,5 +38,8 @@ export const routing = defineRouting({
     "/dashboard/settings": {
       pt: "/painel/configuracoes",
     },
+    "/checkout": {
+      pt: "/pagar",
+    },
   },
 });
