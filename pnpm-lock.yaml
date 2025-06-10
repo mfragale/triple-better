@@ -116,6 +116,9 @@ importers:
       next-themes:
         specifier: ^0.4.6
         version: 0.4.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      pagarme:
+        specifier: ^4.35.2
+        version: 4.35.2
       prettier:
         specifier: ^3.5.3
         version: 3.5.3
@@ -3480,6 +3483,9 @@ packages:
 
   package-json-from-dist@1.0.1:
     resolution: {integrity: sha512-UEZIS3/by4OC8vL3P2dTXRETpebLI2NiI5vIrjaD/5UtrkFX/tNbwjTSRAGC/+7CAo2pIcBaRgWmcBBHcsaCIw==}
+
+  pagarme@4.35.2:
+    resolution: {integrity: sha512-ikNU9AZ/K973vlRI1dT7S4VbCpSFQVUxMTBsLw3fURr7y1acNEYdVbD6/LC+QA0wIjE0viwMaeIzSJYjKn59Jg==}
 
   parent-module@1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
@@ -7401,6 +7407,8 @@ snapshots:
       p-limit: 3.1.0
 
   package-json-from-dist@1.0.1: {}
+
+  pagarme@4.35.2: {}
 
   parent-module@1.0.1:
     dependencies:

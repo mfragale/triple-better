@@ -41,5 +41,8 @@ export const routing = defineRouting({
     "/checkout": {
       pt: "/pagar",
     },
+    "/pagarme": {
+      pt: "/pagarme",
+    },
   },
 });

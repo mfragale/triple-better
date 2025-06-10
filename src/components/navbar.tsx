@@ -26,6 +26,7 @@ const Navbar = () => {
   const menuItems: MenuItem[] = [
     { name: t("checklist"), href: "/" },
     { name: t("about"), href: "/about" },
+    { name: t("pagarme"), href: "/pagarme" },
   ];
 
   const handleMenuClick = () => {
