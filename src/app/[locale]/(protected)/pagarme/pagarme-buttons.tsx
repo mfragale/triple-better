@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import to from "await-to-js";
 import { useState } from "react";
 import {
   createPagarmeCustomer,
@@ -17,12 +18,14 @@ export function PagarmeButtonsNewClient() {
         <h1>New Pagarme Customer</h1>
         <form
           action={async () => {
-            try {
-              const result = await createPagarmeCustomer();
-              setPagarmeCustomer(result);
-            } catch (error) {
-              console.error(error);
+            const [err, pagarmeCustomerResponse] = await to(
+              createPagarmeCustomer()
+            );
+            if (!pagarmeCustomerResponse) {
+              console.error(err);
+              throw Error("Pagarme Customer not found");
             }
+            setPagarmeCustomer(pagarmeCustomerResponse);
           }}
         >
           <Button type="submit">New Pagarme Customer</Button>
@@ -33,14 +36,14 @@ export function PagarmeButtonsNewClient() {
         <h1>New Payment Link</h1>
         <form
           action={async () => {
-            try {
-              const result = await createPagarmePaymentLink(
-                pagarmeCustomer?.id
-              );
-              setPaymentLink(result);
-            } catch (error) {
-              console.error(error);
+            const [err, pagarmePaymentLinkResponse] = await to(
+              createPagarmePaymentLink(pagarmeCustomer?.id)
+            );
+            if (!pagarmePaymentLinkResponse) {
+              console.error(err);
+              throw Error("Pagarme Payment Link not found");
             }
+            setPaymentLink(pagarmePaymentLinkResponse);
           }}
         >
           <Button type="submit">New Payment Link</Button>

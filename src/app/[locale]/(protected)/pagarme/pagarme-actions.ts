@@ -1,6 +1,7 @@
 "use server";
 
 import { env } from "@/env/server";
+import to from "await-to-js";
 
 export async function createPagarmeCustomer() {
   const options = {
@@ -104,14 +105,17 @@ export async function createPagarmePaymentLink(pagarmeCustomerId: string) {
     }),
   };
 
-  try {
-    const response = await fetch(
-      "https://sdx-api.pagar.me/core/v5/paymentlinks",
-      options
-    );
-    return await response.json();
-  } catch (err) {
+  const [err, pagarmePaymentLinkResponse] = await to(
+    fetch("https://sdx-api.pagar.me/core/v5/paymentlinks", options)
+  );
+  if (err) {
     console.error(err);
-    throw err;
+    throw new Error("Pagarme Payment Link not found");
   }
+  const data = await pagarmePaymentLinkResponse.json();
+  if (data.errors) {
+    console.error(data.errors);
+    throw new Error(data.errors);
+  }
+  return data;
 }
