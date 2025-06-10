@@ -19,14 +19,14 @@ export default function Footer() {
             <a
               key={item.name}
               href={item.href}
-              className="text-muted-foreground/20 hover:text-foreground"
+              className="text-muted-foreground/40 hover:text-foreground"
             >
               <span className="sr-only">{item.name}</span>
               <item.icon aria-hidden="true" className="size-6" />
             </a>
           ))}
         </div>
-        <p className="md:order-1 mt-8 md:mt-0 text-muted-foreground/20 text-sm/6 text-center">
+        <p className="md:order-1 mt-8 md:mt-0 text-muted-foreground/40 text-sm/6 text-center">
           <a
             href="https://newtech.dev/"
             target="_blank"
