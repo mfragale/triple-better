@@ -688,8 +688,13 @@
     "description": "Gerencie suas assinaturas",
     "noSubscription": "Nenhuma assinatura ativa",
     "cancelled": "Cancelado",
-    "manageSubscriptionButton": "Gerenciar assinaturas",
+    "manageSubscriptionButton": "Gerenciar assinatura",
     "expires": "até {at}",
-    "nextBilling": "Próximo faturamento: {at}"
+    "nextBilling": "Próximo faturamento: ",
+    "cancelAtPeriodEnd": "Nenhum próximo faturamento; \nvai cancelar em "
+  },
+  "upgradeWithStripeComponent": {
+    "basic": "Básico",
+    "pro": "Pro"
   }
 }

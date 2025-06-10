@@ -688,8 +688,13 @@
     "description": "Manage your subscriptions",
     "noSubscription": "No active subscription",
     "cancelled": "Cancelled",
-    "manageSubscriptionButton": "Manage subscriptions",
+    "manageSubscriptionButton": "Manage subscription",
     "expires": "until {at}",
-    "nextBilling": "Next billing: {at}"
+    "nextBilling": "Next billing: ",
+    "cancelAtPeriodEnd": "No next billing; will cancel at "
+  },
+  "upgradeWithStripeComponent": {
+    "basic": "Basic",
+    "pro": "Pro"
   }
 }

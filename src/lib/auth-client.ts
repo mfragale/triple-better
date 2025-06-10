@@ -1,3 +1,4 @@
+import { stripeClient } from "@better-auth/stripe/client";
 import {
   adminClient,
   genericOAuthClient,
@@ -31,6 +32,9 @@ export const authClient = createAuthClient({
       },
     }),
     multiSessionClient(),
+    stripeClient({
+      subscription: true, //if you want to enable subscription management
+    }),
   ],
 });
 export const { signIn, signUp, signOut } = createAuthClient();

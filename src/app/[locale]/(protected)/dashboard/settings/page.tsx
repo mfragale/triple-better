@@ -15,20 +15,24 @@ import SubscriptionsList from "./_components/subscriptions-list";
 export default async function ProfilePage() {
   const t = await getTranslations("dashboard.settings");
   const locale = getLocale();
-  const [session, activeSessions, userAccounts] = await Promise.all([
-    auth.api.getSession({
-      headers: await headers(),
-    }),
-    auth.api.listSessions({
-      headers: await headers(),
-    }),
-    auth.api.listUserAccounts({
-      headers: await headers(),
-    }),
-  ]).catch(async (e) => {
-    console.log(e);
-    throw redirect({ href: "/sign-in", locale: await locale });
-  });
+  const [session, activeSessions, userAccounts, subscriptions] =
+    await Promise.all([
+      auth.api.getSession({
+        headers: await headers(),
+      }),
+      auth.api.listSessions({
+        headers: await headers(),
+      }),
+      auth.api.listUserAccounts({
+        headers: await headers(),
+      }),
+      auth.api.listActiveSubscriptions({
+        headers: await headers(),
+      }),
+    ]).catch(async (e) => {
+      console.log(e);
+      throw redirect({ href: "/sign-in", locale: await locale });
+    });
 
   if (
     !session ||
@@ -43,8 +47,6 @@ export default async function ProfilePage() {
       locale: "en",
     });
   }
-
-  const subscriptions = {};
 
   return (
     <div className="flex flex-col gap-6 mx-auto px-4 py-12 max-w-xl">

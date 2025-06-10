@@ -1,11 +1,9 @@
 import { env } from "@/env/server";
 import { stripeServerClient } from "@/lib/stripe-server";
-import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
-
-const t = await getTranslations("ApiWebhooksStripeRoute");
+import { httpClient } from "../../../../../triplit/http-client";
 
 export async function GET(request: NextRequest) {
   const stripeSessionId = request.nextUrl.searchParams.get("stripeSessionId");
@@ -45,9 +43,35 @@ export async function POST(request: NextRequest) {
       } catch {
         return new Response(null, { status: 500 });
       }
+      break;
+    }
+    case "customer.subscription.created": {
+      console.log("customer.subscription.created", event.data.object);
+      await updateUserSubscription(event.data.object);
+      break;
     }
   }
   return new Response(null, { status: 200 });
+}
+
+async function updateUserSubscription(subscription: Stripe.Subscription) {
+  await new Promise((res) => setTimeout(res, 1000));
+  console.log("updateUserSubscription", subscription.id);
+
+  const query = httpClient
+    .query("subscriptions")
+    .Where("stripeSubscriptionId", "=", subscription.id);
+  const result = await httpClient.fetchOne(query);
+
+  console.log("result", result);
+
+  if (result == null) throw new Error("Subscription not found");
+
+  await httpClient.update("subscriptions", result.id, async (entity) => {
+    entity.trialEnd = subscription.trial_end
+      ? new Date(subscription.trial_end * 1000)
+      : null;
+  });
 }
 
 async function processStripeCheckout(checkoutSession: Stripe.Checkout.Session) {
@@ -55,7 +79,7 @@ async function processStripeCheckout(checkoutSession: Stripe.Checkout.Session) {
   const productId = checkoutSession.metadata?.productId;
 
   if (userId == null || productId == null) {
-    throw new Error(t("error.missingMetadata"));
+    throw new Error("Missing metadata");
   }
 
   const [product, user] = await Promise.all([
@@ -63,8 +87,8 @@ async function processStripeCheckout(checkoutSession: Stripe.Checkout.Session) {
     await getUser(userId),
   ]);
 
-  if (product == null) throw new Error(t("error.productNotFound"));
-  if (user == null) throw new Error(t("error.userNotFound"));
+  if (product == null) throw new Error("Product not found");
+  if (user == null) throw new Error("User not found");
 
   // const courseIds = product.courseProducts.map((cp) => cp.courseId);
   // db.transaction(async (trx) => {

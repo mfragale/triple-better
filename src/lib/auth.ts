@@ -5,6 +5,7 @@ import {
 } from "@/actions/send-emails/route";
 import { env } from "@/env/server";
 import { ac, admin, professor, user } from "@/lib/permissions";
+import { stripe } from "@better-auth/stripe";
 import { triplitAdapter } from "@daveyplate/better-auth-triplit";
 import { betterAuth } from "better-auth";
 import {
@@ -13,6 +14,12 @@ import {
   multiSession,
 } from "better-auth/plugins";
 import { httpClient } from "../../triplit/http-client";
+
+import Stripe from "stripe";
+
+const stripeClient = new Stripe(env.STRIPE_SECRET_KEY!, {
+  apiVersion: "2025-05-28.basil",
+});
 
 export const auth = betterAuth({
   database: triplitAdapter({
@@ -114,6 +121,27 @@ export const auth = betterAuth({
       },
     }),
     multiSession(),
+    stripe({
+      stripeClient,
+      stripeWebhookSecret: env.STRIPE_WEBHOOK_SECRET!,
+      createCustomerOnSignUp: false,
+      subscription: {
+        enabled: true,
+        plans: [
+          {
+            name: "basic", // the name of the plan, it'll be automatically lower cased when stored in the database
+            priceId: "price_1RWIojGgkSoYSC7U3XgCp2aQ", // the price id from stripe
+          },
+          {
+            name: "pro",
+            priceId: "price_1RWIxoGgkSoYSC7UupvJHg08",
+            freeTrial: {
+              days: 14,
+            },
+          },
+        ],
+      },
+    }),
   ],
 });
 
