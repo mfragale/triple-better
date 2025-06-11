@@ -30,7 +30,14 @@
     }
   },
   "AboutPage": {
-    "title": "Sobre"
+    "title": "Sobre",
+    "section": {
+      "title": "Tecnologias principais",
+      "coreTechnologies": "Tecnologias Principais",
+      "UIComponents": "Componentes UI & Estilos",
+      "formHandling": "Manuseio de formulários & Validação",
+      "database": "Banco de dados & ORM"
+    }
   },
   "AuthUIProvider": {
     "missingCaptchaResponse": "Resposta do CAPTCHA ausente",

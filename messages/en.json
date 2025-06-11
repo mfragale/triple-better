@@ -30,7 +30,14 @@
     }
   },
   "AboutPage": {
-    "title": "About"
+    "title": "About",
+    "section": {
+      "title": "Core Technologies",
+      "coreTechnologies": "Core Technologies",
+      "UIComponents": "UI Components & Styling",
+      "formHandling": "Form Handling & Validation",
+      "database": "Database & ORM"
+    }
   },
   "AuthUIProvider": {
     "missingCaptchaResponse": "Missing CAPTCHA response",
