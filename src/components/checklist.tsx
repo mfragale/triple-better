@@ -95,11 +95,11 @@ export default function Checklist() {
   return (
     <div className="flex flex-col gap-2">
       {fetching && (
-        <div>
+        <>
           {[...Array(4)].map((_, index) => (
             <TodoSkeleton key={index} />
           ))}
-        </div>
+        </>
       )}
 
       {/* {!fetching && todos?.length === 0 && <p>No todos</p>} */}
