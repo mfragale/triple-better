@@ -1,9 +1,9 @@
 "use client";
 
-import { CalendarWithYearPicker } from "@/components/calendar-with-year-picker";
 import LoadingButton from "@/components/loading-button";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
   Card,
   CardContent,
@@ -173,7 +173,7 @@ export default function EditProfileInfoCard(props: {
               render={({ field }) => (
                 <FormItem className="flex flex-col">
                   <FormLabel>{t("form.birthdate.label")}</FormLabel>
-                  <Popover>
+                  {/* <Popover>
                     <PopoverTrigger asChild>
                       <FormControl>
                         <Button
@@ -202,6 +202,40 @@ export default function EditProfileInfoCard(props: {
                         disabled={(date) =>
                           date > new Date() || date < new Date("1900-01-01")
                         }
+                      />
+                    </PopoverContent>
+                  </Popover> */}
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant={"outline"}
+                          className={cn(
+                            "w-full pl-3 text-left font-normal",
+                            !field.value && "text-muted-foreground"
+                          )}
+                        >
+                          {field.value ? (
+                            format(field.value, "dd / MMM / yyyy", {
+                              locale: localeDate,
+                            })
+                          ) : (
+                            <span>{t("form.birthdate.placeholder")}</span>
+                          )}
+                          <CalendarIcon className="opacity-50 ml-auto w-4 h-4" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="p-0 w-auto" align="start">
+                      <Calendar
+                        mode="single"
+                        locale={localeDate}
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        disabled={(date) =>
+                          date > new Date() || date < new Date("1900-01-01")
+                        }
+                        captionLayout="dropdown"
                       />
                     </PopoverContent>
                   </Popover>

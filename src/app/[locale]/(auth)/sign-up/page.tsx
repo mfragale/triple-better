@@ -2,17 +2,21 @@
 
 import { useState } from "react";
 
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-import { CalendarWithYearPicker } from "@/components/calendar-with-year-picker";
 import LoadingButton from "@/components/loading-button";
 import { PasswordInput } from "@/components/password-input";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
@@ -23,16 +27,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { Link, useRouter } from "@/i18n/navigation";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import { TsignUpSchema, useSignUpSchema } from "@/lib/zod-form-schemas";
 import { ErrorContext } from "better-auth/react";
+import { format } from "date-fns";
 import { enUS, pt } from "date-fns/locale";
 
 export default function SignUp() {
@@ -178,7 +178,9 @@ export default function SignUp() {
                             )}
                           >
                             {field.value ? (
-                              format(field.value, "dd / MMM / yyyy")
+                              format(field.value, "dd / MMM / yyyy", {
+                                locale: localeDate,
+                              })
                             ) : (
                               <span>{t("form.birthdate.placeholder")}</span>
                             )}
@@ -187,7 +189,7 @@ export default function SignUp() {
                         </FormControl>
                       </PopoverTrigger>
                       <PopoverContent className="p-0 w-auto" align="start">
-                        <CalendarWithYearPicker
+                        <Calendar
                           mode="single"
                           locale={localeDate}
                           selected={field.value}
@@ -195,7 +197,7 @@ export default function SignUp() {
                           disabled={(date) =>
                             date > new Date() || date < new Date("1900-01-01")
                           }
-                          initialFocus
+                          captionLayout="dropdown"
                         />
                       </PopoverContent>
                     </Popover>

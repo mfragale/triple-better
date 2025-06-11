@@ -69,12 +69,14 @@ export function UserButton() {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
-        <Avatar className="border border-accent-foreground/20 size-9">
-          <AvatarImage src={user?.image ?? undefined} />
-          <AvatarFallback>
-            {session ? user?.name?.charAt(0) : <User className="size-4" />}
-          </AvatarFallback>
+      <DropdownMenuTrigger asChild>
+        <Avatar asChild>
+          <Button variant="outline" className="size-9">
+            <AvatarImage src={user?.image ?? undefined} className="size-4" />
+            <AvatarFallback className="bg-transparent size-6">
+              {session ? user?.name?.charAt(0) : <User className="size-4" />}
+            </AvatarFallback>
+          </Button>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" sideOffset={10}>
