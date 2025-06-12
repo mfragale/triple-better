@@ -7,6 +7,7 @@ export const env = createEnv({
     NEXT_PUBLIC_TRIPLIT_ANON_TOKEN: z.string().min(1),
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().min(1),
     NEXT_PUBLIC_SERVER_URL: z.string().min(1).url(),
+    NEXT_PUBLIC_APP_NAME: z.string().min(1),
   },
   experimental__runtimeEnv: {
     // This is the only place in our codebase where we should access `process.env`.
@@ -20,5 +21,7 @@ export const env = createEnv({
       process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
     //   eslint-disable-next-line n/no-process-env
     NEXT_PUBLIC_SERVER_URL: process.env.NEXT_PUBLIC_SERVER_URL,
+    //   eslint-disable-next-line n/no-process-env
+    NEXT_PUBLIC_APP_NAME: process.env.NEXT_PUBLIC_APP_NAME,
   },
 });

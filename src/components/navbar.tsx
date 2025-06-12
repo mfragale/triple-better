@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
 
+import { env } from "@/env/client";
 import { Link, usePathname } from "@/i18n/navigation";
 import { MenuItem } from "@/types";
 import { Menu, X } from "lucide-react";
@@ -47,7 +48,9 @@ const Navbar = () => {
                 className="flex items-center space-x-2"
               >
                 <Logo />
-                <span className="font-bold text-xl">{t("title")}</span>
+                <span className="font-bold text-xl">
+                  {env.NEXT_PUBLIC_APP_NAME}
+                </span>
               </Link>
 
               {/* MOBILE MENU BUTTON*/}
