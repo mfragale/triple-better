@@ -15,8 +15,7 @@
     "protected": "Protected",
     "protectedHref": "/protected",
     "signOut": "Sign out",
-    "title": "Triple Better",
-    "pagarme": "Pagar.me"
+    "title": "Triple Better"
   },
   "AddTodoForm": {
     "addItemPlaceholder": "Add an item...",
