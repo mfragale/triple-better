@@ -3,7 +3,7 @@ import { PagarmeButtonsNewClient } from "./pagarme-buttons";
 export default async function PagarmePage() {
   return (
     <div>
-      PagarmePage
+      <h1>{"PagarmePage"}</h1>
       <PagarmeButtonsNewClient />
     </div>
   );

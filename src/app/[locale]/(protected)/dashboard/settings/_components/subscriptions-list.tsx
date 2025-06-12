@@ -19,7 +19,7 @@ import UpgradeWithStripe from "./upgrade-with-stripe";
 
 export default function SubscriptionsList(props: {
   session: Session | null;
-  subscription: any;
+  subscription: Subscription[];
 }) {
   const t = useTranslations("SubscriptionsListComponent");
   const locale = useLocale();
@@ -62,7 +62,8 @@ export default function SubscriptionsList(props: {
                     {/* TODO: Add trial end date */}
                     {subscription?.trialEnd && (
                       <p>
-                        <b>Sub trial ends:</b>{" "}
+                        <b>{t("subTrialEnds")}</b>
+                        {": "}
                         {new Date(subscription?.trialEnd).toLocaleDateString(
                           locale
                         )}

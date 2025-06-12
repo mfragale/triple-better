@@ -1,5 +1,5 @@
 import { createEnv } from "@t3-oss/env-nextjs";
-import { z } from "zod";
+import { z } from "zod/v4";
 
 export const env = createEnv({
   client: {
@@ -15,7 +15,6 @@ export const env = createEnv({
     NEXT_PUBLIC_TRIPLIT_DB_URL: process.env.NEXT_PUBLIC_TRIPLIT_DB_URL,
     //   eslint-disable-next-line n/no-process-env
     NEXT_PUBLIC_TRIPLIT_ANON_TOKEN: process.env.NEXT_PUBLIC_TRIPLIT_ANON_TOKEN,
-    //   eslint-disable-next-line n/no-process-env
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY:
       //   eslint-disable-next-line n/no-process-env
       process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,

@@ -1,9 +1,12 @@
+import { useTranslations } from "next-intl";
 import StripeCheckoutForm from "./_components/stripe-checkout-form";
 
 export default function CheckoutPage() {
+  const t = useTranslations("CheckoutPage");
+
   return (
     <div>
-      CheckoutPage
+      {t("title")}
       <StripeCheckoutForm
         product={{
           priceInCurrency: 100,

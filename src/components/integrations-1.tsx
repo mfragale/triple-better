@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ChevronRight } from "lucide-react";
 import { useTranslations } from "next-intl";
-import Link from "next/link";
 import * as React from "react";
 import { Icons } from "./icons/icons";
 import { Badge } from "./ui/badge";
@@ -101,12 +100,9 @@ export default function IntegrationsSection() {
         <div className="mx-auto px-6 max-w-5xl">
           <div className="mb-12 text-center">
             <h2 className="font-semibold text-3xl md:text-4xl text-balance">
-              Integrate with your favorite tools
+              {t("title")}
             </h2>
-            <p className="mt-6 text-muted-foreground">
-              Connect seamlessly with popular platforms and services to enhance
-              your workflow.
-            </p>
+            <p className="mt-6 text-muted-foreground">{t("description")}</p>
           </div>
 
           <div className="gap-3 grid sm:grid-cols-2 lg:grid-cols-3 my-4">
@@ -140,6 +136,8 @@ const IntegrationCard = ({
   icon: React.ReactNode;
   tags: string[];
 }) => {
+  const t = useTranslations("AboutPage");
+
   return (
     <Card className="justify-between gap-2 p-6">
       <div className="flex justify-between items-start gap-2">
@@ -184,10 +182,10 @@ const IntegrationCard = ({
           size="sm"
           className="gap-1 shadow-none pr-2"
         >
-          <Link href={link ?? ""} target="_blank">
-            Learn More
+          <a href={link} target="_blank">
+            {t("learnMore")}
             <ChevronRight className="opacity-50 ml-0 !size-3.5" />
-          </Link>
+          </a>
         </Button>
       </div>
     </Card>

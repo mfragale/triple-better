@@ -9,13 +9,11 @@ export async function createPagarmeCustomer() {
     headers: {
       accept: "application/json",
       "content-type": "application/json",
-      Authorization:
-        "Basic " +
-        Buffer.from(env.PAGARME_CHAVE_SECRETA + ":").toString("base64"),
+      Authorization: `Basic ${Buffer.from(`${env.PAGARME_CHAVE_SECRETA}:`).toString("base64")}`,
     },
     body: JSON.stringify({
-      name: "Aaron Doe" + Math.random().toString(),
-      email: "aaron.doe" + Math.random().toString() + "@example.com",
+      name: `Aaron Doe ${Math.random().toString()}`,
+      email: `aaron.doe${Math.random().toString()}@example.com`,
       address: {
         country: "BR",
         state: "RJ",

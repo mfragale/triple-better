@@ -30,14 +30,16 @@
     }
   },
   "AboutPage": {
-    "title": "About",
+    "title": "Integrate with your favorite tools",
     "section": {
       "title": "Core Technologies",
       "coreTechnologies": "Core Technologies",
       "UIComponents": "UI Components & Styling",
       "formHandling": "Form Handling & Validation",
       "database": "Database & ORM"
-    }
+    },
+    "description": "Connect seamlessly with popular platforms and services to enhance your workflow.",
+    "learnMore": "Learn more"
   },
   "AuthUIProvider": {
     "missingCaptchaResponse": "Missing CAPTCHA response",
@@ -698,10 +700,15 @@
     "manageSubscriptionButton": "Manage subscription",
     "expires": "until {at}",
     "nextBilling": "Next billing: ",
-    "cancelAtPeriodEnd": "No next billing; will cancel at "
+    "cancelAtPeriodEnd": "No next billing; will cancel at ",
+    "subTrialEnds": "Trial ends"
   },
   "upgradeWithStripeComponent": {
     "basic": "Basic",
-    "pro": "Pro"
+    "pro": "Pro",
+    "mostPopular": "Most Popular"
+  },
+  "CheckoutPage": {
+    "title": "Checkout"
   }
 }

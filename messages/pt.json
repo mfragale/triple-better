@@ -30,14 +30,16 @@
     }
   },
   "AboutPage": {
-    "title": "Sobre",
+    "title": "Integre às suas ferramentas favoritas",
     "section": {
       "title": "Tecnologias principais",
       "coreTechnologies": "Tecnologias Principais",
       "UIComponents": "Componentes UI & Estilos",
       "formHandling": "Manuseio de formulários & Validação",
       "database": "Banco de dados & ORM"
-    }
+    },
+    "description": "Conecte-se perfeitamente com plataformas e serviços populares para aprimorar seu fluxo de trabalho.",
+    "learnMore": "Saber mais"
   },
   "AuthUIProvider": {
     "missingCaptchaResponse": "Resposta do CAPTCHA ausente",
@@ -698,10 +700,15 @@
     "manageSubscriptionButton": "Gerenciar assinatura",
     "expires": "até {at}",
     "nextBilling": "Próximo faturamento: ",
-    "cancelAtPeriodEnd": "Nenhum próximo faturamento; \nvai cancelar em "
+    "cancelAtPeriodEnd": "Nenhum próximo faturamento; \nvai cancelar em ",
+    "subTrialEnds": "Período de teste termina"
   },
   "upgradeWithStripeComponent": {
     "basic": "Básico",
-    "pro": "Pro"
+    "pro": "Pro",
+    "mostPopular": "Mais Popular"
+  },
+  "CheckoutPage": {
+    "title": "Pagar"
   }
 }
