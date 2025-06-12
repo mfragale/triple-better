@@ -18,7 +18,7 @@ import {
 } from "@dnd-kit/sortable";
 
 import { useConditionalQuery } from "@/hooks/use-conditional-query";
-import { authClient } from "@/lib/auth-client";
+// import { authClient } from "@/lib/auth-client";
 import {
   restrictToParentElement,
   restrictToVerticalAxis,
@@ -31,8 +31,8 @@ import SortableItem from "./sortable-items";
 import TodoSkeleton from "./todo-skeleton";
 
 function useTodos() {
-  const { data: sessionData } = authClient.useSession();
-  const userId = sessionData?.user?.id;
+  // const { data: sessionData } = authClient.useSession();
+  // const userId = sessionData?.user?.id;
   const todosQuery = triplit.query("todos").Order("order", "ASC");
   // .Where("userId", "=", userId);
 

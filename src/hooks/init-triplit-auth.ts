@@ -1,3 +1,4 @@
+import { env } from "@/env/client";
 import { AnyAuthClient } from "@/types/any-auth-client";
 import { subscribePersistSession } from "@daveyplate/better-auth-persistent";
 import type { SessionError, TriplitClient } from "@triplit/client";
@@ -16,7 +17,7 @@ export type InitTriplitAuthOptions = {
 };
 
 export function initTriplitAuth(
-  // biome-ignore lint/suspicious/noExplicitAny: ignore
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   triplit: TriplitClient<any>,
   authClient: AnyAuthClient,
   { anonToken, persistent = true, onSessionError }: InitTriplitAuthOptions = {}
@@ -30,7 +31,7 @@ export function initTriplitAuth(
     const token =
       sessionData?.session.token ||
       anonToken ||
-      process.env.NEXT_PUBLIC_TRIPLIT_ANON_TOKEN;
+      env.NEXT_PUBLIC_TRIPLIT_ANON_TOKEN;
 
     if (!token) return;
     if (triplit.token === token) return;
@@ -40,7 +41,7 @@ export function initTriplitAuth(
       sessionData &&
       !triplit.awaitReady &&
       triplit.vars.$token.sub === sessionData.user.id &&
-      // biome-ignore lint/suspicious/noExplicitAny: ignore
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       triplit.vars.$token.role === (sessionData.user as any).role
     ) {
       try {

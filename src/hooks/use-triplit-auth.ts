@@ -7,6 +7,7 @@ import {
 } from "./init-triplit-auth";
 
 export function useTriplitAuth(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   triplit: TriplitClient<any>,
   authClient: AnyAuthClient,
   options?: InitTriplitAuthOptions

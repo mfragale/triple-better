@@ -29,7 +29,7 @@ export function useConditionalQuery<
     error: undefined,
   };
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: prevent infinite re-renders
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const [subscribe, snapshot] = useMemo(
     () =>
       stringifiedQuery

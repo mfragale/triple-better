@@ -9,7 +9,6 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight, Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { triplit } from "../../triplit/client";
 import { Card, CardHeader } from "./ui/card";
@@ -20,8 +19,6 @@ export function AddTodoForm({ nextItemIndex }: { nextItemIndex: number }) {
   const t = useTranslations("AddTodoForm");
 
   const { data: sessionData } = authClient.useSession();
-
-  const [isLoading, setIsLoading] = useState(false);
 
   const newTodoFormSchema = useNewTodoFormSchema();
 
@@ -42,7 +39,6 @@ export function AddTodoForm({ nextItemIndex }: { nextItemIndex: number }) {
     }
 
     try {
-      setIsLoading(true);
       const result = newTodoFormSchema.safeParse(values);
 
       // Server side validation
@@ -70,14 +66,10 @@ export function AddTodoForm({ nextItemIndex }: { nextItemIndex: number }) {
           await new Promise((resolve) => setTimeout(resolve, 100));
           form.reset();
         });
-    } catch (error: any) {
-      // console.error("error", error);
-
+    } catch (error: unknown) {
       form.setError("newTodoItem", {
-        message: error.message,
+        message: (error as Error).message,
       });
-    } finally {
-      setIsLoading(false);
     }
   }
 
