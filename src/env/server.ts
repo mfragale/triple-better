@@ -20,9 +20,6 @@ export const env = createEnv({
     DEPLOYED_URL: z.string().min(1).url(),
     STRIPE_SECRET_KEY: z.string().min(1),
     STRIPE_WEBHOOK_SECRET: z.string().min(1),
-    PAGARME_ID_CONTA: z.string().min(1),
-    PAGARME_CHAVE_PUBLICA: z.string().min(1),
-    PAGARME_CHAVE_SECRETA: z.string().min(1),
   },
   onValidationError: (error) => {
     console.error("Error validating environment variables:", error);

@@ -6,6 +6,7 @@ import { Link, useRouter } from "@/i18n/navigation";
 import { authClient } from "@/lib/auth-client";
 
 import { LogIn, LogOut, Settings, User, UserPlus } from "lucide-react";
+import { Suspense } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import {
@@ -71,8 +72,10 @@ export function UserButton() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Avatar asChild>
-          <Button variant="outline" className="size-9">
-            <AvatarImage src={user?.image ?? undefined} className="size-4" />
+          <Button variant="outline" className="size-9" size="icon">
+            <Suspense>
+              <AvatarImage src={user?.image ?? undefined} className="size-9" />
+            </Suspense>
             <AvatarFallback className="bg-transparent size-6">
               {session ? user?.name?.charAt(0) : <User className="size-4" />}
             </AvatarFallback>
