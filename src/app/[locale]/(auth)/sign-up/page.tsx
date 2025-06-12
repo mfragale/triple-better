@@ -52,12 +52,12 @@ export default function SignUp() {
     // Client side validation
     resolver: zodResolver(signUpSchema),
     defaultValues: {
-      name: "",
-      email: "",
-      church: "",
-      birthdate: new Date(),
-      password: "",
-      confirmPassword: "",
+      name: "Mauricio Fragale",
+      email: "mfragale@gmail.com",
+      church: "Nova Igreja",
+      birthdate: new Date("1989-03-08 00:00:00"),
+      password: "12345678",
+      confirmPassword: "12345678",
     },
   });
 
