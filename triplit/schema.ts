@@ -120,12 +120,12 @@ export const schema = S.Collections({
   todos: {
     schema: S.Schema({
       id: S.Id(),
+      userId: S.String(),
       text: S.String(),
       completed: S.Boolean({ default: false }),
-      created_at: S.Date({ default: new Date() }),
-      updated_at: S.Date({ default: new Date() }),
       order: S.Number({ default: 0 }),
-      userId: S.String(),
+      createdAt: S.Date({ default: S.Default.now() }),
+      updatedAt: S.Date({ default: S.Default.now() }),
     }),
     relationships: {
       //                      ↓ referenced table name
@@ -144,7 +144,11 @@ export const schema = S.Collections({
           filter: [isUid],
         },
         postUpdate: {
-          filter: [isUid],
+          filter: [
+            isUid,
+            ["updatedAt", ">", "$prev.updatedAt"],
+            ["createdAt", "=", "$prev.createdAt"],
+          ],
         },
         delete: {
           filter: [isUid],

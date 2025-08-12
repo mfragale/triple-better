@@ -17,36 +17,51 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 
-import { useConditionalQuery } from "@/hooks/use-conditional-query";
-// import { authClient } from "@/lib/auth-client";
+import { useSession } from "@/hooks/use-session";
+import { useToken } from "@/hooks/use-token";
 import {
   restrictToParentElement,
   restrictToVerticalAxis,
 } from "@dnd-kit/modifiers";
+import { useQuery } from "@triplit/react";
 import { useEffect, useState } from "react";
-import { triplit } from "../../triplit/client";
-import { Todo } from "../../triplit/schema";
+import { triplit } from "~/triplit/client";
+import { Todo } from "~/triplit/schema";
 import { AddTodoForm } from "./add-todo-form";
 import SortableItem from "./sortable-items";
 import TodoSkeleton from "./todo-skeleton";
 
+// function useTodos() {
+//   const todosQuery = triplit.query("todos").Order("order", "ASC");
+//   // .Where("userId", "=", userId);
+
+//   const { results: todos, error, fetching } = useQuery(triplit, todosQuery);
+
+//   return { todos, error, fetching };
+// }
+
 function useTodos() {
-  // const { data: sessionData } = authClient.useSession();
-  // const userId = sessionData?.user?.id;
-  const todosQuery = triplit.query("todos").Order("order", "ASC");
-  // .Where("userId", "=", userId);
+  // useAuthenticate is a wrapper for useSession that redirects to sign in
+  // const { data: sessionData } = useAuthenticate();
+  const { data: sessionData } = useSession();
+  const { token } = useToken(triplit);
+  const userId = sessionData?.user?.id;
+  const todosQuery = triplit
+    .query("todos")
+    .Order("order", "ASC")
+    .Where("userId", "=", userId);
 
   const {
     results: todos,
     error,
     fetching,
-  } = useConditionalQuery(
-    triplit,
-    // sessionData?.session.token === triplit.token &&
-    todosQuery
-  );
+  } = useQuery(triplit, todosQuery, {
+    enabled: !!token,
+  });
 
-  return { todos, error, fetching };
+  const isPending = !token || fetching;
+
+  return { todos, error, isPending };
 }
 
 export default function Checklist() {
@@ -57,7 +72,7 @@ export default function Checklist() {
     })
   );
 
-  const { todos, fetching } = useTodos();
+  const { todos, isPending } = useTodos();
 
   const [items, setItems] = useState<Todo[]>(todos ?? []);
   useEffect(() => {
@@ -94,7 +109,7 @@ export default function Checklist() {
 
   return (
     <div className="flex flex-col gap-2">
-      {fetching && (
+      {isPending && (
         <>
           {[...Array(4)].map((_, index) => (
             <TodoSkeleton key={index} />
@@ -104,7 +119,7 @@ export default function Checklist() {
 
       {/* {!fetching && todos?.length === 0 && <p>No todos</p>} */}
 
-      {!fetching && (
+      {!isPending && (
         <>
           <DndContext
             sensors={sensors}

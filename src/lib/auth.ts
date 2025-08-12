@@ -18,13 +18,13 @@ import { httpClient } from "../../triplit/http-client";
 import Stripe from "stripe";
 
 const stripeClient = new Stripe(env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2025-05-28.basil",
+  apiVersion: "2025-07-30.basil",
 });
 
 export const auth = betterAuth({
   database: triplitAdapter({
     httpClient,
-    debugLogs: false,
+    debugLogs: true,
   }),
   user: {
     changeEmail: {

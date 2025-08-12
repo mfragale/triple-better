@@ -1,28 +1,35 @@
 "use client";
 
-import { useTriplitAuth } from "@/hooks/use-triplit-auth";
-import { useTriplitSession } from "@/hooks/use-triplit-session";
 import { useRouter } from "@/i18n/navigation";
 import { authClient } from "@/lib/auth-client";
 import {
   setActiveSession,
   useListDeviceSessions,
+  useSubscribeDeviceSessions,
 } from "@daveyplate/better-auth-persistent";
 import { AuthUIProvider } from "@daveyplate/better-auth-ui";
+import { useQuery } from "@triplit/react";
 import { ThemeProvider } from "next-themes";
 import type { ReactNode } from "react";
 import { useMemo } from "react";
 import { Toaster } from "sonner";
 import { triplit } from "../../triplit/client";
 
-import { useConditionalQuery } from "@/hooks/use-conditional-query";
+import { useSession } from "@/hooks/use-session";
+import { useToken } from "@/hooks/use-token";
+import { useTriplitAuth } from "@daveyplate/better-auth-triplit";
 
 export function Providers({ children }: { children: ReactNode }) {
-  useTriplitAuth(triplit, authClient);
-  const router = useRouter();
+  const { data: sessionData, isPending } = useSession();
+  const { token } = useToken(triplit);
 
-  const { data: sessionData } = useTriplitSession();
+  // Call useTriplitAuth with the correct parameters
+  useTriplitAuth(triplit, { sessionData, isPending });
+
+  useSubscribeDeviceSessions();
   const userId = sessionData?.user.id;
+
+  const router = useRouter();
 
   return (
     <ThemeProvider
@@ -35,36 +42,43 @@ export function Providers({ children }: { children: ReactNode }) {
         authClient={authClient}
         multiSession
         hooks={{
-          useSession: useTriplitSession,
+          useSession,
           useListDeviceSessions,
           useListSessions: () => {
             const {
               results: data,
-              fetching: isPending,
+              fetching,
               error,
-            } = useConditionalQuery(
+            } = useQuery(
               triplit,
-              sessionData &&
-                triplit.query("sessions").Where("userId", "=", userId)
+              triplit.query("sessions").Where("userId", "=", userId),
+              {
+                enabled: !!token,
+              }
             );
+
+            const isPending = !token || fetching;
+
             return { data, isPending, error };
           },
           useListAccounts: () => {
-            const {
-              results,
-              fetching: isPending,
-              error,
-            } = useConditionalQuery(
+            const { results, fetching, error } = useQuery(
               triplit,
-              sessionData &&
-                triplit.query("accounts").Where("userId", "=", userId)
+              triplit.query("accounts").Where("userId", "=", userId),
+              {
+                enabled: !!token,
+              }
             );
+
+            const isPending = !token || fetching;
+
             const data = useMemo(() => {
               return results?.map((account) => ({
                 accountId: account.id,
                 provider: account.providerId,
               }));
             }, [results]);
+
             return { data, isPending, error };
           },
         }}
@@ -79,26 +93,24 @@ export function Providers({ children }: { children: ReactNode }) {
             const session = await triplit.fetchOne(
               triplit.query("sessions").Where("token", "=", token)
             );
+
             if (!session) throw new Error("Session not found");
+
             await triplit.http.delete("sessions", session.id);
           },
           unlinkAccount: async ({ accountId }) => {
             if (!accountId) throw new Error("Account not found");
+
             await triplit.http.delete("accounts", accountId);
           },
         }}
         onSessionChange={() => {
           router.refresh();
         }}
-        // navigate={router.push}
-        // replace={router.replace}
-        // Link={Link}
       >
         {children}
-
-        <Toaster />
+        <Toaster richColors />
       </AuthUIProvider>
-      <Toaster richColors />
     </ThemeProvider>
   );
 }

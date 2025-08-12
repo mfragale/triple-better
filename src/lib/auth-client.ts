@@ -6,23 +6,13 @@ import {
   multiSessionClient,
 } from "better-auth/client/plugins";
 import { createAuthClient } from "better-auth/react";
+import type { auth } from "./auth";
 import { ac, admin, professor, user } from "./permissions";
 
 export const authClient = createAuthClient({
   plugins: [
     genericOAuthClient(),
-    inferAdditionalFields({
-      user: {
-        church: {
-          type: "string",
-          required: false,
-        },
-        birthdate: {
-          type: "date",
-          required: false,
-        },
-      },
-    }),
+    inferAdditionalFields<typeof auth>(),
     adminClient({
       ac: ac,
       roles: {
