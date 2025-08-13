@@ -11,5 +11,5 @@ export const triplit = new TriplitClient({
     type: isServer ? "memory" : "memory",
   },
   autoConnect: false,
-  logLevel: "debug",
+  // logLevel: "debug",
 });
