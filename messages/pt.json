@@ -709,5 +709,13 @@
   },
   "CheckoutPage": {
     "title": "Pagar"
+  },
+  "ErrorPage": {
+    "title": "Algo deu errado",
+    "tryAgainButton": "Por favor, tente novamente"
+  },
+  "OfflinePage": {
+    "title": "Você está offline",
+    "refreshButton": "Atualizar"
   }
 }

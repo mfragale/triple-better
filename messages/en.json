@@ -709,5 +709,13 @@
   },
   "CheckoutPage": {
     "title": "Checkout"
+  },
+  "ErrorPage": {
+    "title": "Something went wrong",
+    "tryAgainButton": "Please try again"
+  },
+  "OfflinePage": {
+    "title": "You are offline",
+    "refreshButton": "Refresh"
   }
 }
