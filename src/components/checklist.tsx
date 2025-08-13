@@ -17,7 +17,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 
-import { useSession } from "@/hooks/use-session";
+// import { useSession } from "@/hooks/use-session";
 import { useToken } from "@/hooks/use-token";
 import {
   restrictToParentElement,
@@ -31,27 +31,16 @@ import { AddTodoForm } from "./add-todo-form";
 import SortableItem from "./sortable-items";
 import TodoSkeleton from "./todo-skeleton";
 
-// function useTodos() {
-//   const todosQuery = triplit.query("todos").Order("order", "ASC");
-//   // .Where("userId", "=", userId);
-
-//   const { results: todos, error, fetching } = useQuery(triplit, todosQuery);
-
-//   return { todos, error, fetching };
-// }
-
 function useTodos() {
   // useAuthenticate is a wrapper for useSession that redirects to sign in
-  const { data: sessionData, error: sessionError } = useSession();
-  console.log("sessionData", sessionData);
-  console.log("sessionError", sessionError);
+  // const { data: sessionData } = useSession();
+  // console.log("sessionData", sessionData);
+  // console.log("sessionError", sessionError);
 
   const { token } = useToken(triplit);
-  const userId = sessionData?.user?.id;
-  const todosQuery = triplit
-    .query("todos")
-    .Order("order", "ASC")
-    .Where("userId", "=", userId);
+  // const userId = sessionData?.user?.id;
+  const todosQuery = triplit.query("todos").Order("order", "ASC");
+  // .Where("userId", "=", userId);
 
   const {
     results: todos,

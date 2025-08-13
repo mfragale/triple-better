@@ -16,7 +16,7 @@ export function useSession() {
     }
   );
 
-  console.log("user", user);
+  // console.log("user", user);
 
   if (user && sessionData) {
     sessionData.user = user;

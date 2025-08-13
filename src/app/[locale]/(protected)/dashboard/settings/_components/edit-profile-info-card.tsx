@@ -79,11 +79,11 @@ export default function EditProfileInfoCard(props: {
       // Server side validation
       if (!result.success) {
         const zodError = result.error;
-        if (zodError && zodError.errors) {
-          zodError.errors.forEach((err) => {
-            const field = err.path.join(".");
+        if (zodError && zodError.issues) {
+          zodError.issues.forEach((issue) => {
+            const field = issue.path.join(".");
             form.setError(field as keyof TeditProfileInfoSchema, {
-              message: err.message,
+              message: issue.message,
             });
           });
         }

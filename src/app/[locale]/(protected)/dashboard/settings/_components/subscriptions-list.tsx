@@ -24,7 +24,7 @@ export default function SubscriptionsList(props: {
   const t = useTranslations("SubscriptionsListComponent");
   const locale = useLocale();
   const { session, subscription } = props;
-  console.log("subscription", subscription);
+  // console.log("subscription", subscription);
 
   return (
     <>

@@ -54,11 +54,11 @@ const SortableItem = ({ todo }: { todo: Todo }) => {
       // Server side validation
       if (!result.success) {
         const zodError = result.error;
-        if (zodError && zodError.errors) {
-          zodError.errors.forEach((err) => {
-            const field = err.path.join(".");
+        if (zodError && zodError.issues) {
+          zodError.issues.forEach((issue) => {
+            const field = issue.path.join(".");
             form.setError(field as keyof TeditTodoFormSchema, {
-              message: err.message,
+              message: issue.message,
             });
           });
         }
@@ -69,6 +69,7 @@ const SortableItem = ({ todo }: { todo: Todo }) => {
       await triplit
         .update("todos", result.data.editedTodoItemId, async (entity) => {
           entity.text = result.data.editedTodoItem;
+          entity.updatedAt = new Date();
         })
         .then(async () => {
           await new Promise((resolve) => setTimeout(resolve, 200));
@@ -105,6 +106,7 @@ const SortableItem = ({ todo }: { todo: Todo }) => {
             onClick={() => {
               triplit.update("todos", todo.id, {
                 completed: !todo.completed,
+                updatedAt: new Date(),
               });
             }}
           >

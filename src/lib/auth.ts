@@ -25,7 +25,7 @@ const stripeClient = new Stripe(env.STRIPE_SECRET_KEY!, {
 export const auth = betterAuth({
   database: triplitAdapter({
     httpClient,
-    debugLogs: true,
+    debugLogs: false,
   }),
   user: {
     changeEmail: {
