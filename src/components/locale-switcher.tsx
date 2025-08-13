@@ -1,10 +1,11 @@
 "use client";
 
-import { usePathname, useRouter } from "@/i18n/navigation";
+import { Locale } from "@/i18n/config";
+import { setUserLocale } from "@/i18n/locale";
+import { useRouter } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { Languages } from "lucide-react";
-import { Locale, useLocale, useTranslations } from "next-intl";
-import { useParams } from "next/navigation";
+import { useLocale, useTranslations } from "next-intl";
 import { startTransition } from "react";
 import { Button } from "./ui/button";
 import {
@@ -19,19 +20,12 @@ export default function LocaleSwitcher2() {
   const t = useTranslations("LocaleSwitcher");
   const locale = useLocale();
   const router = useRouter();
-  const pathname = usePathname();
-  const params = useParams();
 
   function onSelectChange(value: string) {
     const nextLocale = value as Locale;
-    startTransition(() => {
-      router.replace(
-        // @ts-expect-error -- TypeScript will validate that only known `params`
-        // are used in combination with a given `pathname`. Since the two will
-        // always match for the current route, we can skip runtime checks.
-        { pathname, params },
-        { locale: nextLocale }
-      );
+    startTransition(async () => {
+      await setUserLocale(nextLocale as Locale);
+      router.refresh();
     });
   }
 
