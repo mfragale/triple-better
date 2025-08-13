@@ -43,15 +43,15 @@ export function AddTodoForm({ nextItemIndex }: { nextItemIndex: number }) {
 
       // Server side validation
       if (!result.success) {
-        const zodError = result.error;
-        if (zodError && zodError.errors) {
-          zodError.errors.forEach((err) => {
-            const field = err.path.join(".");
-            form.setError(field as keyof TnewTodoFormSchema, {
-              message: err.message,
-            });
-          });
-        }
+        // const zodError = result.error;
+        // if (zodError && zodError.errors) {
+        //   zodError.errors.forEach((err) => {
+        //     const field = err.path.join(".");
+        //     form.setError(field as keyof TnewTodoFormSchema, {
+        //       message: err.message,
+        //     });
+        //   });
+        // }
         return;
       }
 

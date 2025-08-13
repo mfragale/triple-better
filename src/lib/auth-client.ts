@@ -12,7 +12,6 @@ import { ac, admin, professor, user } from "./permissions";
 export const authClient = createAuthClient({
   plugins: [
     genericOAuthClient(),
-    inferAdditionalFields<typeof auth>(),
     adminClient({
       ac: ac,
       roles: {
@@ -25,6 +24,7 @@ export const authClient = createAuthClient({
     stripeClient({
       subscription: true, //if you want to enable subscription management
     }),
+    inferAdditionalFields<typeof auth>(),
   ],
 });
 export const { signIn, signUp, signOut } = createAuthClient();

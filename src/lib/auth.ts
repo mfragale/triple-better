@@ -15,6 +15,7 @@ import {
 } from "better-auth/plugins";
 import { httpClient } from "../../triplit/http-client";
 
+import { nextCookies } from "better-auth/next-js";
 import Stripe from "stripe";
 
 const stripeClient = new Stripe(env.STRIPE_SECRET_KEY!, {
@@ -121,6 +122,7 @@ export const auth = betterAuth({
       },
     }),
     multiSession(),
+    nextCookies(),
     stripe({
       stripeClient,
       stripeWebhookSecret: env.STRIPE_WEBHOOK_SECRET!,

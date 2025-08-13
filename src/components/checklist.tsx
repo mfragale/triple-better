@@ -42,8 +42,10 @@ import TodoSkeleton from "./todo-skeleton";
 
 function useTodos() {
   // useAuthenticate is a wrapper for useSession that redirects to sign in
-  // const { data: sessionData } = useAuthenticate();
-  const { data: sessionData } = useSession();
+  const { data: sessionData, error: sessionError } = useSession();
+  console.log("sessionData", sessionData);
+  console.log("sessionError", sessionError);
+
   const { token } = useToken(triplit);
   const userId = sessionData?.user?.id;
   const todosQuery = triplit
@@ -102,6 +104,7 @@ export default function Checklist() {
       newItems.map((id: string, index: number) => {
         triplit.update("todos", id, {
           order: index,
+          updatedAt: new Date(),
         });
       });
     }
