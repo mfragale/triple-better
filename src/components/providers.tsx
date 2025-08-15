@@ -2,11 +2,11 @@
 
 import { useRouter } from "@/i18n/navigation";
 import { authClient } from "@/lib/auth-client";
-import {
-  setActiveSession,
-  useListDeviceSessions,
-  useSubscribeDeviceSessions,
-} from "@daveyplate/better-auth-persistent";
+// import {
+//   setActiveSession,
+//   useListDeviceSessions,
+//   useSubscribeDeviceSessions,
+// } from "@daveyplate/better-auth-persistent";
 import { AuthUIProvider } from "@daveyplate/better-auth-ui";
 import { useQuery } from "@triplit/react";
 import { ThemeProvider } from "next-themes";
@@ -26,7 +26,7 @@ export function Providers({ children }: { children: ReactNode }) {
   // Call useTriplitAuth with the correct parameters
   useTriplitAuth(triplit, { sessionData, isPending });
 
-  useSubscribeDeviceSessions();
+  // useSubscribeDeviceSessions();
   const userId = sessionData?.user.id;
 
   const router = useRouter();
@@ -43,7 +43,7 @@ export function Providers({ children }: { children: ReactNode }) {
         multiSession
         hooks={{
           useSession,
-          useListDeviceSessions,
+          // useListDeviceSessions,
           useListSessions: () => {
             const {
               results: data,
@@ -83,7 +83,7 @@ export function Providers({ children }: { children: ReactNode }) {
           },
         }}
         mutators={{
-          setActiveSession,
+          // setActiveSession,
           updateUser: (params) =>
             triplit.update("users", userId!, {
               ...params,
