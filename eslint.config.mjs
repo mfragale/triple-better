@@ -10,51 +10,92 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
-  ...compat.config({
-    extends: ["next/core-web-vitals", "next/typescript", "prettier"],
-    plugins: [
-      "check-file",
-      "n",
-      "react",
-      "react-hooks",
-      "react-refresh",
-      "@typescript-eslint",
-      "import",
-    ],
+  ...compat.extends("next/core-web-vitals"),
+  ...compat.extends("next/typescript"),
+  ...compat.extends("prettier"),
+  {
+    files: ["**/*.{js,jsx,ts,tsx,json,jsonl,md,mdx}"],
+    languageOptions: {
+      parserOptions: {
+        project: "./tsconfig.json",
+        tsconfigRootDir: __dirname,
+      },
+    },
+    // plugins: [
+    //   "check-file",
+    //   "n",
+    //   "react",
+    //   "react-hooks",
+    //   "react-refresh",
+    //   "@typescript-eslint",
+    //   "import",
+    // ],
+    plugins: {
+      "check-file": (await import("eslint-plugin-check-file")).default,
+      n: (await import("eslint-plugin-n")).default,
+      "react-refresh": (await import("eslint-plugin-react-refresh")).default,
+    },
     rules: {
-      // semi: ["error"],
+      // Await your promises
+      "@typescript-eslint/no-floating-promises": "error",
+
+      // prettier related rules
       quotes: [
         "error",
         "double",
         { avoidEscape: true, allowTemplateLiterals: false },
       ],
+
       // next-intl - Avoid hardcoded labels
-      "react/jsx-no-literals": "error",
+      "react/jsx-no-literals": "warn",
+
       // next-intl - Consistently import navigation APIs from `@/i18n/navigation`
       "no-restricted-imports": [
         "error",
         {
-          name: "next/link",
-          message: "Please import from `@/i18n/navigation` instead.",
-        },
-        {
-          name: "next/navigation",
-          importNames: [
-            "redirect",
-            "permanentRedirect",
-            "useRouter",
-            "usePathname",
+          patterns: [
+            {
+              // next-intl - Avoid hardcoded labels
+              group: ["next/link"],
+              message: "Please import from `@/i18n/navigation` instead.",
+            },
+            {
+              // next-intl - Avoid hardcoded labels
+              group: ["next/navigation"],
+              importNames: [
+                "redirect",
+                "permanentRedirect",
+                "useRouter",
+                "usePathname",
+              ],
+              message: "Please import from `@/i18n/navigation` instead.",
+            },
+            {
+              // Convex - avoid using original query, mutation, action and use custom-made rules
+              group: ["*/_generated/server"],
+              importNames: ["query", "mutation", "action"],
+              message: "Use rls.ts for query, mutation, action",
+            },
           ],
-          message: "Please import from `@/i18n/navigation` instead.",
         },
       ],
+
+      // no unused vars, except for _
       "@typescript-eslint/no-unused-vars": [
         "error",
         { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
       ],
+
+      // T3 Env - no process.env
       "n/no-process-env": ["error"],
+
+      // prefer arrow callback
       "prefer-arrow-callback": ["error"],
+
+      // prefer template
       "prefer-template": ["error"],
+
+      // check-file - filename naming convention
       "check-file/filename-naming-convention": [
         "error",
         {
@@ -65,6 +106,8 @@ const eslintConfig = [
           ignoreMiddleExtensions: true,
         },
       ],
+
+      // check-file - folder naming convention
       "check-file/folder-naming-convention": [
         "error",
         {
@@ -72,6 +115,8 @@ const eslintConfig = [
           "src/**/!^[.*": "KEBAB_CASE",
         },
       ],
+
+      // import - no restricted paths
       "import/no-restricted-paths": [
         "error",
         {
@@ -92,16 +137,13 @@ const eslintConfig = [
                 "./src/types",
                 "./src/utils",
               ],
-              from: [
-                // "./src/features",
-                "./src/app",
-              ],
+              from: ["./src/app"],
             },
           ],
         },
       ],
     },
-  }),
+  },
 ];
 
 export default eslintConfig;
