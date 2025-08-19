@@ -1,5 +1,6 @@
 "use client";
 
+import { convexQuery } from "@convex-dev/react-query";
 import {
   closestCenter,
   DndContext,
@@ -19,15 +20,23 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { useMutation, useQuery } from "convex/react";
+import { useQuery } from "@tanstack/react-query";
+import { useMutation } from "convex/react";
 import { useEffect, useState } from "react";
 import { Doc, Id } from "~/convex/_generated/dataModel";
 import { api } from "../../convex/_generated/api";
 import { AddTodoForm } from "./add-todo-form";
 import SortableItem from "./sortable-items";
+import TodoSkeleton from "./todo-skeleton";
 
 export default function Checklist() {
-  const tasks = useQuery(api.tasks.getOnlyCurrentUserTasks);
+  // const tasks = useQuery(api.tasks.getOnlyCurrentUserTasks);
+
+  const {
+    data: tasks,
+    isPending,
+    error,
+  } = useQuery(convexQuery(api.tasks.getOnlyCurrentUserTasks, {}));
 
   const updateTaskOrder = useMutation(
     api.tasks.updateTaskOrder
@@ -93,15 +102,14 @@ export default function Checklist() {
 
   return (
     <div className="flex flex-col gap-2">
-      {/* {isPending && (
+      {isPending && (
         <>
           {[...Array(4)].map((_, index) => (
             <TodoSkeleton key={index} />
           ))}
         </>
-      )} */}
-      {/* {!fetching && todos?.length === 0 && <p>No todos</p>} */}
-      {/* {!isPending && ( */}
+      )}
+      {error && <p>Error: {error.message}</p>}
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}

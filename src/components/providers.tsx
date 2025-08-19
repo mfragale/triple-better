@@ -4,13 +4,25 @@ import { env } from "@/env/client";
 import { useRouter } from "@/i18n/navigation";
 import { authClient } from "@/lib/auth-client";
 import { ConvexBetterAuthProvider } from "@convex-dev/better-auth/react";
+import { ConvexQueryClient } from "@convex-dev/react-query";
 import { AuthUIProvider } from "@daveyplate/better-auth-ui";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConvexReactClient } from "convex/react";
 import { ThemeProvider } from "next-themes";
 import type { ReactNode } from "react";
 import { Toaster } from "sonner";
 
 const convex = new ConvexReactClient(env.NEXT_PUBLIC_CONVEX_URL!);
+const convexQueryClient = new ConvexQueryClient(convex);
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      queryKeyHashFn: convexQueryClient.hashFn(),
+      queryFn: convexQueryClient.queryFn(),
+    },
+  },
+});
+convexQueryClient.connect(queryClient);
 
 export function Providers({ children }: { children: ReactNode }) {
   const router = useRouter();
@@ -93,8 +105,10 @@ export function Providers({ children }: { children: ReactNode }) {
             router.refresh();
           }}
         >
-          {children}
-          <Toaster richColors />
+          <QueryClientProvider client={queryClient}>
+            {children}
+            <Toaster richColors />
+          </QueryClientProvider>
         </AuthUIProvider>
       </ConvexBetterAuthProvider>
     </ThemeProvider>
