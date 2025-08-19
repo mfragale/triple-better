@@ -6,8 +6,10 @@ export default defineSchema({
     // Fields are optional
   }),
   tasks: defineTable({
-    isCompleted: v.boolean(),
-    text: v.string(),
     userId: v.optional(v.id("users")),
+    text: v.string(),
+    isCompleted: v.boolean(),
+    order: v.number(),
+    updatedAt: v.string(),
   }),
 });
