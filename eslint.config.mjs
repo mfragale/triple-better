@@ -14,7 +14,7 @@ const eslintConfig = [
   ...compat.extends("next/typescript"),
   ...compat.extends("prettier"),
   {
-    files: ["**/*.{js,jsx,ts,tsx,json,jsonl,md,mdx}"],
+    files: ["**/*.{js,jsx,ts,tsx}"],
     languageOptions: {
       parserOptions: {
         project: "./tsconfig.json",

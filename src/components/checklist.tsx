@@ -70,7 +70,7 @@ export default function Checklist() {
     setItems(todos ?? []);
   }, [todos]);
 
-  function handleDragEnd(event: DragEndEvent) {
+  async function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
 
     if (active.id !== over?.id) {
@@ -90,12 +90,14 @@ export default function Checklist() {
         (s) => s.id
       );
 
-      newItems.map((id: string, index: number) => {
-        triplit.update("todos", id, {
-          order: index,
-          updatedAt: new Date(),
-        });
-      });
+      await Promise.all(
+        newItems.map(async (id: string, index: number) => {
+          await triplit.update("todos", id, {
+            order: index,
+            updatedAt: new Date(),
+          });
+        })
+      );
     }
   }
 

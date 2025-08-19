@@ -103,8 +103,8 @@ const SortableItem = ({ todo }: { todo: Todo }) => {
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => {
-              triplit.update("todos", todo.id, {
+            onClick={async () => {
+              await triplit.update("todos", todo.id, {
                 completed: !todo.completed,
                 updatedAt: new Date(),
               });
@@ -185,8 +185,8 @@ const SortableItem = ({ todo }: { todo: Todo }) => {
                 </div>
                 <Button
                   variant="destructive"
-                  onClick={() => {
-                    triplit.delete("todos", uniqueId);
+                  onClick={async () => {
+                    await triplit.delete("todos", uniqueId);
                   }}
                 >
                   {t("deletePopover.action")}

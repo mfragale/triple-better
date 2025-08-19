@@ -78,8 +78,8 @@ export default function SignIn() {
                 description: t("toast.emailNotVerified.message"),
                 action: {
                   label: t("toast.emailNotVerified.action"),
-                  onClick: () => {
-                    authClient.sendVerificationEmail({
+                  onClick: async () => {
+                    await authClient.sendVerificationEmail({
                       email: result.data.email,
                     });
                     toast(t("toast.verificationEmailSent.message"));
