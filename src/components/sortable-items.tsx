@@ -8,21 +8,73 @@ import {
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "convex/react";
 import { Check, GripVerticalIcon, Square, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { triplit } from "../../triplit/client";
-import { Todo } from "../../triplit/schema";
+import { api } from "~/convex/_generated/api";
+import { Doc, Id } from "~/convex/_generated/dataModel";
 import { Button } from "./ui/button";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "./ui/form";
 import { Input } from "./ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
-const SortableItem = ({ todo }: { todo: Todo }) => {
+const SortableItem = ({ todo }: { todo: Doc<"tasks"> }) => {
   const t = useTranslations("ChecklistItem");
 
-  const uniqueId = todo.id;
+  const updateTaskText = useMutation(
+    api.tasks.updateTaskText
+  ).withOptimisticUpdate((localStore, args) => {
+    const { id, text } = args;
+    const currentTasks = localStore.getQuery(
+      api.tasks.getOnlyCurrentUserTasks,
+      {}
+    );
+    if (currentTasks !== undefined) {
+      // Create a new array with the updated task
+      const updatedTasks = currentTasks.map((task) =>
+        task._id === id ? { ...task, text } : task
+      );
+      localStore.setQuery(api.tasks.getOnlyCurrentUserTasks, {}, updatedTasks);
+    }
+  });
+
+  const updateTaskIsCompleted = useMutation(
+    api.tasks.updateTaskIsCompleted
+  ).withOptimisticUpdate((localStore, args) => {
+    const { id, isCompleted } = args;
+    const currentTasks = localStore.getQuery(
+      api.tasks.getOnlyCurrentUserTasks,
+      {}
+    );
+    if (currentTasks !== undefined) {
+      // Create a new array with the updated task
+      const updatedTasks = currentTasks.map((task) =>
+        task._id === id ? { ...task, isCompleted } : task
+      );
+      localStore.setQuery(api.tasks.getOnlyCurrentUserTasks, {}, updatedTasks);
+    }
+  });
+
+  const deleteTask = useMutation(api.tasks.deleteTask).withOptimisticUpdate(
+    (localStore, args) => {
+      const { id } = args;
+      const currentTasks = localStore.getQuery(
+        api.tasks.getOnlyCurrentUserTasks,
+        {}
+      );
+      if (currentTasks !== undefined) {
+        localStore.setQuery(
+          api.tasks.getOnlyCurrentUserTasks,
+          {},
+          currentTasks.filter((task) => task._id !== id)
+        );
+      }
+    }
+  );
+
+  const uniqueId = todo._id;
   const {
     setNodeRef,
     transform,
@@ -66,15 +118,12 @@ const SortableItem = ({ todo }: { todo: Todo }) => {
       }
 
       // Do form action
-      await triplit
-        .update("todos", result.data.editedTodoItemId, async (entity) => {
-          entity.text = result.data.editedTodoItem;
-          entity.updatedAt = new Date();
-        })
-        .then(async () => {
-          await new Promise((resolve) => setTimeout(resolve, 200));
-          setIsEditing(null);
-        });
+      await updateTaskText({
+        id: result.data.editedTodoItemId as Id<"tasks">,
+        text: result.data.editedTodoItem,
+      });
+      await new Promise((resolve) => setTimeout(resolve, 100));
+      setIsEditing(null);
       form.reset();
       form.unregister("editedTodoItem");
       form.unregister("editedTodoItemId");
@@ -104,15 +153,19 @@ const SortableItem = ({ todo }: { todo: Todo }) => {
             variant="ghost"
             size="icon"
             onClick={async () => {
-              await triplit.update("todos", todo.id, {
-                completed: !todo.completed,
-                updatedAt: new Date(),
+              await updateTaskIsCompleted({
+                id: todo._id,
+                isCompleted: !todo.isCompleted,
               });
             }}
           >
-            {todo.completed ? <Check className="text-green-500" /> : <Square />}
+            {todo.isCompleted ? (
+              <Check className="text-green-500" />
+            ) : (
+              <Square />
+            )}
           </Button>
-          {isEditing === todo.id ? (
+          {isEditing === todo._id ? (
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
@@ -121,7 +174,7 @@ const SortableItem = ({ todo }: { todo: Todo }) => {
                 <FormField
                   control={form.control}
                   name="editedTodoItemId"
-                  defaultValue={todo.id}
+                  defaultValue={todo._id}
                   render={({ field }) => <Input type="hidden" {...field} />}
                 />
                 <FormField
@@ -147,11 +200,11 @@ const SortableItem = ({ todo }: { todo: Todo }) => {
           ) : (
             <div
               onClick={() => {
-                setIsEditing(todo.id);
+                setIsEditing(todo._id);
               }}
               className={cn(
                 "w-full cursor-text pl-3 line-clamp-3",
-                todo.completed && "line-through text-muted-foreground/30"
+                todo.isCompleted && "line-through text-muted-foreground/30"
               )}
             >
               {todo.text}
@@ -186,7 +239,7 @@ const SortableItem = ({ todo }: { todo: Todo }) => {
                 <Button
                   variant="destructive"
                   onClick={async () => {
-                    await triplit.delete("todos", uniqueId);
+                    await deleteTask({ id: uniqueId });
                   }}
                 >
                   {t("deletePopover.action")}

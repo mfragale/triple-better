@@ -7,10 +7,12 @@ import {
   useNewTodoFormSchema,
 } from "@/lib/zod-form-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "convex/react";
 import { ArrowRight, Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
-import { triplit } from "../../triplit/client";
+import { api } from "~/convex/_generated/api";
+import { Id } from "~/convex/_generated/dataModel";
 import { Card, CardHeader } from "./ui/card";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "./ui/form";
 import { Input } from "./ui/input";
@@ -19,6 +21,8 @@ export function AddTodoForm({ nextItemIndex }: { nextItemIndex: number }) {
   const t = useTranslations("AddTodoForm");
 
   const { data: sessionData } = authClient.useSession();
+
+  const createTask = useMutation(api.tasks.createTask);
 
   const newTodoFormSchema = useNewTodoFormSchema();
 
@@ -56,16 +60,13 @@ export function AddTodoForm({ nextItemIndex }: { nextItemIndex: number }) {
       }
 
       // Do form action
-      await triplit
-        .insert("todos", {
-          text: result.data.newTodoItem,
-          order: nextItemIndex,
-          userId: sessionData.user.id,
-        })
-        .then(async () => {
-          await new Promise((resolve) => setTimeout(resolve, 100));
-          form.reset();
-        });
+      await createTask({
+        text: result.data.newTodoItem,
+        userId: sessionData.user.id as Id<"users">,
+        order: nextItemIndex,
+      });
+      await new Promise((resolve) => setTimeout(resolve, 100));
+      form.reset();
     } catch (error: unknown) {
       form.setError("newTodoItem", {
         message: (error as Error).message,

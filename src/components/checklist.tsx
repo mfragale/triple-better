@@ -9,53 +9,45 @@ import {
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
-
+import {
+  restrictToParentElement,
+  restrictToVerticalAxis,
+} from "@dnd-kit/modifiers";
 import {
   arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-
-// import { useSession } from "@/hooks/use-session";
-import { useToken } from "@/hooks/use-token";
-import {
-  restrictToParentElement,
-  restrictToVerticalAxis,
-} from "@dnd-kit/modifiers";
-import { useQuery } from "@triplit/react";
+import { useMutation, useQuery } from "convex/react";
 import { useEffect, useState } from "react";
-import { triplit } from "~/triplit/client";
-import { Todo } from "~/triplit/schema";
+import { Doc, Id } from "~/convex/_generated/dataModel";
+import { api } from "../../convex/_generated/api";
 import { AddTodoForm } from "./add-todo-form";
 import SortableItem from "./sortable-items";
-import TodoSkeleton from "./todo-skeleton";
-
-function useTodos() {
-  // useAuthenticate is a wrapper for useSession that redirects to sign in
-  // const { data: sessionData } = useSession();
-  // console.log("sessionData", sessionData);
-  // console.log("sessionError", sessionError);
-
-  const { token } = useToken(triplit);
-  // const userId = sessionData?.user?.id;
-  const todosQuery = triplit.query("todos").Order("order", "ASC");
-  // .Where("userId", "=", userId);
-
-  const {
-    results: todos,
-    error,
-    fetching,
-  } = useQuery(triplit, todosQuery, {
-    enabled: !!token,
-  });
-
-  const isPending = !token || fetching;
-
-  return { todos, error, isPending };
-}
 
 export default function Checklist() {
+  const tasks = useQuery(api.tasks.getOnlyCurrentUserTasks);
+
+  const updateTaskOrder = useMutation(
+    api.tasks.updateTaskOrder
+  ).withOptimisticUpdate((localStore, args) => {
+    const { id, order } = args;
+    const currentTasks = localStore.getQuery(
+      api.tasks.getOnlyCurrentUserTasks,
+      {}
+    );
+    if (currentTasks !== undefined) {
+      // Create a new array with the updated task order
+      const updatedTasks = currentTasks.map((task) =>
+        task._id === id ? { ...task, order } : task
+      );
+      // Sort the tasks by the new order to maintain proper sequence
+      const sortedTasks = updatedTasks.sort((a, b) => a.order - b.order);
+      localStore.setQuery(api.tasks.getOnlyCurrentUserTasks, {}, sortedTasks);
+    }
+  });
+
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -63,38 +55,36 @@ export default function Checklist() {
     })
   );
 
-  const { todos, isPending } = useTodos();
-
-  const [items, setItems] = useState<Todo[]>(todos ?? []);
+  const [items, setItems] = useState<Doc<"tasks">[]>(tasks ?? []);
   useEffect(() => {
-    setItems(todos ?? []);
-  }, [todos]);
+    setItems(tasks ?? []);
+  }, [tasks]);
 
   async function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
 
     if (active.id !== over?.id) {
       function getNewArray(
-        array: Todo[],
+        array: Doc<"tasks">[],
         activeId: string | number,
         overId: string | number
       ) {
-        const oldIndex = array.findIndex((section) => section.id === activeId);
-        const newIndex = array.findIndex((section) => section.id === overId);
+        const oldIndex = array.findIndex((section) => section._id === activeId);
+        const newIndex = array.findIndex((section) => section._id === overId);
         return arrayMove(array, oldIndex, newIndex);
       }
 
       setItems((prevItems) => getNewArray(prevItems, active.id, over?.id ?? 0));
 
       const newItems = getNewArray(items, active.id, over?.id ?? 0).map(
-        (s) => s.id
+        (s) => s._id
       );
 
       await Promise.all(
         newItems.map(async (id: string, index: number) => {
-          await triplit.update("todos", id, {
+          await updateTaskOrder({
+            id: id as Id<"tasks">,
             order: index,
-            updatedAt: new Date(),
           });
         })
       );
@@ -103,36 +93,31 @@ export default function Checklist() {
 
   return (
     <div className="flex flex-col gap-2">
-      {isPending && (
+      {/* {isPending && (
         <>
           {[...Array(4)].map((_, index) => (
             <TodoSkeleton key={index} />
           ))}
         </>
-      )}
-
+      )} */}
       {/* {!fetching && todos?.length === 0 && <p>No todos</p>} */}
-
-      {!isPending && (
-        <>
-          <DndContext
-            sensors={sensors}
-            collisionDetection={closestCenter}
-            onDragEnd={handleDragEnd}
-            modifiers={[restrictToVerticalAxis, restrictToParentElement]}
-          >
-            <SortableContext
-              items={items}
-              strategy={verticalListSortingStrategy}
-            >
-              {items.map((item) => (
-                <SortableItem key={item.id} todo={item} />
-              ))}
-            </SortableContext>
-          </DndContext>
-          <AddTodoForm nextItemIndex={todos?.length ?? 0} />{" "}
-        </>
-      )}
+      {/* {!isPending && ( */}
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+        modifiers={[restrictToVerticalAxis, restrictToParentElement]}
+      >
+        <SortableContext
+          items={items.map((item) => item._id)}
+          strategy={verticalListSortingStrategy}
+        >
+          {items.map((item) => (
+            <SortableItem key={item._id} todo={item} />
+          ))}
+        </SortableContext>
+      </DndContext>
+      <AddTodoForm nextItemIndex={tasks?.length ?? 0} />{" "}
     </div>
   );
 }
