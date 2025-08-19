@@ -2,12 +2,13 @@
 import { Resend } from "resend";
 
 import DefaultEmail from "@/components/emails/default-email-template";
-import { env } from "@/env/server";
+// import { env } from "@/env/server";
 import { render } from "@react-email/components";
 import { User } from "better-auth";
 import { getTranslations } from "next-intl/server";
 
-const resend = new Resend(env.RESEND_API_KEY);
+// eslint-disable-next-line n/no-process-env
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function sendEmail({
   to,
@@ -22,7 +23,8 @@ export async function sendEmail({
 }) {
   try {
     const { data, error } = await resend.emails.send({
-      from: `${env.APP_NAME} <${env.EMAIL_FROM}>`,
+      // eslint-disable-next-line n/no-process-env
+      from: `${process.env.APP_NAME} <${process.env.EMAIL_FROM}>`,
       to: to.toLowerCase().trim(),
       subject: subject.trim(),
       react: DefaultEmail({ heading, text }),
@@ -50,7 +52,8 @@ export async function sendResetPasswordEmail({
 
   try {
     const { data, error } = await resend.emails.send({
-      from: `${env.APP_NAME} <${env.EMAIL_FROM}>`,
+      // eslint-disable-next-line n/no-process-env
+      from: `${process.env.APP_NAME} <${process.env.EMAIL_FROM}>`,
       to: user.email.toLowerCase().trim(),
       subject: t("resetPassword.subject"),
       react: DefaultEmail({
@@ -84,11 +87,13 @@ export async function sendVerificationEmail({
   token: string;
 }) {
   const t = await getTranslations("sendEmail");
-  const verificationUrl = `${env.BETTER_AUTH_URL}/api/auth/verify-email?token=${token}&callbackURL=${env.EMAIL_VERIFICATION_CALLBACK_URL}`;
+  // eslint-disable-next-line n/no-process-env
+  const verificationUrl = `${process.env.BETTER_AUTH_URL}/api/auth/verify-email?token=${token}&callbackURL=${process.env.EMAIL_VERIFICATION_CALLBACK_URL}`;
 
   try {
     const { data, error } = await resend.emails.send({
-      from: `${env.APP_NAME} <${env.EMAIL_FROM}>`,
+      // eslint-disable-next-line n/no-process-env
+      from: `${process.env.APP_NAME} <${process.env.EMAIL_FROM}>`,
       to: user.email.toLowerCase().trim(),
       subject: t("verifyEmail.subject"),
       react: DefaultEmail({
@@ -125,7 +130,8 @@ export async function sendChangeEmailVerificationEmail({
 
   try {
     const { data, error } = await resend.emails.send({
-      from: `${env.APP_NAME} <${env.EMAIL_FROM}>`,
+      // eslint-disable-next-line n/no-process-env
+      from: `${process.env.APP_NAME} <${process.env.EMAIL_FROM}>`,
       to: newEmail.toLowerCase().trim(),
       subject: t("changeEmail.subject"),
       react: DefaultEmail({

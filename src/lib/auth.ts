@@ -3,156 +3,153 @@ import {
   sendResetPasswordEmail,
   sendVerificationEmail,
 } from "@/actions/send-emails/route";
-import { env } from "@/env/server";
 import { ac, admin, professor, user } from "@/lib/permissions";
-import { stripe } from "@better-auth/stripe";
-import { triplitAdapter } from "@daveyplate/better-auth-triplit";
+// import { stripe } from "@better-auth/stripe";
+import { convexAdapter } from "@convex-dev/better-auth";
+import { convex } from "@convex-dev/better-auth/plugins";
 import { betterAuth } from "better-auth";
 import {
   admin as adminPlugin,
   genericOAuth,
   multiSession,
 } from "better-auth/plugins";
-import { httpClient } from "../../triplit/http-client";
+import { type GenericCtx } from "../../convex/_generated/server";
+import { betterAuthComponent } from "../../convex/auth";
 
 import { nextCookies } from "better-auth/next-js";
-import Stripe from "stripe";
+// import Stripe from "stripe";
 
-const stripeClient = new Stripe(env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2025-07-30.basil",
-});
+// // eslint-disable-next-line n/no-process-env
+// const stripeClient = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+//   apiVersion: "2025-07-30.basil",
+// });
 
-export const auth = betterAuth({
-  database: triplitAdapter({
-    httpClient,
-    debugLogs: false,
-  }),
-  user: {
-    changeEmail: {
+export const createAuth = (ctx: GenericCtx) =>
+  betterAuth({
+    // eslint-disable-next-line n/no-process-env
+    baseURL: process.env.BETTER_AUTH_URL,
+    database: convexAdapter(ctx, betterAuthComponent),
+    user: {
+      changeEmail: {
+        enabled: true,
+        sendChangeEmailVerification: async ({ newEmail, url }) => {
+          await sendChangeEmailVerificationEmail({
+            newEmail: newEmail,
+            url: url,
+          });
+        },
+      },
+      additionalFields: {
+        church: {
+          type: "string",
+          required: false,
+        },
+        birthdate: {
+          type: "date",
+          required: false,
+        },
+      },
+    },
+    emailAndPassword: {
       enabled: true,
-      sendChangeEmailVerification: async ({ newEmail, url }) => {
-        await sendChangeEmailVerificationEmail({
-          newEmail: newEmail,
+      // requireEmailVerification: true,
+      sendResetPassword: async ({ user, url }) => {
+        await sendResetPasswordEmail({
+          user: user,
           url: url,
         });
       },
     },
-    additionalFields: {
-      church: {
-        type: "string",
-        required: false,
-      },
-      birthdate: {
-        type: "date",
-        required: false,
+    emailVerification: {
+      // sendOnSignUp: true,
+      autoSignInAfterVerification: true,
+      sendVerificationEmail: async ({ user, token }) => {
+        await sendVerificationEmail({
+          user: user,
+          token: token,
+        });
       },
     },
-  },
-  emailAndPassword: {
-    enabled: true,
-    // requireEmailVerification: true,
-    sendResetPassword: async ({ user, url }) => {
-      await sendResetPasswordEmail({
-        user: user,
-        url: url,
-      });
-    },
-  },
-  emailVerification: {
-    // sendOnSignUp: true,
-    autoSignInAfterVerification: true,
-    sendVerificationEmail: async ({ user, token }) => {
-      await sendVerificationEmail({
-        user: user,
-        token: token,
-      });
-    },
-  },
-  plugins: [
-    genericOAuth({
-      config: [
-        {
-          providerId: "planning-center",
-          authentication: "basic",
-          clientId: env.PCO_CLIENT_ID,
-          clientSecret: env.PCO_SECRET,
-          authorizationUrl:
-            "https://api.planningcenteronline.com/oauth/authorize",
-          scopes: ["people", "services"],
-          tokenUrl: "https://api.planningcenteronline.com/oauth/token",
-          userInfoUrl: "https://api.planningcenteronline.com/people/v2/me",
-          redirectURI: `${env.BETTER_AUTH_URL}/api/auth/oauth2/callback/planning-center`,
-          overrideUserInfo: true, // As far as I can tell, this is just mearly formality for the BetterAuth plugin.  The real sync occurs in src/app/api/planning-center/pco-actions/route.ts
-          accessType: "oauth2",
-          getUserInfo: async (tokens) => {
-            const fetchUserInfoFromCustomProvider = await fetch(
-              "https://api.planningcenteronline.com/people/v2/me",
-              {
-                headers: {
-                  Authorization: `Bearer ${tokens.accessToken}`,
-                  Accept: "application/json",
-                },
-              }
-            );
-            const profile = await fetchUserInfoFromCustomProvider.json();
-
-            console.log("Profile: ", profile);
-
-            return {
-              // As far as I can tell, this is just mearly formality for the BetterAuth plugin.
-              // The real sync occurs in src/app/api/planning-center/pco-actions/route.ts
-              id: profile.data.id,
-              name: profile.data.attributes.name,
-              email: profile.data.attributes.login_identifier,
-              image: profile.data.attributes.avatar,
-              emailVerified: true,
-              createdAt: new Date(),
-              updatedAt: new Date(),
-            };
-          },
-        },
-      ],
-    }),
-    adminPlugin({
-      ac: ac,
-      roles: {
-        admin,
-        user,
-        professor,
-      },
-    }),
-    multiSession(),
-    nextCookies(),
-    stripe({
-      stripeClient,
-      stripeWebhookSecret: env.STRIPE_WEBHOOK_SECRET!,
-      createCustomerOnSignUp: false,
-      subscription: {
-        enabled: true,
-        plans: [
+    plugins: [
+      genericOAuth({
+        config: [
           {
-            name: "basic", // the name of the plan, it'll be automatically lower cased when stored in the database
-            priceId: "price_1RWIojGgkSoYSC7U3XgCp2aQ", // the price id from stripe
-          },
-          {
-            name: "pro",
-            priceId: "price_1RWIxoGgkSoYSC7UupvJHg08",
-            freeTrial: {
-              days: 14,
+            providerId: "planning-center",
+            authentication: "basic",
+            // eslint-disable-next-line n/no-process-env
+            clientId: process.env.PCO_CLIENT_ID!,
+            // eslint-disable-next-line n/no-process-env
+            clientSecret: process.env.PCO_SECRET!,
+            authorizationUrl:
+              "https://api.planningcenteronline.com/oauth/authorize",
+            scopes: ["people", "services"],
+            tokenUrl: "https://api.planningcenteronline.com/oauth/token",
+            userInfoUrl: "https://api.planningcenteronline.com/people/v2/me",
+            // eslint-disable-next-line n/no-process-env
+            redirectURI: `${process.env.BETTER_AUTH_URL}/api/auth/oauth2/callback/planning-center`,
+            overrideUserInfo: true, // As far as I can tell, this is just mearly formality for the BetterAuth plugin.  The real sync occurs in src/app/api/planning-center/pco-actions/route.ts
+            accessType: "oauth2",
+            getUserInfo: async (tokens) => {
+              const fetchUserInfoFromCustomProvider = await fetch(
+                "https://api.planningcenteronline.com/people/v2/me",
+                {
+                  headers: {
+                    Authorization: `Bearer ${tokens.accessToken}`,
+                    Accept: "application/json",
+                  },
+                }
+              );
+              const profile = await fetchUserInfoFromCustomProvider.json();
+
+              console.log("Profile: ", profile);
+
+              return {
+                // As far as I can tell, this is just mearly formality for the BetterAuth plugin.
+                // The real sync occurs in src/app/api/planning-center/pco-actions/route.ts
+                id: profile.data.id,
+                name: profile.data.attributes.name,
+                email: profile.data.attributes.login_identifier,
+                image: profile.data.attributes.avatar,
+                emailVerified: true,
+                createdAt: new Date(),
+                updatedAt: new Date(),
+              };
             },
           },
         ],
-      },
-    }),
-  ],
-});
-
-export type Session = typeof auth.$Infer.Session;
-export type Account = {
-  accountId: string;
-  createdAt: Date;
-  id: string;
-  provider: string;
-  scopes: Array<string>;
-  updatedAt: Date;
-};
+      }),
+      adminPlugin({
+        ac: ac,
+        roles: {
+          admin,
+          user,
+          professor,
+        },
+      }),
+      multiSession(),
+      nextCookies(),
+      // stripe({
+      //   stripeClient,
+      //   // eslint-disable-next-line n/no-process-env
+      //   stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET!,
+      //   createCustomerOnSignUp: false,
+      //   subscription: {
+      //     enabled: true,
+      //     plans: [
+      //       {
+      //         name: "basic", // the name of the plan, it'll be automatically lower cased when stored in the database
+      //         priceId: "price_1RWIojGgkSoYSC7U3XgCp2aQ", // the price id from stripe
+      //       },
+      //       {
+      //         name: "pro",
+      //         priceId: "price_1RWIxoGgkSoYSC7UupvJHg08",
+      //         freeTrial: {
+      //           days: 14,
+      //         },
+      //       },
+      //     ],
+      //   },
+      // }),
+      convex(),
+    ],
+  });

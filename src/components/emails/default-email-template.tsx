@@ -12,7 +12,7 @@ import {
   Text,
 } from "@react-email/components";
 
-import { env } from "@/env/server";
+// import { env } from "@/env/server";
 
 interface DefaultEmailProps {
   heading: string;
@@ -40,12 +40,15 @@ export const DefaultEmail = ({ heading, text }: DefaultEmailProps) => {
               <table className="w-full">
                 <tr className="w-full">
                   <td>
-                    <Link href={env.DEPLOYED_URL}>
+                    {/* eslint-disable-next-line n/no-process-env */}
+                    <Link href={process.env.DEPLOYED_URL}>
                       <Img
-                        src={`${env.DEPLOYED_URL}/icon.png`}
+                        // eslint-disable-next-line n/no-process-env
+                        src={`${process.env.DEPLOYED_URL}/icon.png`}
                         width="40"
                         height="40"
-                        alt={env.APP_NAME}
+                        // eslint-disable-next-line n/no-process-env
+                        alt={process.env.APP_NAME}
                       />
                     </Link>
                   </td>
@@ -53,10 +56,12 @@ export const DefaultEmail = ({ heading, text }: DefaultEmailProps) => {
                 <tr className="w-full">
                   <td>
                     <Text className="my-1 font-semibold text-gray-900 text-base">
-                      {env.APP_NAME}
+                      {/* eslint-disable-next-line n/no-process-env */}
+                      {process.env.APP_NAME}
                     </Text>
                     <Text className="my-0 text-gray-500 text-xs">
-                      {env.APP_DESCRIPTION}
+                      {/* eslint-disable-next-line n/no-process-env */}
+                      {process.env.APP_DESCRIPTION}
                     </Text>
                   </td>
                 </tr>

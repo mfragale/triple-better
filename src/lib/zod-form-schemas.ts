@@ -7,7 +7,7 @@ import { boolean, date, string, z } from "zod";
 const usePasswordSchema = () => {
   const t = useTranslations("zod");
 
-  return string({ required_error: t("errors.invalid_type_received_undefined") })
+  return string({ error: t("errors.invalid_type_received_undefined") })
     .min(8, {
       message: t("errors.too_small.string.inclusive", { minimum: 8 }),
     })
@@ -19,7 +19,7 @@ const usePasswordSchema = () => {
 const useEmailSchema = () => {
   const t = useTranslations("zod");
 
-  return string({ required_error: t("errors.invalid_type_received_undefined") })
+  return string({ error: t("errors.invalid_type_received_undefined") })
     .min(1, {
       message: t("errors.too_small.string.inclusive", { minimum: 1 }),
     })
@@ -31,7 +31,7 @@ const useEmailSchema = () => {
 const useNameSchema = () => {
   const t = useTranslations("zod");
 
-  return string({ required_error: t("errors.invalid_type_received_undefined") })
+  return string({ error: t("errors.invalid_type_received_undefined") })
     .min(1, {
       message: t("errors.too_small.string.inclusive", { minimum: 1 }),
     })
@@ -86,7 +86,7 @@ export const useSignUpSchema = () => {
       email: useEmailSchema(),
       church: useNameSchema(),
       birthdate: date({
-        required_error: t("errors.invalid_type_received_undefined"),
+        error: t("errors.invalid_type_received_undefined"),
       }),
       password: usePasswordSchema(),
       confirmPassword: usePasswordSchema(),
