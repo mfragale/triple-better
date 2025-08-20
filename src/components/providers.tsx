@@ -6,7 +6,11 @@ import { authClient } from "@/lib/auth-client";
 import { ConvexBetterAuthProvider } from "@convex-dev/better-auth/react";
 import { ConvexQueryClient } from "@convex-dev/react-query";
 import { AuthUIProvider } from "@daveyplate/better-auth-ui";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  keepPreviousData,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 import { ConvexReactClient } from "convex/react";
 import { ThemeProvider } from "next-themes";
 import type { ReactNode } from "react";
@@ -19,6 +23,7 @@ const queryClient = new QueryClient({
     queries: {
       queryKeyHashFn: convexQueryClient.hashFn(),
       queryFn: convexQueryClient.queryFn(),
+      placeholderData: keepPreviousData,
     },
   },
 });

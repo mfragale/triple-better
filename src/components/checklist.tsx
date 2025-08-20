@@ -34,7 +34,7 @@ export default function Checklist() {
 
   const {
     data: tasks,
-    isPending,
+    isLoading,
     error,
   } = useQuery(convexQuery(api.tasks.getOnlyCurrentUserTasks, {}));
 
@@ -65,6 +65,7 @@ export default function Checklist() {
   );
 
   const [items, setItems] = useState<Doc<"tasks">[]>(tasks ?? []);
+
   useEffect(() => {
     setItems(tasks ?? []);
   }, [tasks]);
@@ -102,7 +103,7 @@ export default function Checklist() {
 
   return (
     <div className="flex flex-col gap-2">
-      {isPending && (
+      {isLoading && (
         <>
           {[...Array(4)].map((_, index) => (
             <TodoSkeleton key={index} />
