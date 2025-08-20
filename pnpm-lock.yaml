@@ -11,9 +11,6 @@ importers:
       '@better-auth/stripe':
         specifier: ^1.3.7
         version: 1.3.7(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(zod@4.0.17)
-      '@daveyplate/better-auth-persistent':
-        specifier: ^0.0.4
-        version: 0.0.4(@better-fetch/fetch@1.1.18)(@nanostores/react@0.7.3(nanostores@0.11.4)(react@19.1.1))(better-auth@1.3.7(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(zod@4.0.17))(nanostores@0.11.4)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@daveyplate/better-auth-triplit':
         specifier: ^0.2.2
         version: 0.2.2(@triplit/client@1.0.50(typescript@5.9.2)(uuidv7@1.0.2))(@triplit/react@1.0.51(react@19.1.1)(typescript@5.9.2)(uuidv7@1.0.2))(better-auth@1.3.7(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(zod@4.0.17))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
@@ -297,16 +294,6 @@ packages:
 
   '@date-fns/tz@1.4.1':
     resolution: {integrity: sha512-P5LUNhtbj6YfI3iJjw5EL9eUAG6OitD0W3fWQcpQjDRc/QIsL0tRNuO1PcDvPccWL1fSTXXdE1ds+l95DV/OFA==}
-
-  '@daveyplate/better-auth-persistent@0.0.4':
-    resolution: {integrity: sha512-U/jrlW2PEmT21W1DPwme/5OKchbKqgoE1KG6W22Hn0J/93PIUsXrOQ+1Xi2DEM32o7jPspe1yClpV1+L/SZ8bw==}
-    peerDependencies:
-      '@better-fetch/fetch': '>=1.1.18'
-      '@nanostores/react': '>=1.0.0'
-      better-auth: '>=1.2.8'
-      nanostores: '>=1.0.0'
-      react: '>=18.0.0'
-      react-dom: '>=18.0.0'
 
   '@daveyplate/better-auth-tanstack@1.3.6':
     resolution: {integrity: sha512-GvIGdbjRMZCEfAffU7LeWpGpie4vSli8V9jmNFCQOziZZMEFbO4cd53HBFmAushC9oEYIyhSNZBgV2ADzW94Ww==}
@@ -1003,19 +990,6 @@ packages:
     resolution: {integrity: sha512-x0fWaQtYp4E6sktbsdAqnehxDgEc/VwM7uLsRCYWaiGu0ykYdZPiS8zCWdnjHwyiumousxfBm4SO31eXqwEZhQ==}
     cpu: [x64]
     os: [win32]
-
-  '@nanostores/persistent@1.1.0':
-    resolution: {integrity: sha512-e6vfv7H99VkCfSoNTR/qNVMj6vXwWcsEL+LCQQamej5GK9iDefKxPCJjdOpBi1p4lNCFIQ+9VjYF1spvvc2p6A==}
-    engines: {node: ^20.0.0 || >=22.0.0}
-    peerDependencies:
-      nanostores: ^0.9.0 || ^0.10.0 || ^0.11.0 || ^1.0.0
-
-  '@nanostores/react@0.7.3':
-    resolution: {integrity: sha512-/XuLAMENRu/Q71biW4AZ4qmU070vkZgiQ28gaTSNRPm2SZF5zGAR81zPE1MaMB4SeOp6ZTst92NBaG75XSspNg==}
-    engines: {node: ^18.0.0 || >=20.0.0}
-    peerDependencies:
-      nanostores: ^0.9.0 || ^0.10.0 || ^0.11.0
-      react: '>=18.0.0'
 
   '@napi-rs/wasm-runtime@0.2.11':
     resolution: {integrity: sha512-9DPkXtvHydrcOsopiYpUgPHpmj0HWZKMUnL2dZqpvC42lsratuBG06V5ipyno0fUek5VlFsNQ+AcFATSrJXgMA==}
@@ -4298,17 +4272,6 @@ snapshots:
 
   '@date-fns/tz@1.4.1': {}
 
-  '@daveyplate/better-auth-persistent@0.0.4(@better-fetch/fetch@1.1.18)(@nanostores/react@0.7.3(nanostores@0.11.4)(react@19.1.1))(better-auth@1.3.7(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(zod@4.0.17))(nanostores@0.11.4)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
-    dependencies:
-      '@better-fetch/fetch': 1.1.18
-      '@nanostores/persistent': 1.1.0(nanostores@0.11.4)
-      '@nanostores/react': 0.7.3(nanostores@0.11.4)(react@19.1.1)
-      better-auth: 1.3.7(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(zod@4.0.17)
-      nanostores: 0.11.4
-      react: 19.1.1
-      react-dom: 19.1.1(react@19.1.1)
-      superjson: 2.2.2
-
   '@daveyplate/better-auth-tanstack@1.3.6(@tanstack/query-core@5.80.7)(@tanstack/react-query@5.80.7(react@19.1.1))(better-auth@1.3.7(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(zod@4.0.17))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
     dependencies:
       '@tanstack/query-core': 5.80.7
@@ -4852,15 +4815,6 @@ snapshots:
 
   '@msgpackr-extract/msgpackr-extract-win32-x64@3.0.3':
     optional: true
-
-  '@nanostores/persistent@1.1.0(nanostores@0.11.4)':
-    dependencies:
-      nanostores: 0.11.4
-
-  '@nanostores/react@0.7.3(nanostores@0.11.4)(react@19.1.1)':
-    dependencies:
-      nanostores: 0.11.4
-      react: 19.1.1
 
   '@napi-rs/wasm-runtime@0.2.11':
     dependencies:

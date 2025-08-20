@@ -2,11 +2,6 @@
 
 import { useRouter } from "@/i18n/navigation";
 import { authClient } from "@/lib/auth-client";
-// import {
-//   setActiveSession,
-//   useListDeviceSessions,
-//   useSubscribeDeviceSessions,
-// } from "@daveyplate/better-auth-persistent";
 import { AuthUIProvider } from "@daveyplate/better-auth-ui";
 import { useQuery } from "@triplit/react";
 import { ThemeProvider } from "next-themes";
