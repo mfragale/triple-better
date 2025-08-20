@@ -10,26 +10,42 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
-  ...compat.config({
-    extends: ["next/core-web-vitals", "next/typescript", "prettier"],
-    plugins: [
-      "check-file",
-      "n",
-      "react",
-      "react-hooks",
-      "react-refresh",
-      "@typescript-eslint",
-      "import",
+  ...compat.extends("next/core-web-vitals"),
+  ...compat.extends("next/typescript"),
+  ...compat.extends("prettier"),
+  {
+    ignores: [
+      "node_modules/**",
+      ".next/**",
+      "out/**",
+      "build/**",
+      "next-env.d.ts",
     ],
+    files: ["**/*.{js,jsx,ts,tsx}"],
+    languageOptions: {
+      parserOptions: {
+        project: "./tsconfig.json",
+        tsconfigRootDir: __dirname,
+      },
+    },
+    plugins: {
+      "check-file": (await import("eslint-plugin-check-file")).default,
+      n: (await import("eslint-plugin-n")).default,
+      "react-refresh": (await import("eslint-plugin-react-refresh")).default,
+    },
     rules: {
-      // semi: ["error"],
+      // Await your promises
+      "@typescript-eslint/no-floating-promises": "error",
+
       quotes: [
         "error",
         "double",
         { avoidEscape: true, allowTemplateLiterals: false },
       ],
+
       // next-intl - Avoid hardcoded labels
       "react/jsx-no-literals": "error",
+
       // next-intl - Consistently import navigation APIs from `@/i18n/navigation`
       "no-restricted-imports": [
         "error",
@@ -48,13 +64,18 @@ const eslintConfig = [
           message: "Please import from `@/i18n/navigation` instead.",
         },
       ],
+
       "@typescript-eslint/no-unused-vars": [
         "error",
         { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
       ],
+
       "n/no-process-env": ["error"],
+
       "prefer-arrow-callback": ["error"],
+
       "prefer-template": ["error"],
+
       "check-file/filename-naming-convention": [
         "error",
         {
@@ -65,6 +86,7 @@ const eslintConfig = [
           ignoreMiddleExtensions: true,
         },
       ],
+
       "check-file/folder-naming-convention": [
         "error",
         {
@@ -72,6 +94,7 @@ const eslintConfig = [
           "src/**/!^[.*": "KEBAB_CASE",
         },
       ],
+
       "import/no-restricted-paths": [
         "error",
         {
@@ -101,7 +124,7 @@ const eslintConfig = [
         },
       ],
     },
-  }),
+  },
 ];
 
 export default eslintConfig;

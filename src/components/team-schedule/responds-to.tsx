@@ -61,7 +61,7 @@ export function RespondsTo({
         console.error("Error:", error);
       }
     }
-    fetchUserData();
+    void fetchUserData();
   }, [pcoId, pcoAccessToken]);
 
   if (!pcoId || !pcoAccessToken) return null;
