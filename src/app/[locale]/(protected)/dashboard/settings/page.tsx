@@ -52,7 +52,7 @@ export default async function ProfilePage() {
     <div className="flex flex-col gap-6 mx-auto px-4 py-12 max-w-xl">
       <h1 className="font-bold text-2xl">{t("profile.title")}</h1>
 
-      <EditAvatarCard />
+      <EditAvatarCard session={null} />
       {/* <EditProfileInfoCard session={session} />
       <EditEmailCard session={session} />
       <ChangePasswordCard />

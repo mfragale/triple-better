@@ -1,3 +1,4 @@
+import { createAuth } from "@/lib/auth";
 import {
   BetterAuth,
   type AuthFunctions,
@@ -55,5 +56,33 @@ export const getCurrentUser = query({
       ...user,
       ...userMetadata,
     };
+  },
+});
+
+export const getSession = query({
+  args: {},
+  handler: async (ctx) => {
+    const auth = createAuth(ctx);
+
+    // Get an access token for a user by id
+    // const accessToken = await auth.api.getAccessToken({
+    //   body: {
+    //     providerId: "github",
+    //     userId: "some-user-id",
+    //   },
+    // });
+
+    // For auth.api methods that require a session (such as
+    // getSession()), you can use the getHeaders method to
+    // get a headers object
+    const headers = await betterAuthComponent.getHeaders(ctx);
+    const session = await auth.api.getSession({
+      headers,
+    });
+    if (!session) {
+      return null;
+    }
+    // Do something with the session
+    return session;
   },
 });

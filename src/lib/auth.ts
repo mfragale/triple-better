@@ -4,7 +4,7 @@ import {
   sendVerificationEmail,
 } from "@/actions/send-emails/route";
 import { ac, admin, professor, user } from "@/lib/permissions";
-// import { stripe } from "@better-auth/stripe";
+import { stripe } from "@better-auth/stripe";
 import { convexAdapter } from "@convex-dev/better-auth";
 import { convex } from "@convex-dev/better-auth/plugins";
 import { betterAuth } from "better-auth";
@@ -17,12 +17,12 @@ import { type GenericCtx } from "../../convex/_generated/server";
 import { betterAuthComponent } from "../../convex/auth";
 
 import { nextCookies } from "better-auth/next-js";
-// import Stripe from "stripe";
+import Stripe from "stripe";
 
-// // eslint-disable-next-line n/no-process-env
-// const stripeClient = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-//   apiVersion: "2025-07-30.basil",
-// });
+// eslint-disable-next-line n/no-process-env
+const stripeClient = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  apiVersion: "2025-07-30.basil",
+});
 
 export const createAuth = (ctx: GenericCtx) =>
   betterAuth({
@@ -128,28 +128,28 @@ export const createAuth = (ctx: GenericCtx) =>
       }),
       multiSession(),
       nextCookies(),
-      // stripe({
-      //   stripeClient,
-      //   // eslint-disable-next-line n/no-process-env
-      //   stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET!,
-      //   createCustomerOnSignUp: false,
-      //   subscription: {
-      //     enabled: true,
-      //     plans: [
-      //       {
-      //         name: "basic", // the name of the plan, it'll be automatically lower cased when stored in the database
-      //         priceId: "price_1RWIojGgkSoYSC7U3XgCp2aQ", // the price id from stripe
-      //       },
-      //       {
-      //         name: "pro",
-      //         priceId: "price_1RWIxoGgkSoYSC7UupvJHg08",
-      //         freeTrial: {
-      //           days: 14,
-      //         },
-      //       },
-      //     ],
-      //   },
-      // }),
+      stripe({
+        stripeClient,
+        // eslint-disable-next-line n/no-process-env
+        stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET!,
+        createCustomerOnSignUp: false,
+        subscription: {
+          enabled: true,
+          plans: [
+            {
+              name: "basic", // the name of the plan, it'll be automatically lower cased when stored in the database
+              priceId: "price_1RWIojGgkSoYSC7U3XgCp2aQ", // the price id from stripe
+            },
+            {
+              name: "pro",
+              priceId: "price_1RWIxoGgkSoYSC7UupvJHg08",
+              freeTrial: {
+                days: 14,
+              },
+            },
+          ],
+        },
+      }),
       convex(),
     ],
   });

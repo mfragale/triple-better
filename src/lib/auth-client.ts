@@ -1,4 +1,4 @@
-// import { stripeClient } from "@better-auth/stripe/client";
+import { stripeClient } from "@better-auth/stripe/client";
 import { convexClient } from "@convex-dev/better-auth/client/plugins";
 import {
   adminClient,
@@ -22,9 +22,9 @@ export const authClient = createAuthClient({
       },
     }),
     multiSessionClient(),
-    // stripeClient({
-    //   subscription: true, //if you want to enable subscription management
-    // }),
+    stripeClient({
+      subscription: true, //if you want to enable subscription management
+    }),
     inferAdditionalFields<typeof createAuth>(),
     convexClient(),
   ],
