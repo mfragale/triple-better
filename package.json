@@ -6,7 +6,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint src",
+    "lint": "prettier src/ triplit/ messages/ --write && eslint src && tsc --noEmit",
     "format": "prettier src/ --write",
     "db:dev": "npx triplit dev",
     "db:snap": "triplit snapshot create --outDir ./triplit/snapshots",

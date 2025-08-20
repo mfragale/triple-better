@@ -144,6 +144,43 @@ export const schema = S.Collections({
       },
     },
   },
+  subscriptions: {
+    schema: S.Schema({
+      id: S.Id(),
+      userId: S.Optional(S.String()),
+      plan: S.String(),
+      referenceId: S.String(),
+      stripeCustomerId: S.Optional(S.String()),
+      stripeSubscriptionId: S.Optional(S.String()),
+      status: S.String({
+        enum: [
+          "active",
+          "canceled",
+          "past_due",
+          "unpaid",
+          "incomplete",
+          "trialing",
+        ],
+        default: "active",
+      }),
+      periodStart: S.Optional(S.Date()),
+      periodEnd: S.Optional(S.Date()),
+      cancelAtPeriodEnd: S.Optional(S.Boolean({ default: false })),
+      seats: S.Optional(S.Number()),
+      trialStart: S.Optional(S.Date()),
+      trialEnd: S.Optional(S.Date()),
+      createdAt: S.Date({ default: S.Default.now() }),
+      updatedAt: S.Date({ default: S.Default.now() }),
+    }),
+    relationships: {
+      user: S.RelationById("users", "$userId"),
+    },
+    permissions: {
+      authenticated: {
+        read: { filter: [isUid] },
+      },
+    },
+  },
 });
 
 export type User = Entity<typeof schema, "users">;
@@ -151,3 +188,4 @@ export type Session = Entity<typeof schema, "sessions">;
 export type Account = Entity<typeof schema, "accounts">;
 export type Verification = Entity<typeof schema, "verifications">;
 export type Todo = Entity<typeof schema, "todos">;
+export type Subscription = Entity<typeof schema, "subscriptions">;
