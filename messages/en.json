@@ -524,7 +524,7 @@
     "title": "Profile info",
     "description": "Edit your personal information",
     "role": {
-      "user": "Student",
+      "user": "User",
       "admin": "Admin"
     },
     "form": {

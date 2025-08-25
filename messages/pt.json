@@ -563,7 +563,7 @@
       }
     },
     "role": {
-      "user": "Aluno",
+      "user": "Usuário",
       "admin": "Admin"
     },
     "invalidEmail": "asdf",
