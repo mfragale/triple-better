@@ -71,7 +71,7 @@ export function UserButton() {
     <DropdownMenu>
       <DropdownMenuTrigger className="rounded-full">
         <Avatar className="flex justify-center items-center border border-input size-9">
-          <AvatarImage src={user?.image ?? undefined} />
+          <AvatarImage src={user?.image ?? ""} />
           <AvatarFallback className="bg-transparent size-6">
             {session ? user?.name?.charAt(0) : <User className="size-4" />}
           </AvatarFallback>
@@ -82,7 +82,7 @@ export function UserButton() {
           <>
             <DropdownMenuLabel className="flex items-center gap-2">
               <Avatar>
-                <AvatarImage src={user?.image ?? undefined} />
+                <AvatarImage src={user?.image ?? ""} />
                 <AvatarFallback>{user?.name?.charAt(0)}</AvatarFallback>
               </Avatar>
               <div className="flex flex-col gap-0">
