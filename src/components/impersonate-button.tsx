@@ -70,12 +70,12 @@ export default function ImpersonateButton({
   return (
     <>
       {canImpersonate && !currentSession?.session.impersonatedBy && (
-        <Button onClick={handleImpersonate}>
+        <Button onClick={handleImpersonate} size="sm">
           {t("impersonateUserButton")}
         </Button>
       )}
       {currentSession?.session.impersonatedBy && (
-        <Button variant="destructive" onClick={handleStopImpersonate}>
+        <Button variant="destructive" onClick={handleStopImpersonate} size="sm">
           {t("stopImpersonatingButton")}
         </Button>
       )}

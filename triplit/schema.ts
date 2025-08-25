@@ -1,6 +1,21 @@
-import { Schema as S, type Entity } from "@triplit/client";
+import { Schema as S, type Entity, type Roles } from "@triplit/client";
 
 const isUid = ["userId", "=", "$token.sub"] as const;
+
+// Define custom roles for admin and user permissions
+const roles: Roles = {
+  admin: {
+    match: {
+      role: "admin",
+    },
+  },
+  user: {
+    match: {
+      role: "user",
+      sub: "$userId",
+    },
+  },
+};
 
 export const schema = S.Collections({
   users: {
@@ -126,9 +141,30 @@ export const schema = S.Collections({
       //                                ↑ field in this table
     },
     permissions: {
-      authenticated: {
+      admin: {
         read: {
-          filter: [isUid],
+          filter: [true],
+        },
+        insert: {
+          filter: [true],
+        },
+        update: {
+          filter: [true],
+        },
+        postUpdate: {
+          filter: [
+            isUid,
+            ["updatedAt", ">", "$prev.updatedAt"],
+            ["createdAt", "=", "$prev.createdAt"],
+          ],
+        },
+        delete: {
+          filter: [true],
+        },
+      },
+      user: {
+        read: {
+          filter: [true],
         },
         insert: {
           filter: [isUid],
@@ -144,7 +180,7 @@ export const schema = S.Collections({
           ],
         },
         delete: {
-          filter: [isUid],
+          filter: [isUid, ["completed", "=", true]],
         },
       },
     },
@@ -188,6 +224,7 @@ export const schema = S.Collections({
   },
 });
 
+export { roles };
 export type User = Entity<typeof schema, "users">;
 export type Session = Entity<typeof schema, "sessions">;
 export type Account = Entity<typeof schema, "accounts">;

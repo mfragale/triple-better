@@ -38,6 +38,7 @@ const SortableItem = ({ todo }: { todo: Todo }) => {
   const isCursorGrabbing = attributes["aria-pressed"];
 
   const isActive = activeIndex === index;
+  const isMine = todo.userId === sessionData?.user?.id;
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const isMobile = useIsMobile();
   const [isEditing, setIsEditing] = useState<string | null>(null);
@@ -104,7 +105,8 @@ const SortableItem = ({ todo }: { todo: Todo }) => {
       className={cn(
         "group py-2",
         isActive && "z-10 border-t border-b bg-accent/80",
-        isPopoverOpen && "border-red-500"
+        isPopoverOpen && "border-red-500",
+        !isMine && "opacity-50"
       )}
     >
       <CardHeader className="flex justify-between items-center px-2">
