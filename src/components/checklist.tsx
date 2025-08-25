@@ -18,7 +18,9 @@ import {
 } from "@dnd-kit/sortable";
 
 // import { useSession } from "@/hooks/use-session";
+import { updateTodo } from "@/actions/db/todo";
 import { useToken } from "@/hooks/use-token";
+import { authClient } from "@/lib/auth-client";
 import {
   restrictToParentElement,
   restrictToVerticalAxis,
@@ -56,6 +58,8 @@ function useTodos() {
 }
 
 export default function Checklist() {
+  const { data: sessionData } = authClient.useSession();
+
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -92,10 +96,19 @@ export default function Checklist() {
 
       await Promise.all(
         newItems.map(async (id: string, index: number) => {
-          await triplit.update("todos", id, {
-            order: index,
-            updatedAt: new Date(),
-          });
+          await updateTodo(
+            id,
+            {
+              order: index,
+              updatedAt: new Date(),
+            },
+            {
+              user: {
+                id: sessionData?.user?.id,
+                role: sessionData?.user?.role,
+              },
+            }
+          );
         })
       );
     }

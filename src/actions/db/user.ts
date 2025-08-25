@@ -1,7 +1,7 @@
 "use server";
 
-import { httpClient } from "../../../triplit/http-client";
-import { Account } from "../../../triplit/schema";
+import { httpClient } from "~/triplit/http-client";
+import { Account } from "~/triplit/schema";
 
 export async function getAccount(userId: string, providerId: string) {
   const query = httpClient.query("accounts").Where([

@@ -1,5 +1,6 @@
 "use client";
 
+import { insertTodo } from "@/actions/db/todo";
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
 import { canClient } from "@/lib/has-permission-client";
@@ -12,7 +13,6 @@ import { ArrowRight, Loader2, Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { triplit } from "../../triplit/client";
 import { Card, CardHeader } from "./ui/card";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "./ui/form";
 import { Input } from "./ui/input";
@@ -75,16 +75,13 @@ export function AddTodoForm({ nextItemIndex }: { nextItemIndex: number }) {
       }
 
       // Do form action
-      await triplit
-        .insert("todos", {
-          text: result.data.newTodoItem,
-          order: nextItemIndex,
-          userId: sessionData.user.id,
-        })
-        .then(async () => {
-          await new Promise((resolve) => setTimeout(resolve, 100));
-          form.reset();
-        });
+      await insertTodo(
+        result.data.newTodoItem,
+        nextItemIndex,
+        sessionData.user.id
+      );
+      await new Promise((resolve) => setTimeout(resolve, 100));
+      form.reset();
     } catch (error: unknown) {
       form.setError("newTodoItem", {
         message: (error as Error).message,

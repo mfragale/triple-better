@@ -1,5 +1,7 @@
+import { deleteTodo, updateTodo } from "@/actions/db/todo";
 import { Card, CardHeader } from "@/components/ui/card";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import {
   TeditTodoFormSchema,
@@ -12,7 +14,7 @@ import { Check, GripVerticalIcon, Square, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { triplit } from "../../triplit/client";
+import { toast } from "sonner";
 import { Todo } from "../../triplit/schema";
 import { Button } from "./ui/button";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "./ui/form";
@@ -21,7 +23,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
 const SortableItem = ({ todo }: { todo: Todo }) => {
   const t = useTranslations("ChecklistItem");
-
+  const { data: sessionData } = authClient.useSession();
   const uniqueId = todo.id;
   const {
     setNodeRef,
@@ -66,20 +68,27 @@ const SortableItem = ({ todo }: { todo: Todo }) => {
       }
 
       // Do form action
-      await triplit
-        .update("todos", result.data.editedTodoItemId, async (entity) => {
-          entity.text = result.data.editedTodoItem;
-          entity.updatedAt = new Date();
-        })
-        .then(async () => {
-          await new Promise((resolve) => setTimeout(resolve, 200));
-          setIsEditing(null);
-        });
+      await updateTodo(
+        result.data.editedTodoItemId,
+        {
+          text: result.data.editedTodoItem,
+          updatedAt: new Date(),
+        },
+        {
+          user: {
+            id: sessionData?.user?.id,
+            role: sessionData?.user?.role,
+          },
+        }
+      );
+      await new Promise((resolve) => setTimeout(resolve, 100));
       form.reset();
       form.unregister("editedTodoItem");
       form.unregister("editedTodoItemId");
     } catch (error) {
-      console.error(error);
+      toast.error((error as Error).message);
+    } finally {
+      setIsEditing(null);
     }
   }
 
@@ -104,10 +113,23 @@ const SortableItem = ({ todo }: { todo: Todo }) => {
             variant="ghost"
             size="icon"
             onClick={async () => {
-              await triplit.update("todos", todo.id, {
-                completed: !todo.completed,
-                updatedAt: new Date(),
-              });
+              try {
+                await updateTodo(
+                  todo.id,
+                  {
+                    completed: !todo.completed,
+                    updatedAt: new Date(),
+                  },
+                  {
+                    user: {
+                      id: sessionData?.user?.id,
+                      role: sessionData?.user?.role,
+                    },
+                  }
+                );
+              } catch (error) {
+                toast.error((error as Error).message);
+              }
             }}
           >
             {todo.completed ? <Check className="text-green-500" /> : <Square />}
@@ -186,7 +208,16 @@ const SortableItem = ({ todo }: { todo: Todo }) => {
                 <Button
                   variant="destructive"
                   onClick={async () => {
-                    await triplit.delete("todos", uniqueId);
+                    try {
+                      await deleteTodo(uniqueId, {
+                        user: {
+                          id: sessionData?.user.id,
+                          role: sessionData?.user.role,
+                        },
+                      });
+                    } catch (error) {
+                      toast.error((error as Error).message);
+                    }
                   }}
                 >
                   {t("deletePopover.action")}

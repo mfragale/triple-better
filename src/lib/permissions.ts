@@ -9,6 +9,7 @@ import {
 const statement = {
   ...defaultStatements,
   todo: ["create", "read", "update", "delete"],
+
   userDashboard: ["create", "read", "update", "delete"],
 
   // User here is defined as a resource, not a role
@@ -31,12 +32,14 @@ export const ac = createAccessControl(statement);
 
 // User here is the actual role, not the resource
 export const user = ac.newRole({
-  todo: ["read"],
+  todo: ["create", "read", "update", "delete"],
+
   userDashboard: ["read"],
 });
 
 export const admin = ac.newRole({
   todo: ["create", "read", "update", "delete"],
+
   userDashboard: ["create", "read", "update", "delete"],
 
   // User here is defined as a resource, not a role
@@ -49,5 +52,6 @@ export const admin = ac.newRole({
     "delete",
     "set-password",
   ],
+
   ...adminAc.statements,
 });
