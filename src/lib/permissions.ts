@@ -25,7 +25,7 @@ export const ac = createAccessControl(statement);
 // For each role...
 // [resource]: ["action", "action", "action"]
 export const user = ac.newRole({
-  todo: ["read"],
+  todo: ["create", "read"],
   userDashboard: ["read"],
 });
 

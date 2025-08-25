@@ -24,7 +24,8 @@
         "placeholder": "Pick a date"
       },
       "errorMessage": {
-        "notAuthenticated": "You must be logged in to post"
+        "notAuthenticated": "You must be logged in to post",
+        "noPermission": "You don't have enough permission to add a to do item"
       }
     }
   },

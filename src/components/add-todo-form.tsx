@@ -2,13 +2,15 @@
 
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
+import { canClient } from "@/lib/has-permission-client";
 import {
   TnewTodoFormSchema,
   useNewTodoFormSchema,
 } from "@/lib/zod-form-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowRight, Plus } from "lucide-react";
+import { ArrowRight, Loader2, Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { triplit } from "../../triplit/client";
 import { Card, CardHeader } from "./ui/card";
@@ -22,6 +24,8 @@ export function AddTodoForm({ nextItemIndex }: { nextItemIndex: number }) {
 
   const newTodoFormSchema = useNewTodoFormSchema();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const form = useForm<TnewTodoFormSchema>({
     // Client side validation
     resolver: zodResolver(newTodoFormSchema),
@@ -31,14 +35,28 @@ export function AddTodoForm({ nextItemIndex }: { nextItemIndex: number }) {
   });
 
   async function onSubmit(values: TnewTodoFormSchema) {
-    if (!sessionData?.user?.id) {
-      form.setError("newTodoItem", {
-        message: t("form.errorMessage.notAuthenticated"),
-      });
-      return;
-    }
+    setIsLoading(true);
 
     try {
+      if (!sessionData?.user?.id) {
+        form.setError("newTodoItem", {
+          message: t("form.errorMessage.notAuthenticated"),
+        });
+        return;
+      }
+
+      if (
+        !(await canClient(
+          { id: sessionData?.user?.id, role: sessionData?.user?.role },
+          "create",
+          "todo"
+        ))
+      ) {
+        form.setError("newTodoItem", {
+          message: t("form.errorMessage.noPermission"),
+        });
+        return;
+      }
       const result = newTodoFormSchema.safeParse(values);
 
       // Server side validation
@@ -70,6 +88,8 @@ export function AddTodoForm({ nextItemIndex }: { nextItemIndex: number }) {
       form.setError("newTodoItem", {
         message: (error as Error).message,
       });
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -101,8 +121,13 @@ export function AddTodoForm({ nextItemIndex }: { nextItemIndex: number }) {
                 />
               </div>
 
-              <Button size="icon" type="submit" variant="blue">
-                <Plus />
+              <Button
+                size="icon"
+                type="submit"
+                variant="blue"
+                disabled={isLoading}
+              >
+                {isLoading ? <Loader2 className="animate-spin" /> : <Plus />}
               </Button>
             </CardHeader>
           </Card>

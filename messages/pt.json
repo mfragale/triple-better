@@ -24,7 +24,8 @@
         "placeholder": "Escolha uma data"
       },
       "errorMessage": {
-        "notAuthenticated": "Você deve estar logado para postar"
+        "notAuthenticated": "Você deve estar logado para postar",
+        "noPermission": "Você não tem permissão suficiente para adicionar um item na lista"
       }
     }
   },
