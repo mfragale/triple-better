@@ -4,7 +4,7 @@ import {
   sendVerificationEmail,
 } from "@/actions/send-emails/route";
 import { env } from "@/env/server";
-import { ac, admin, professor, user } from "@/lib/permissions";
+import { ac, admin, user } from "@/lib/permissions";
 import { stripe } from "@better-auth/stripe";
 import { triplitAdapter } from "@daveyplate/better-auth-triplit";
 import { betterAuth } from "better-auth";
@@ -114,11 +114,10 @@ export const auth = betterAuth({
       ],
     }),
     adminPlugin({
-      ac: ac,
+      ac,
       roles: {
         admin,
         user,
-        professor,
       },
     }),
     multiSession(),

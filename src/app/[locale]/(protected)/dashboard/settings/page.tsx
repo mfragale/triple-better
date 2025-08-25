@@ -1,6 +1,6 @@
 import { redirect } from "@/i18n/navigation";
 import { auth } from "@/lib/auth";
-import { hasPermission } from "@/lib/has-permission";
+import { can } from "@/lib/has-permission";
 import { getLocale, getTranslations } from "next-intl/server";
 import { headers } from "next/headers";
 import ActiveSessions from "./_components/active-sessions";
@@ -34,17 +34,20 @@ export default async function ProfilePage() {
       throw redirect({ href: "/sign-in", locale: await locale });
     });
 
+  if (!session) {
+    throw redirect({ href: "/sign-in", locale: await locale });
+  }
+
   if (
-    !session ||
-    !hasPermission(
-      { ...session.user, role: session.user.role || "user" },
-      "manage",
-      "dashboard"
-    )
+    !(await can(
+      { id: session.user.id, role: session.user.role },
+      "read",
+      "userDashboard"
+    ))
   ) {
     redirect({
       href: "/sign-in",
-      locale: "en",
+      locale: await locale,
     });
   }
 

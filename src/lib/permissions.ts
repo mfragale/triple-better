@@ -7,8 +7,8 @@ import {
 // [resource]: ["action", "action", "action"]
 const statement = {
   ...defaultStatements,
-  adminDashboard: ["create", "update", "delete", "read", "manage"],
-  dashboard: ["create", "update", "delete", "read", "manage"],
+  todo: ["create", "read", "update", "delete"],
+  userDashboard: ["create", "read", "update", "delete"],
   user: [
     "create",
     "list",
@@ -25,13 +25,13 @@ export const ac = createAccessControl(statement);
 // For each role...
 // [resource]: ["action", "action", "action"]
 export const user = ac.newRole({
-  dashboard: ["manage", "read"],
-  invitation: ["create", "cancel"],
+  todo: ["read"],
+  userDashboard: ["read"],
 });
 
 export const admin = ac.newRole({
-  dashboard: ["create", "update", "delete", "read", "manage"],
-  adminDashboard: ["create", "update", "delete", "read", "manage"],
+  todo: ["create", "read", "update", "delete"],
+  userDashboard: ["create", "read", "update", "delete"],
   user: [
     "create",
     "list",
@@ -42,8 +42,4 @@ export const admin = ac.newRole({
     "set-password",
   ],
   ...adminAc.statements,
-});
-
-export const professor = ac.newRole({
-  dashboard: ["create", "update", "delete"],
 });

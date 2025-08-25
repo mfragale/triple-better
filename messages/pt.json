@@ -564,8 +564,7 @@
     },
     "role": {
       "user": "Aluno",
-      "admin": "Admin",
-      "professor": "Professor"
+      "admin": "Admin"
     },
     "invalidEmail": "asdf",
     "invalidPassword": "xzcv",
