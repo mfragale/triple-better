@@ -14,7 +14,12 @@ export const schema = S.Collections({
       updatedAt: S.Date({ default: S.Default.now() }),
       church: S.String(),
       birthdate: S.Date(),
-      role: S.Optional(S.String({ default: "user" })),
+      role: S.Optional(
+        S.String({
+          enum: ["user", "admin"],
+          default: "user",
+        })
+      ),
       banned: S.Boolean({ default: false }),
       bannedReason: S.Optional(S.String()),
       banExpires: S.Optional(S.Date()),

@@ -1,6 +1,8 @@
 {
   "HomePage": {
-    "title": "My Checklist"
+    "title": "My Checklist",
+    "impersonateUserButton": "Impersonate User",
+    "stopImpersonatingButton": "Stop impersonating"
   },
   "LocaleSwitcher": {
     "locale": "{locale, select, pt {🇧🇷} en {🇺🇸} other {Unknown}}",

@@ -1,6 +1,8 @@
 {
   "HomePage": {
-    "title": "Minha lista"
+    "title": "Minha lista",
+    "impersonateUserButton": "Personificar Usuário",
+    "stopImpersonatingButton": "Parar personificação"
   },
   "LocaleSwitcher": {
     "locale": "{locale, select, pt {🇧🇷} en {🇺🇸} other {Desconhecido}}",

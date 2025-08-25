@@ -57,6 +57,7 @@ export function AddTodoForm({ nextItemIndex }: { nextItemIndex: number }) {
         });
         return;
       }
+
       const result = newTodoFormSchema.safeParse(values);
 
       // Server side validation

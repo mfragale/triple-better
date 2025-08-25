@@ -14,7 +14,7 @@ export async function canClient(
   if (error) {
     throw new Error(error.message);
   }
-  console.log("data", data);
+  // console.log("data", data);
 
   return data?.success ?? false;
 }
