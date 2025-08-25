@@ -18,23 +18,6 @@ export default async function Home() {
     throw redirect({ href: "/sign-in", locale: await locale });
   });
 
-  // if (!session) {
-  //   throw redirect({ href: "/sign-in", locale: await locale });
-  // }
-
-  // if (
-  //   !(await can(
-  //     { id: session.user.id, role: session.user.role },
-  //     "read",
-  //     "userDashboard"
-  //   ))
-  // ) {
-  //   redirect({
-  //     href: "/sign-in",
-  //     locale: await locale,
-  //   });
-  // }
-
   return (
     <div className="flex flex-col gap-6 mx-auto px-4 py-12 max-w-xl">
       <h1 className="font-bold text-2xl flex items-center gap-2 justify-between">
