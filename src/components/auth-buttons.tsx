@@ -64,17 +64,27 @@ export function SignOutButton() {
 export function UserButton() {
   const t = useTranslations("authButtonsComponent");
   const { data: session } = authClient.useSession();
-  const user = session?.user || undefined;
+  // console.log("session", session);
   const router = useRouter();
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="rounded-full">
         <Avatar className="flex justify-center items-center border border-input size-9">
-          <AvatarImage src={user?.image ?? ""} />
-          <AvatarFallback className="bg-transparent size-6">
-            {session ? user?.name?.charAt(0) : <User className="size-4" />}
-          </AvatarFallback>
+          {session?.user?.image ? (
+            <AvatarImage
+              src={`${session?.user?.image}`}
+              alt={`${session?.user?.name}`}
+            />
+          ) : (
+            <AvatarFallback className="bg-transparent size-6">
+              {session ? (
+                session?.user?.name?.charAt(0)
+              ) : (
+                <User className="size-4" />
+              )}
+            </AvatarFallback>
+          )}
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" sideOffset={10}>
@@ -82,13 +92,20 @@ export function UserButton() {
           <>
             <DropdownMenuLabel className="flex items-center gap-2">
               <Avatar>
-                <AvatarImage src={user?.image ?? ""} />
-                <AvatarFallback>{user?.name?.charAt(0)}</AvatarFallback>
+                {session?.user?.image ?? (
+                  <AvatarImage
+                    src={`${session?.user?.image}`}
+                    alt={`${session?.user?.name}`}
+                  />
+                )}
+                <AvatarFallback>
+                  {session?.user?.name?.charAt(0)}
+                </AvatarFallback>
               </Avatar>
               <div className="flex flex-col gap-0">
-                <span className="font-bold">{user?.name}</span>
+                <span className="font-bold">{session?.user?.name}</span>
                 <span className="text-muted-foreground text-xs">
-                  {user?.email}
+                  {session?.user?.email}
                 </span>
               </div>
             </DropdownMenuLabel>

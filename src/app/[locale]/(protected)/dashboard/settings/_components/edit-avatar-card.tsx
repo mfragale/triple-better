@@ -49,10 +49,12 @@ export default function EditAvatarCard(props: { session: Session | null }) {
           <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
             <AlertDialogTrigger asChild>
               <Avatar className="ring-4 w-16 h-16 ring-accent-foreground/20 hover:ring-accent-foreground/40 cursor-pointer">
-                <AvatarImage
-                  src={`${props.session?.user.image ?? ""}`}
-                  alt={`${props.session?.user.name}`}
-                />
+                {props.session?.user.image ?? (
+                  <AvatarImage
+                    src={`${props.session?.user.image}`}
+                    alt={`${props.session?.user.name}`}
+                  />
+                )}
                 <AvatarFallback>
                   {props.session?.user.name.charAt(0)}
                 </AvatarFallback>

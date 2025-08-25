@@ -2,7 +2,6 @@ import Checklist from "@/components/checklist";
 import ImpersonateButton from "@/components/impersonate-button";
 import { redirect } from "@/i18n/navigation";
 import { auth } from "@/lib/auth";
-import { can } from "@/lib/has-permission";
 import { getLocale, getTranslations } from "next-intl/server";
 import { headers } from "next/headers";
 
@@ -19,22 +18,22 @@ export default async function Home() {
     throw redirect({ href: "/sign-in", locale: await locale });
   });
 
-  if (!session) {
-    throw redirect({ href: "/sign-in", locale: await locale });
-  }
+  // if (!session) {
+  //   throw redirect({ href: "/sign-in", locale: await locale });
+  // }
 
-  if (
-    !(await can(
-      { id: session.user.id, role: session.user.role },
-      "read",
-      "userDashboard"
-    ))
-  ) {
-    redirect({
-      href: "/sign-in",
-      locale: await locale,
-    });
-  }
+  // if (
+  //   !(await can(
+  //     { id: session.user.id, role: session.user.role },
+  //     "read",
+  //     "userDashboard"
+  //   ))
+  // ) {
+  //   redirect({
+  //     href: "/sign-in",
+  //     locale: await locale,
+  //   });
+  // }
 
   return (
     <div className="flex flex-col gap-6 mx-auto px-4 py-12 max-w-xl">
