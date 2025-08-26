@@ -70,15 +70,24 @@ export function UserButton() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="rounded-full">
-        <Avatar className="flex justify-center items-center border border-input size-9 dark:bg-input/30">
-          <AvatarImage
-            src={session?.user?.image || undefined}
-            alt={session?.user?.name || "User"}
-          />
-          <AvatarFallback className="bg-transparent">
-            {session?.user?.name?.charAt(0) || <User className="size-4" />}
-          </AvatarFallback>
-        </Avatar>
+        {session && (
+          <Avatar className="flex justify-center items-center border border-input size-9 dark:bg-input/30">
+            <AvatarImage
+              src={session?.user?.image || undefined}
+              alt={session?.user?.name || "User"}
+            />
+            <AvatarFallback className="bg-transparent">
+              {session?.user?.name?.charAt(0)}
+            </AvatarFallback>
+          </Avatar>
+        )}
+        {!session && (
+          <Avatar className="flex justify-center items-center border border-input size-9 dark:bg-input/30">
+            <AvatarFallback className="bg-transparent">
+              <User className="size-4" />
+            </AvatarFallback>
+          </Avatar>
+        )}
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" sideOffset={10}>
         {session && (
@@ -90,9 +99,7 @@ export function UserButton() {
                   alt={session?.user?.name || "User"}
                 />
                 <AvatarFallback className="bg-transparent">
-                  {session?.user?.name?.charAt(0) || (
-                    <User className="size-4" />
-                  )}
+                  {session?.user?.name?.charAt(0)}
                 </AvatarFallback>
               </Avatar>
               <div className="flex flex-col gap-0">
