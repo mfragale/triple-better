@@ -1,6 +1,17 @@
 import { canClient } from "@/lib/has-permission-client";
+import { TriplitError } from "@/types";
+import { toast } from "sonner";
 import { triplit } from "~/triplit/client";
 import { Todo } from "~/triplit/schema";
+
+const handleSyncWritesError = () => {
+  triplit.onFailureToSyncWrites((e) => {
+    toast.error("Failed to sync writes", {
+      description: (e as TriplitError).message,
+    });
+    void triplit.clearPendingChangesAll();
+  });
+};
 
 export async function insertTodo(text: string, order: number, userId: string) {
   const todo = await triplit.insert("todos", {
@@ -8,6 +19,8 @@ export async function insertTodo(text: string, order: number, userId: string) {
     order,
     userId,
   });
+
+  handleSyncWritesError();
 
   return todo;
 }
@@ -31,7 +44,22 @@ export async function deleteTodo(
     throw new Error("User does not have permission to delete todo");
   }
 
+  if (sessionData?.user?.role !== "admin") {
+    const query = triplit
+      .query("subscriptions")
+      .Where("userId", "=", sessionData?.user?.id);
+    const result = await triplit.fetchOne(query);
+
+    if (result?.status !== "active") {
+      throw new Error(
+        "User does not have permission to delete todo, due to subscription status"
+      );
+    }
+  }
+
   const todo = await triplit.delete("todos", id);
+
+  handleSyncWritesError();
 
   return todo;
 }
@@ -55,7 +83,10 @@ export async function updateTodo(
   if (!canUpdate) {
     throw new Error("User does not have permission to update todo");
   }
+
   const todo = await triplit.update("todos", id, data);
+
+  handleSyncWritesError();
 
   return todo;
 }

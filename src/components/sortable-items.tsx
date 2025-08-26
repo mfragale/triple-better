@@ -1,6 +1,7 @@
 import { deleteTodo, updateTodo } from "@/actions/db/todo";
 import { Card, CardHeader } from "@/components/ui/card";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { Link } from "@/i18n/navigation";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import {
@@ -10,7 +11,7 @@ import {
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Check, GripVerticalIcon, Square, Trash2 } from "lucide-react";
+import { Check, GripVerticalIcon, Link2, Square, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -227,6 +228,24 @@ const SortableItem = ({ todo }: { todo: Todo }) => {
               </div>
             </PopoverContent>
           </Popover>
+          <Button
+            variant="ghost"
+            size="icon"
+            asChild
+            className={cn(
+              "opacity-0 group-hover:opacity-100 transition-opacity",
+              isMobile && "opacity-100"
+            )}
+          >
+            <Link
+              href={{
+                pathname: "/dashboard/todo/[id]",
+                params: { id: todo.id },
+              }}
+            >
+              <Link2 />
+            </Link>
+          </Button>
           <Button
             {...attributes}
             {...listeners}

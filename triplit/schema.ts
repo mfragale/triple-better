@@ -1,9 +1,16 @@
-import { Schema as S, type Entity, type Roles } from "@triplit/client";
+import {
+  and,
+  DEFAULT_ROLES,
+  Schema as S,
+  type Entity,
+  type Roles,
+} from "@triplit/client";
 
 const isUid = ["userId", "=", "$token.sub"] as const;
 
 // Define custom roles for admin and user permissions
 const roles: Roles = {
+  ...DEFAULT_ROLES,
   admin: {
     match: {
       role: "admin",
@@ -141,30 +148,21 @@ export const schema = S.Collections({
       //                                ↑ field in this table
     },
     permissions: {
-      admin: {
+      anonymous: {
         read: {
-          filter: [true],
-        },
-        insert: {
-          filter: [true],
-        },
-        update: {
-          filter: [true],
-        },
-        postUpdate: {
           filter: [
-            isUid,
-            ["updatedAt", ">", "$prev.updatedAt"],
-            ["createdAt", "=", "$prev.createdAt"],
+            and([
+              // Only the author can read their own documents
+              ["completed", "=", true],
+              // Anyone can read the document if they know the id
+              ["id", "=", "$query.id"],
+            ]),
           ],
-        },
-        delete: {
-          filter: [true],
         },
       },
       user: {
         read: {
-          filter: [true],
+          filter: [isUid],
         },
         insert: {
           filter: [isUid],
@@ -181,6 +179,27 @@ export const schema = S.Collections({
         },
         delete: {
           filter: [isUid, ["completed", "=", true]],
+        },
+      },
+      admin: {
+        read: {
+          filter: [true],
+        },
+        insert: {
+          filter: [true],
+        },
+        update: {
+          filter: [true],
+        },
+        postUpdate: {
+          filter: [
+            true,
+            ["updatedAt", ">", "$prev.updatedAt"],
+            ["createdAt", "=", "$prev.createdAt"],
+          ],
+        },
+        delete: {
+          filter: [true],
         },
       },
     },

@@ -39,5 +39,8 @@ export const routing = defineRouting({
     "/dashboard/settings": {
       pt: "/painel/configuracoes",
     },
+    "/dashboard/todo/[id]": {
+      pt: "/painel/tarefa/[id]",
+    },
   },
 });

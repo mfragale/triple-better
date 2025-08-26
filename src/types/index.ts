@@ -97,3 +97,10 @@ export interface MenuItem {
   name: string;
   href: AppPath;
 }
+
+export interface TriplitError {
+  name: string;
+  message: string;
+  baseMessage: string;
+  status: number;
+}

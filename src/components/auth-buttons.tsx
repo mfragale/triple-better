@@ -92,15 +92,16 @@ export function UserButton() {
           <>
             <DropdownMenuLabel className="flex items-center gap-2">
               <Avatar>
-                {session?.user?.image ?? (
+                {session?.user?.image ? (
                   <AvatarImage
                     src={`${session?.user?.image}`}
                     alt={`${session?.user?.name}`}
                   />
+                ) : (
+                  <AvatarFallback>
+                    {session?.user?.name?.charAt(0)}
+                  </AvatarFallback>
                 )}
-                <AvatarFallback>
-                  {session?.user?.name?.charAt(0)}
-                </AvatarFallback>
               </Avatar>
               <div className="flex flex-col gap-0">
                 <span className="font-bold">{session?.user?.name}</span>
