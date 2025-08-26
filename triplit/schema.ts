@@ -152,17 +152,17 @@ export const schema = S.Collections({
         read: {
           filter: [
             and([
-              // Only the author can read their own documents
-              ["completed", "=", true],
               // Anyone can read the document if they know the id
               ["id", "=", "$query.id"],
+              // But only of completed todos
+              ["completed", "=", true],
             ]),
           ],
         },
       },
       user: {
         read: {
-          filter: [true],
+          filter: [isUid],
         },
         insert: {
           filter: [isUid],

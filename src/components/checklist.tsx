@@ -19,46 +19,21 @@ import {
 
 // import { useSession } from "@/hooks/use-session";
 import { updateTodo } from "@/actions/db/todo";
-import { useToken } from "@/hooks/use-token";
+import { useTodos } from "@/hooks/use-todos";
 import { authClient } from "@/lib/auth-client";
 import {
   restrictToParentElement,
   restrictToVerticalAxis,
 } from "@dnd-kit/modifiers";
-import { useQuery } from "@triplit/react";
 import { useEffect, useState } from "react";
-import { triplit } from "~/triplit/client";
 import { Todo } from "~/triplit/schema";
 import { AddTodoForm } from "./add-todo-form";
 import SortableItem from "./sortable-items";
 import TodoSkeleton from "./todo-skeleton";
 
-function useTodos() {
-  // useAuthenticate is a wrapper for useSession that redirects to sign in
-  // const { data: sessionData } = useSession();
-  // console.log("sessionData", sessionData);
-  // console.log("sessionError", sessionError);
-
-  const { token } = useToken(triplit);
-  // const userId = sessionData?.user?.id;
-  const todosQuery = triplit.query("todos").Order("order", "ASC");
-  // .Where("userId", "=", userId);
-
-  const {
-    results: todos,
-    error,
-    fetching,
-  } = useQuery(triplit, todosQuery, {
-    enabled: !!token,
-  });
-
-  const isPending = !token || fetching;
-
-  return { todos, error, isPending };
-}
-
 export default function Checklist() {
   const { data: sessionData } = authClient.useSession();
+  // const t = useTranslations("Todo");
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -124,7 +99,7 @@ export default function Checklist() {
         </>
       )}
 
-      {/* {!fetching && todos?.length === 0 && <p>No todos</p>} */}
+      {/* {!isPending && todos?.length === 0 && <p>{t("noTodos")}</p>} */}
 
       {!isPending && (
         <>
