@@ -719,5 +719,8 @@
   "OfflinePage": {
     "title": "You are offline",
     "refreshButton": "Refresh"
+  },
+  "Todo": {
+    "todoNotFound": "Todo not found"
   }
 }

@@ -719,5 +719,8 @@
   "OfflinePage": {
     "title": "Você está offline",
     "refreshButton": "Atualizar"
+  },
+  "Todo": {
+    "todoNotFound": "Item não encontrado"
   }
 }
