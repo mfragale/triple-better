@@ -72,10 +72,15 @@ const Navbar = () => {
                       <NavigationMenuItem key={index}>
                         <NavigationMenuLink asChild>
                           <Link
-                            href={item.href}
+                            href={{
+                              pathname: item.href,
+                              params: {
+                                id: "",
+                              },
+                            }}
                             onClick={handleMenuClick}
                             className={cn(
-                              " block text-muted-foreground duration-150 hover:text-accent-foreground",
+                              "block text-muted-foreground duration-150 hover:text-accent-foreground",
                               pathname === item.href &&
                                 "bg-accent text-accent-foreground"
                             )}
