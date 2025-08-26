@@ -162,7 +162,7 @@ export const schema = S.Collections({
       },
       user: {
         read: {
-          filter: [isUid],
+          filter: [true],
         },
         insert: {
           filter: [isUid],
