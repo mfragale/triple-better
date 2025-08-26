@@ -3,20 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev --turbopack -p 3001",
     "build": "next build",
     "start": "next start",
     "lint": "prettier src/ triplit/ messages/ --write && eslint src && tsc --noEmit",
-    "db:dev": "npx triplit dev",
-    "db:seed": "triplit snapshot push --snapshot ./triplit/snapshots",
-    "db:snap": "triplit snapshot create --outDir ./triplit/snapshots",
-    "db:push": "triplit schema push --schemaPath ./triplit/schema.ts",
+    "db:dev": "npx triplit dev --dbPort 6544",
+    "db:seed": "triplit snapshot push --snapshot ./triplit/snapshots --remote http://localhost:6544",
+    "db:snap": "triplit snapshot create --outDir ./triplit/snapshots --remote http://localhost:6544",
+    "db:push": "triplit schema push --schemaPath ./triplit/schema.ts  --remote http://localhost:6544",
     "email": "cp .env ./node_modules/react-email/dist/preview && email dev --dir src/components/emails",
     "up:check": "pnpx npm-check-updates",
     "up:go": "ncu -u && pnpm install",
     "t:check": "i18n-check --locales messages --source en --unused src/ --format next-intl -o undefined unused missingKeys",
-    "stripe": "stripe listen --forward-to localhost:3000/api/webhooks/stripe",
-    "stripe2": "stripe listen --forward-to localhost:3000/api/auth/stripe/webhook"
+    "stripe": "stripe listen --forward-to localhost:3001/api/webhooks/stripe",
+    "stripe2": "stripe listen --forward-to localhost:3001/api/auth/stripe/webhook"
   },
   "dependencies": {
     "@better-auth/stripe": "^1.3.7",
