@@ -1,6 +1,6 @@
 "use client";
 
-import { insertTodo } from "@/actions/db/todo";
+import { createTodo } from "@/actions/db/todo";
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
 import { canClient } from "@/lib/has-permission-client";
@@ -75,7 +75,7 @@ export function AddTodoForm({ nextItemIndex }: { nextItemIndex: number }) {
       }
 
       // Do form action
-      await insertTodo(
+      await createTodo(
         result.data.newTodoItem,
         nextItemIndex,
         sessionData.user.id

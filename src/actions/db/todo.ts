@@ -13,7 +13,7 @@ const handleSyncWritesError = () => {
   });
 };
 
-export async function insertTodo(text: string, order: number, userId: string) {
+export async function createTodo(text: string, order: number, userId: string) {
   const todo = await triplit.insert("todos", {
     text,
     order,
