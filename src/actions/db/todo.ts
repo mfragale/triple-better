@@ -66,23 +66,23 @@ export async function deleteTodo(
 
 export async function updateTodo(
   id: string,
-  data: Partial<Todo>,
-  sessionData: {
-    user: { id: string | undefined; role: string | undefined | null };
-  }
+  data: Partial<Todo>
+  // sessionData: {
+  //   user: { id: string | undefined; role: string | undefined | null };
+  // }
 ) {
-  const canUpdate = await canClient(
-    {
-      id: sessionData?.user?.id,
-      role: sessionData?.user?.role,
-    },
-    "update",
-    "todo"
-  );
+  // const canUpdate = await canClient(
+  //   {
+  //     id: sessionData?.user?.id,
+  //     role: sessionData?.user?.role,
+  //   },
+  //   "update",
+  //   "todo"
+  // );
 
-  if (!canUpdate) {
-    throw new Error("User does not have permission to update todo");
-  }
+  // if (!canUpdate) {
+  //   throw new Error("User does not have permission to update todo");
+  // }
 
   const todo = await triplit.update("todos", id, data);
 

@@ -20,7 +20,6 @@ import {
 // import { useSession } from "@/hooks/use-session";
 import { updateTodo } from "@/actions/db/todo";
 import { useTodos } from "@/hooks/use-todos";
-import { authClient } from "@/lib/auth-client";
 import {
   restrictToParentElement,
   restrictToVerticalAxis,
@@ -32,7 +31,7 @@ import SortableItem from "./sortable-items";
 import TodoSkeleton from "./todo-skeleton";
 
 export default function Checklist() {
-  const { data: sessionData } = authClient.useSession();
+  // const { data: sessionData } = authClient.useSession();
   // const t = useTranslations("Todo");
 
   const sensors = useSensors(
@@ -76,13 +75,13 @@ export default function Checklist() {
             {
               order: index,
               updatedAt: new Date(),
-            },
-            {
-              user: {
-                id: sessionData?.user?.id,
-                role: sessionData?.user?.role,
-              },
             }
+            // {
+            //   user: {
+            //     id: sessionData?.user?.id,
+            //     role: sessionData?.user?.role,
+            //   },
+            // }
           );
         })
       );

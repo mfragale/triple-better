@@ -11,7 +11,14 @@ import {
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Check, GripVerticalIcon, Link2, Square, Trash2 } from "lucide-react";
+import {
+  Check,
+  GripVerticalIcon,
+  Link2,
+  Loader2,
+  Square,
+  Trash2,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -43,6 +50,7 @@ const SortableItem = ({ todo }: { todo: Todo }) => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const isMobile = useIsMobile();
   const [isEditing, setIsEditing] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const editTodoFormSchema = useEditTodoFormSchema();
 
@@ -75,13 +83,13 @@ const SortableItem = ({ todo }: { todo: Todo }) => {
         {
           text: result.data.editedTodoItem,
           updatedAt: new Date(),
-        },
-        {
-          user: {
-            id: sessionData?.user?.id,
-            role: sessionData?.user?.role,
-          },
         }
+        // {
+        //   user: {
+        //     id: sessionData?.user?.id,
+        //     role: sessionData?.user?.role,
+        //   },
+        // }
       );
       await new Promise((resolve) => setTimeout(resolve, 100));
       form.reset();
@@ -117,25 +125,35 @@ const SortableItem = ({ todo }: { todo: Todo }) => {
             size="icon"
             onClick={async () => {
               try {
+                setIsLoading(true);
                 await updateTodo(
                   todo.id,
                   {
                     completed: !todo.completed,
                     updatedAt: new Date(),
-                  },
-                  {
-                    user: {
-                      id: sessionData?.user?.id,
-                      role: sessionData?.user?.role,
-                    },
                   }
+                  // {
+                  //   user: {
+                  //     id: sessionData?.user?.id,
+                  //     role: sessionData?.user?.role,
+                  //   },
+                  // }
                 );
+                // await new Promise((resolve) => setTimeout(resolve, 100));
               } catch (error) {
                 toast.error((error as Error).message);
+              } finally {
+                setIsLoading(false);
               }
             }}
           >
-            {todo.completed ? <Check className="text-green-500" /> : <Square />}
+            {isLoading ? (
+              <Loader2 className="animate-spin text-muted-foreground" />
+            ) : todo.completed ? (
+              <Check className="text-green-500" />
+            ) : (
+              <Square />
+            )}
           </Button>
           {isEditing === todo.id ? (
             <Form {...form}>
